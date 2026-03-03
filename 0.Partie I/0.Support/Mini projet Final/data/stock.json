@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "sauvegarde": "18/02/2026 22:58:33",
+    "nb_produits": 1
+  },
+  "catalogue": [
+    {
+      "reference": "NIST-22",
+      "nom": "nistatine",
+      "categorie": "Dermatologie",
+      "unite": "boîte",
+      "prix_achat": 5.0,
+      "prix_vente": 5.5,
+      "quantite": 1000,
+      "stock_min": 200,
+      "stock_max": 1200,
+      "fournisseur": "SIPHAT",
+      "date_expiration": "12/8/2026",
+      "date_creation": "18/02/2026",
+      "date_modification": null
+    }
+  ]
+}

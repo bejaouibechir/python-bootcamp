@@ -1,0 +1,11 @@
+{
+  "entreprise": "Mon Drug Store",
+  "adresse": "",
+  "telephone": "",
+  "devise": "DT",
+  "tva": 19.0,
+  "seuil_exp_urgent": 30,
+  "seuil_exp_proche": 90,
+  "nb_resultats_page": 15,
+  "version": "1.0"
+}
