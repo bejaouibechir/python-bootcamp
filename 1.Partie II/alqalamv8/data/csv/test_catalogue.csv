@@ -1,0 +1,21 @@
+﻿ref,nom,categorie,prix_achat,prix_vente,qte,seuil_min
+CAR-001,Carnet A5,Papier,1.2,3.5,3,10
+CIS-001,Ciseaux 17cm,Coupe,1.5,4.0,25,5
+CIS-002,Ciseaux 21cm,Coupe,2.0,5.5,0,5
+COL-001,Colle Bâton,Adhésif,0.8,2.5,0,15
+CRAY-002,Crayon 2B,Écriture,0.2,0.6,8,20
+CRAY-004,Crayon Couleur Bleu,Écriture,0.25,0.8,0,15
+CRAY-003,Crayon Couleur Rouge,Écriture,0.25,0.8,0,15
+CRAY-001,Crayon HB,Écriture,0.18,0.55,150,25
+GOM-001,Gomme Blanche,Effaçage,0.2,0.7,60,10
+GOM-002,Gomme Rose,Effaçage,0.18,0.6,0,10
+PAP-A3,Rame Papier A3,Papier,4.0,8.0,6,10
+PAP-A4,Rame Papier A4,Papier,2.8,5.5,300,60
+PAP-B5,Rame Papier B5,Papier,3.0,6.5,0,20
+REG-002,Règle 20cm,Mesure,0.6,1.8,0,10
+REG-001,Règle 30cm,Mesure,0.8,2.0,40,10
+STYL-001,Stylo Bleu,Écriture,0.3,0.9,200,30
+STYL-004,Stylo Noir,Écriture,0.3,0.9,0,25
+STYL-002,Stylo Rouge,Écriture,0.3,0.9,4,30
+STYL-003,Stylo Vert,Écriture,0.3,0.9,0,25
+TAM-001,Taille-crayon,Écriture,0.4,1.2,0,20

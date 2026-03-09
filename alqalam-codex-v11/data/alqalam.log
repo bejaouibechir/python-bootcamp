@@ -1,0 +1,19 @@
+2026-03-09 17:12:45,450 | INFO | ✅ ajouter_produit args=(Produit(ref='CRAY-001', nom='Crayon HB', qte=150),) 15.85ms
+2026-03-09 17:12:45,472 | INFO | ✅ ajouter_produit args=(Produit(ref='CRAY-002', nom='Crayon 2B', qte=8),) 18.52ms
+2026-03-09 17:12:45,496 | INFO | ✅ ajouter_produit args=(Produit(ref='STYL-001', nom='Stylo Bleu', qte=200),) 19.24ms
+2026-03-09 17:12:45,516 | INFO | ✅ ajouter_produit args=(Produit(ref='STYL-002', nom='Stylo Rouge', qte=4),) 18.83ms
+2026-03-09 17:12:45,532 | INFO | ✅ ajouter_produit args=(Produit(ref='GOM-001', nom='Gomme Blanche', qte=60),) 15.32ms
+2026-03-09 17:12:45,544 | INFO | ✅ ajouter_produit args=(Produit(ref='PAP-A4', nom='Rame Papier A4', qte=300),) 11.32ms
+2026-03-09 17:12:45,558 | INFO | ✅ ajouter_produit args=(Produit(ref='PAP-A3', nom='Rame Papier A3', qte=6),) 11.55ms
+2026-03-09 17:12:45,571 | INFO | ✅ ajouter_produit args=(Produit(ref='CIS-001', nom='Ciseaux 17cm', qte=25),) 11.74ms
+2026-03-09 17:12:45,586 | INFO | ✅ ajouter_produit args=(Produit(ref='REG-001', nom='Règle 30cm', qte=40),) 14.28ms
+2026-03-09 17:12:45,619 | INFO | ✅ ajouter_produit args=(Produit(ref='CAR-001', nom='Carnet A5', qte=3),) 19.70ms
+2026-03-09 17:12:46,912 | INFO | Surveillance alertes démarrée
+2026-03-09 17:13:32,415 | INFO | Surveillance alertes arrêtée
+2026-03-09 17:38:39,367 | INFO | Surveillance alertes démarrée
+2026-03-09 17:41:36,703 | INFO | Surveillance alertes arrêtée
+2026-03-09 17:42:25,486 | INFO | Surveillance alertes démarrée
+2026-03-09 17:43:59,198 | INFO | ✅ ajouter_produit args=(Produit(ref='STYL-003', nom='Stylo Vert', qte=100),) 14.52ms
+2026-03-09 17:44:23,615 | INFO | Surveillance alertes arrêtée
+2026-03-09 17:57:24,565 | INFO | Surveillance alertes démarrée
+2026-03-09 17:57:30,296 | INFO | Surveillance alertes arrêtée

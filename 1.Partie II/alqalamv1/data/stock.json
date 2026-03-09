@@ -1,0 +1,92 @@
+[
+  {
+    "ref": "CRAY-001",
+    "nom": "Crayon HB",
+    "categorie": "Écriture",
+    "prix_achat": 0.15,
+    "prix_vente": 0.5,
+    "qte": 160,
+    "seuil_min": 20
+  },
+  {
+    "ref": "CRAY-002",
+    "nom": "Crayon 2B",
+    "categorie": "Écriture",
+    "prix_achat": 0.2,
+    "prix_vente": 0.6,
+    "qte": 8,
+    "seuil_min": 20
+  },
+  {
+    "ref": "STYL-001",
+    "nom": "Stylo Bleu",
+    "categorie": "Écriture",
+    "prix_achat": 0.3,
+    "prix_vente": 0.9,
+    "qte": 200,
+    "seuil_min": 30
+  },
+  {
+    "ref": "STYL-002",
+    "nom": "Stylo Rouge",
+    "categorie": "Écriture",
+    "prix_achat": 0.3,
+    "prix_vente": 0.9,
+    "qte": 4,
+    "seuil_min": 30
+  },
+  {
+    "ref": "GOM-001",
+    "nom": "Gomme Blanche",
+    "categorie": "Effaçage",
+    "prix_achat": 0.2,
+    "prix_vente": 0.7,
+    "qte": 60,
+    "seuil_min": 10
+  },
+  {
+    "ref": "PAP-A4",
+    "nom": "Rame Papier A4",
+    "categorie": "Papier",
+    "prix_achat": 2.5,
+    "prix_vente": 5.0,
+    "qte": 300,
+    "seuil_min": 50
+  },
+  {
+    "ref": "PAP-A3",
+    "nom": "Rame Papier A3",
+    "categorie": "Papier",
+    "prix_achat": 4.0,
+    "prix_vente": 8.0,
+    "qte": 6,
+    "seuil_min": 10
+  },
+  {
+    "ref": "CIS-001",
+    "nom": "Ciseaux 17cm",
+    "categorie": "Coupe",
+    "prix_achat": 1.5,
+    "prix_vente": 4.0,
+    "qte": 25,
+    "seuil_min": 5
+  },
+  {
+    "ref": "REG-001",
+    "nom": "Règle 30cm",
+    "categorie": "Mesure",
+    "prix_achat": 0.8,
+    "prix_vente": 2.0,
+    "qte": 40,
+    "seuil_min": 10
+  },
+  {
+    "ref": "CAR-001",
+    "nom": "Carnet A5",
+    "categorie": "Papier",
+    "prix_achat": 1.2,
+    "prix_vente": 3.5,
+    "qte": 3,
+    "seuil_min": 10
+  }
+]

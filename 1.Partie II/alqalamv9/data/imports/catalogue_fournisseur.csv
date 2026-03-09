@@ -1,0 +1,13 @@
+ref,nom,categorie,prix_achat,prix_vente,seuil_min
+CRAY-003,Crayon Couleur Rouge,Écriture,0.25,0.80,15
+CRAY-004,Crayon Couleur Bleu,Écriture,0.25,0.80,15
+STYL-003,Stylo Vert,Écriture,0.30,0.90,25
+STYL-004,Stylo Noir,Écriture,0.30,0.90,25
+GOM-002,Gomme Rose,Effaçage,0.18,0.60,10
+PAP-B5,Rame Papier B5,Papier,3.00,6.50,20
+CIS-002,Ciseaux 21cm,Coupe,2.00,5.50,5
+REG-002,Règle 20cm,Mesure,0.60,1.80,10
+TAM-001,Taille-crayon,Écriture,0.40,1.20,20
+COL-001,Colle Bâton,Adhésif,0.80,2.50,15
+CRAY-001,Crayon HB,Écriture,0.18,0.55,25
+PAP-A4,Rame Papier A4,Papier,2.80,5.50,60
