@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Décorateurs & Descripteurs — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="">Main Page</a>
+    <a href="#" class="active">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html" class="current"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group collapsed">
+    <div class="sidebar-group-header collapsed" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-chapters">Chapitres</a><span>»</span>Les Décorateurs & Descripteurs</div>
+    <div class="page-header-band">
+      <h1>Les Décorateurs & Descripteurs</h1>
+    </div>
+    <div class="content-body">
+<h1 id="les-decorateurs-descripteurs-en-python">🎨 Les Décorateurs &amp; Descripteurs en Python<a class="headerlink" href="#les-decorateurs-descripteurs-en-python" title="Permanent link">&para;</a></h1>
+<p>Le support est une propriété de <strong>Bechir Bejaoui</strong></p>
+<hr />
+<h1 id="1-prerequis-les-fonctions-sont-des-objets">1️⃣ Prérequis — les fonctions sont des objets<a class="headerlink" href="#1-prerequis-les-fonctions-sont-des-objets" title="Permanent link">&para;</a></h1>
+<p>Avant de comprendre les décorateurs, il faut savoir une chose fondamentale en Python : <strong>une fonction est un objet comme les autres</strong>. On peut la stocker dans une variable, la passer en argument, la retourner.</p>
+<pre><code class="language-python">def dire_bonjour():
+    print(&quot;Bonjour !&quot;)
+
+# Une fonction est un objet — on peut la stocker
+action = dire_bonjour      # pas de () — on ne l'appelle pas, on la référence
+action()                   # Bonjour !
+
+# On peut la passer en argument à une autre fonction
+def executer(fn):
+    print(&quot;Avant...&quot;)
+    fn()                   # appel de la fonction reçue
+    print(&quot;Après.&quot;)
+
+executer(dire_bonjour)
+
+# On peut retourner une fonction depuis une autre fonction
+def creer_salutation(nom):
+    def saluer():
+        print(f&quot;Bonjour {nom} !&quot;)
+    return saluer          # retourne la fonction, sans l'appeler
+
+salut = creer_salutation(&quot;Bechir&quot;)
+salut()                    # Bonjour Bechir !
+</code></pre>
+<pre><code>Bonjour !
+Avant...
+Bonjour !
+Après.
+Bonjour Bechir !
+</code></pre>
+<ul>
+<li><strong><code>action = dire_bonjour</code></strong> sans les <code>()</code> : on stocke la <strong>référence</strong> à la fonction — pas son résultat</li>
+<li><strong>passer une fonction en argument</strong> : c'est la base de la programmation fonctionnelle — et la base des décorateurs</li>
+<li><strong>retourner une fonction</strong> : une fonction qui fabrique une autre fonction — c'est exactement ce que fait un décorateur</li>
+<li><strong>fonction imbriquée</strong> (<code>saluer</code> dans <code>creer_salutation</code>) : accède aux variables de la fonction englobante (<code>nom</code>) — c'est une <strong>closure</strong></li>
+</ul>
+<hr />
+<h1 id="2-les-decorateurs-principe-de-base">2️⃣ Les décorateurs — principe de base<a class="headerlink" href="#2-les-decorateurs-principe-de-base" title="Permanent link">&para;</a></h1>
+<p>Un <strong>décorateur</strong> est une fonction qui <strong>enveloppe</strong> une autre fonction pour lui ajouter un comportement, sans modifier son code. C'est du <u>code qui s'exécute autour d'une fonction.</u></p>
+<hr />
+<p><strong>Avec la syntaxe <code>@</code> :</strong></p>
+<pre><code class="language-python">import time
+
+def chronometre(fn):
+    def wrapper():
+        debut = time.perf_counter()
+        fn()
+        duree = time.perf_counter() - debut
+        print(f&quot;  ⏱ Durée : {duree:.3f}s&quot;)
+    return wrapper
+
+@chronometre               # ← équivaut à : calcul = chronometre(calcul)
+def calcul():
+    print(&quot;  Calcul en cours...&quot;)
+    time.sleep(0.5)
+
+calcul()
+</code></pre>
+<pre><code>  Calcul en cours...
+  ⏱ Durée : 0.501s
+</code></pre>
+<ul>
+<li><strong><code>@chronometre</code></strong> est exactement équivalent à écrire <code>calcul = chronometre(calcul)</code> après la définition — c'est du sucre syntaxique</li>
+<li><strong>la fonction <code>calcul</code> n'a pas changé</strong> — c'est l'objet <code>calcul</code> qui pointe maintenant vers <code>wrapper</code></li>
+<li><strong>avantage</strong> : le décorateur se lit d'un coup d'œil au-dessus de la fonction — l'intention est claire</li>
+</ul>
+<hr />
+<h1 id="3-decorateur-simple-anatomie-complete">3️⃣ Décorateur simple — anatomie complète<a class="headerlink" href="#3-decorateur-simple-anatomie-complete" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">import time
+
+# ── Structure d'un décorateur ─────────────────────────────────────────────
+#
+#   def mon_decorateur(fn):      ← reçoit la fonction à décorer
+#       def wrapper():           ← la nouvelle fonction qui remplace fn
+#           # code AVANT
+#           fn()                 ← appel de la fonction originale
+#           # code APRÈS
+#       return wrapper           ← retourne wrapper (pas wrapper() !)
+#
+
+def journaliser(fn):
+    &quot;&quot;&quot;Affiche un message avant et après chaque appel.&quot;&quot;&quot;
+    def wrapper():
+        print(f&quot;  → Appel de '{fn.__name__}'&quot;)
+        fn()
+        print(f&quot;  ← Fin de '{fn.__name__}'&quot;)
+    return wrapper
+
+@journaliser
+def envoyer_email():
+    print(&quot;  📧 Email envoyé !&quot;)
+
+@journaliser
+def sauvegarder():
+    print(&quot;  💾 Sauvegarde effectuée !&quot;)
+
+envoyer_email()
+print()
+sauvegarder()
+</code></pre>
+<pre><code>  → Appel de 'envoyer_email'
+  📧 Email envoyé !
+  ← Fin de 'envoyer_email'
+
+  → Appel de 'sauvegarder'
+  💾 Sauvegarde effectuée !
+  ← Fin de 'sauvegarder'
+</code></pre>
+<ul>
+<li><strong><code>fn.__name__</code></strong> : accède au nom de la fonction originale depuis le wrapper — <code>fn</code> est capturé par la closure</li>
+<li><strong>le même décorateur <code>@journaliser</code></strong> s'applique à n'importe quelle fonction sans la modifier — c'est la puissance des décorateurs</li>
+<li><strong><code>return wrapper</code></strong> sans <code>()</code> : on retourne la fonction, pas son résultat — erreur classique d'ajouter les <code>()</code></li>
+</ul>
+<hr />
+<h1 id="4-decorateur-avec-arguments-args-kwargs">4️⃣ Décorateur avec arguments — <code>*args, **kwargs</code><a class="headerlink" href="#4-decorateur-avec-arguments-args-kwargs" title="Permanent link">&para;</a></h1>
+<p>Un décorateur doit pouvoir s'appliquer à <strong>n'importe quelle fonction</strong>, quelle que soit sa signature. Pour ça, <code>wrapper</code> doit accepter et transmettre tous les arguments.</p>
+<pre><code class="language-python">from functools import wraps
+
+def verifier_entiers(fn):
+    @wraps(fn)                       # conserve le nom et la doc de fn
+    def wrapper(*args, **kwargs):    # accepte TOUS les arguments possibles
+        for arg in args:
+            if not isinstance(arg, (int, float)):
+                raise TypeError(f&quot;Argument invalide : {arg!r} n'est pas un nombre&quot;)
+        return fn(*args, **kwargs)   # transmet tout à la fonction originale
+    return wrapper
+
+@verifier_entiers
+def addition(a, b):
+    &quot;&quot;&quot;Additionne deux nombres.&quot;&quot;&quot;
+    return a + b
+
+@verifier_entiers
+def moyenne(a, b, c):
+    return (a + b + c) / 3
+
+print(addition(3, 4))       # 7
+print(moyenne(10, 20, 30))  # 20.0
+
+try:
+    addition(3, &quot;quatre&quot;)   # ← déclenche la vérification
+except TypeError as e:
+    print(f&quot;Erreur : {e}&quot;)
+
+# Le nom et la doc sont préservés grâce à @wraps
+print(f&quot;Nom : {addition.__name__}&quot;)   # addition  (pas 'wrapper')
+print(f&quot;Doc : {addition.__doc__}&quot;)    # Additionne deux nombres.
+</code></pre>
+<p><strong>wraps</strong> sert à <strong>préserver les informations de la fonction originale lorsque l’on utilise un décorateur</strong>.</p>
+<p>Sans précaution, Python considère alors que la fonction décorée <strong>s’appelle wrapper</strong> et non plus addition ou moyenne</p>
+<pre><code>7
+20.0
+Erreur : Argument invalide : 'quatre' n'est pas un nombre
+Nom : addition
+Doc : Additionne deux nombres.
+</code></pre>
+<ul>
+<li><strong><code>*args</code></strong> : capture tous les arguments positionnels dans un tuple — <code>(3, 4)</code> pour <code>addition(3, 4)</code></li>
+<li><strong><code>**kwargs</code></strong> : capture tous les arguments nommés dans un dict — <code>{'n': 5}</code> pour <code>f(n=5)</code></li>
+<li><strong><code>@wraps(fn)</code></strong> : copie les métadonnées de <code>fn</code> vers <code>wrapper</code> — sans ça, <code>addition.__name__</code> retournerait <code>'wrapper'</code></li>
+<li><strong><code>return fn(*args, **kwargs)</code></strong> : retransmet exactement les arguments reçus à la fonction originale — le décorateur est <strong>transparent</strong></li>
+</ul>
+<hr />
+<h1 id="5-decorateur-avec-parametres">5️⃣ Décorateur avec paramètres<a class="headerlink" href="#5-decorateur-avec-parametres" title="Permanent link">&para;</a></h1>
+<p>Parfois on veut <strong>configurer</strong> le décorateur lui-même : <code>@repeter(3)</code>, <code>@timeout(5)</code>. Il faut alors une fonction supplémentaire qui retourne le décorateur.</p>
+<pre><code class="language-python">from functools import wraps
+
+# Structure : 3 niveaux imbriqués
+#
+#   def mon_decorateur(param):     ← niveau 1 : reçoit la configuration
+#       def decorateur(fn):        ← niveau 2 : reçoit la fonction
+#           def wrapper(*a, **k):  ← niveau 3 : s'exécute à chaque appel
+#               ...
+#           return wrapper
+#       return decorateur
+#   return decorateur
+
+def repeter(n):
+    &quot;&quot;&quot;Répète l'exécution de la fonction n fois.&quot;&quot;&quot;
+    def decorateur(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            resultats = []
+            for i in range(n):
+                r = fn(*args, **kwargs)
+                resultats.append(r)
+            return resultats
+        return wrapper
+    return decorateur
+
+@repeter(3)               # ← repeter(3) retourne un décorateur, qui décore saluer
+def saluer(nom):
+    print(f&quot;  Bonjour {nom} !&quot;)
+    return f&quot;salut_{nom}&quot;
+
+resultats = saluer(&quot;Bechir&quot;)
+print(f&quot;Résultats : {resultats}&quot;)
+</code></pre>
+<pre><code>  Bonjour Bechir !
+  Bonjour Bechir !
+  Bonjour Bechir !
+Résultats : ['salut_Bechir', 'salut_Bechir', 'salut_Bechir']
+</code></pre>
+<p><strong>Équivalent sans <code>@</code> pour bien comprendre :</strong></p>
+<pre><code class="language-python"># @repeter(3) est exactement équivalent à :
+saluer = repeter(3)(saluer)
+#        ─────────           ← appel niveau 1 : retourne le décorateur
+#                  ───────── ← appel niveau 2 : décore la fonction
+</code></pre>
+<ul>
+<li><strong><code>repeter(3)</code></strong> : appel de niveau 1 — retourne <code>decorateur</code> avec <code>n=3</code> capturé dans sa closure</li>
+<li><strong><code>decorateur(saluer)</code></strong> : appel de niveau 2 — retourne <code>wrapper</code> avec <code>fn=saluer</code> capturé</li>
+<li><strong><code>wrapper(*args, **kwargs)</code></strong> : appel de niveau 3 — s'exécute à chaque <code>saluer(...)</code> dans le programme</li>
+</ul>
+<hr />
+<h1 id="6-decorateur-de-classe-classmethod-staticmethod-property">6️⃣ Décorateur de classe — <code>@classmethod</code>, <code>@staticmethod</code>, <code>@property</code><a class="headerlink" href="#6-decorateur-de-classe-classmethod-staticmethod-property" title="Permanent link">&para;</a></h1>
+<p>Python fournit des décorateurs intégrés pour les classes. Ce sont les plus utilisés au quotidien.</p>
+<pre><code class="language-python">class Produit:
+
+    nb_produits = 0   # attribut de classe
+
+    def __init__(self, nom: str, prix: float):
+        self.nom  = nom
+        self._prix = prix
+        Produit.nb_produits += 1
+
+    # @property : accès en lecture avec logique
+    @property
+    def prix(self):
+        return f&quot;{self._prix:.2f} TND&quot;
+
+    # @prix.setter : validation à l'écriture
+    @prix.setter
+    def prix(self, valeur):
+        if valeur &lt; 0:
+            raise ValueError(&quot;Le prix ne peut pas être négatif&quot;)
+        self._prix = valeur
+
+    # @classmethod : méthode liée à la CLASSE (reçoit cls, pas self)
+    @classmethod
+    def creer_gratuit(cls, nom):
+        return cls(nom, 0.0)   # factory method
+
+    # @staticmethod : utilitaire lié à la classe, ni self ni cls
+    @staticmethod
+    def est_prix_valide(prix):
+        return isinstance(prix, (int, float)) and prix &gt;= 0
+
+# Utilisation
+p = Produit(&quot;Clavier&quot;, 99.9)
+print(p.prix)                      # 99.90 TND  ← @property
+
+p.prix = 120                       # ← @prix.setter avec validation
+print(p.prix)                      # 120.00 TND
+
+cadeau = Produit.creer_gratuit(&quot;Stylo&quot;)   # ← @classmethod
+print(cadeau.prix)                 # 0.00 TND
+
+print(Produit.est_prix_valide(-5)) # False  ← @staticmethod
+print(Produit.nb_produits)         # 2
+</code></pre>
+<pre><code>99.90 TND
+120.00 TND
+0.00 TND
+False
+2
+</code></pre>
+<ul>
+<li><strong><code>@property</code></strong> : transforme une méthode en accès attribut — <code>p.prix</code> au lieu de <code>p.get_prix()</code> — plus pythonique</li>
+<li><strong><code>@prix.setter</code></strong> : intercepte <code>p.prix = valeur</code> — permet la validation sans changer la syntaxe d'appel</li>
+<li><strong><code>@classmethod</code></strong> : reçoit <code>cls</code> (la classe) — utile pour les <strong>factory methods</strong> qui créent des instances</li>
+<li><strong><code>@staticmethod</code></strong> : ni <code>self</code> ni <code>cls</code> — fonction utilitaire rangée dans la classe par logique, pas par besoin d'accès</li>
+</ul>
+<hr />
+<h1 id="7-decorateurs-empiles-lordre-compte">7️⃣ Décorateurs empilés — l'ordre compte<a class="headerlink" href="#7-decorateurs-empiles-lordre-compte" title="Permanent link">&para;</a></h1>
+<p>On peut appliquer <strong>plusieurs décorateurs</strong> sur une même fonction. L'ordre d'application est <strong>de bas en haut</strong>, mais l'ordre d'exécution est <strong>de haut en bas</strong>.</p>
+<pre><code class="language-python">from functools import wraps
+
+def majuscules(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        print(&quot;  [majuscules] avant&quot;)
+        resultat = fn(*args, **kwargs)
+        print(&quot;  [majuscules] après&quot;)
+        return resultat.upper() if isinstance(resultat, str) else resultat
+    return wrapper
+
+def exclamation(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        print(&quot;  [exclamation] avant&quot;)
+        resultat = fn(*args, **kwargs)
+        print(&quot;  [exclamation] après&quot;)
+        return resultat + &quot; !&quot; if isinstance(resultat, str) else resultat
+    return wrapper
+
+@majuscules      # ← appliqué en 2ème (enveloppe exclamation(saluer))
+@exclamation     # ← appliqué en 1er (enveloppe saluer directement)
+def saluer(nom):
+    return f&quot;bonjour {nom}&quot;
+
+print(saluer(&quot;Bechir&quot;))
+</code></pre>
+<pre><code>  [majuscules] avant
+  [exclamation] avant
+  [exclamation] après
+  [majuscules] après
+BONJOUR BECHIR !
+</code></pre>
+<p><strong>Visualisation :</strong></p>
+<pre><code>@majuscules        ← couche externe — s'exécute en premier et en dernier
+  @exclamation     ← couche interne — s'exécute après majuscules
+    def saluer     ← fonction originale au centre
+
+Exécution :
+  majuscules.avant → exclamation.avant → saluer() → exclamation.après → majuscules.après
+</code></pre>
+<ul>
+<li><strong><code>@majuscules</code> au-dessus de <code>@exclamation</code></strong> : équivaut à <code>saluer = majuscules(exclamation(saluer))</code></li>
+<li><strong>ordre d'application</strong> : <code>exclamation</code> enveloppe <code>saluer</code> d'abord, puis <code>majuscules</code> enveloppe le tout</li>
+<li><strong>ordre d'exécution</strong> : majuscules → exclamation → saluer → exclamation → majuscules</li>
+<li><strong>conclusion</strong> : <code>"bonjour bechir"</code> → <code>+ "!"</code> → <code>"bonjour bechir !"</code> → <code>.upper()</code> → <code>"BONJOUR BECHIR !"</code></li>
+</ul>
+<hr />
+<h1 id="8-les-descripteurs-controler-lacces-aux-attributs">8️⃣ Les descripteurs — contrôler l'accès aux attributs<a class="headerlink" href="#8-les-descripteurs-controler-lacces-aux-attributs" title="Permanent link">&para;</a></h1>
+<p>Un <strong>descripteur</strong> est une classe qui définit comment se comportent les opérations <code>get</code>, <code>set</code> et <code>delete</code> sur un attribut. C'est le mécanisme qui fait fonctionner <code>@property</code> en interne.</p>
+<p><strong>Le problème sans descripteur :</strong></p>
+<pre><code class="language-python">class Personne:
+    def __init__(self, age):
+        self.age = age   # aucune validation — on peut écrire n'importe quoi
+
+p = Personne(25)
+p.age = -10    # Python accepte — bug silencieux
+p.age = &quot;vieux&quot;  # Python accepte aussi
+print(p.age)   # &quot;vieux&quot; — incohérence
+</code></pre>
+<ul>
+<li><strong>aucun contrôle</strong> : n'importe quelle valeur est acceptée</li>
+<li><strong>avec <code>@property</code></strong> : on peut valider, mais la logique est <strong>dans la classe</strong> — si on a 10 classes avec un âge, on duplique 10 fois</li>
+<li><strong>avec un descripteur</strong> : la logique est dans une <strong>classe séparée réutilisable</strong> — on l'applique partout</li>
+</ul>
+<hr />
+<h2 id="81-data-descriptor-__get__-__set__-__delete__">8.1 Data Descriptor — <code>__get__</code>, <code>__set__</code>, <code>__delete__</code><a class="headerlink" href="#81-data-descriptor-__get__-__set__-__delete__" title="Permanent link">&para;</a></h2>
+<p>Un <strong>Data Descriptor</strong> implémente au minimum <code>__get__</code> <strong>et</strong> <code>__set__</code>. Il a la priorité sur le <code>__dict__</code> de l'instance.</p>
+<pre><code class="language-python">class EntierPositif:
+    &quot;&quot;&quot;Descripteur réutilisable : valide qu'un attribut est un entier &gt; 0.&quot;&quot;&quot;
+
+    def __set_name__(self, owner, name):
+        # Appelé automatiquement quand le descripteur est assigné à une classe
+        self.nom_public  = name          # ex: &quot;age&quot;
+        self.nom_stockage = f&quot;_{name}&quot;   # ex: &quot;_age&quot; — clé dans __dict__
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self   # accès depuis la classe (Personne.age) → retourne le descripteur
+        return instance.__dict__.get(self.nom_stockage, 0)
+
+    def __set__(self, instance, valeur):
+        if not isinstance(valeur, int):
+            raise TypeError(f&quot;'{self.nom_public}' doit être un entier, reçu : {type(valeur).__name__}&quot;)
+        if valeur &lt;= 0:
+            raise ValueError(f&quot;'{self.nom_public}' doit être &gt; 0, reçu : {valeur}&quot;)
+        instance.__dict__[self.nom_stockage] = valeur   # stockage dans __dict__ de l'instance
+
+    def __delete__(self, instance):
+        print(f&quot;  Suppression de '{self.nom_public}'&quot;)
+        instance.__dict__.pop(self.nom_stockage, None)
+
+
+# Réutilisation du même descripteur pour plusieurs attributs
+class Personne:
+    age    = EntierPositif()   # __set_name__ appelé → nom_public=&quot;age&quot;
+    taille = EntierPositif()   # __set_name__ appelé → nom_public=&quot;taille&quot;
+
+    def __init__(self, nom, age, taille):
+        self.nom    = nom
+        self.age    = age      # ← déclenche EntierPositif.__set__
+        self.taille = taille   # ← déclenche EntierPositif.__set__
+
+    def __repr__(self):
+        return f&quot;Personne({self.nom}, {self.age} ans, {self.taille} cm)&quot;
+
+
+p = Personne(&quot;Bechir&quot;, 35, 178)
+print(p)          # Personne(Bechir, 35 ans, 178 cm)
+
+p.age = 36        # ← __set__ déclenché — validation OK
+print(p.age)      # 36  ← __get__ déclenché
+
+try:
+    p.age = -5    # ← __set__ déclenché — ValueError
+except ValueError as e:
+    print(f&quot;Erreur : {e}&quot;)
+
+try:
+    p.taille = &quot;grand&quot;   # ← __set__ déclenché — TypeError
+except TypeError as e:
+    print(f&quot;Erreur : {e}&quot;)
+
+del p.age         # ← __delete__ déclenché
+</code></pre>
+<pre><code>Personne(Bechir, 35 ans, 178 cm)
+36
+Erreur : 'age' doit être &gt; 0, reçu : -5
+Erreur : 'taille' doit être un entier, reçu : str
+  Suppression de 'age'
+</code></pre>
+<ul>
+<li><strong><code>__set_name__</code></strong> : méthode appelée <strong>automatiquement</strong> par Python quand le descripteur est assigné dans la classe — permet au descripteur de connaître son propre nom d'attribut</li>
+<li><strong><code>instance.__dict__[self.nom_stockage]</code></strong> : stocke la valeur <strong>dans le dict de l'instance</strong> (pas dans le descripteur) — sinon tous les objets partageraient la même valeur !</li>
+<li><strong><code>if instance is None</code></strong> : protège l'accès depuis la classe (<code>Personne.age</code>) — retourne le descripteur lui-même, pas une valeur</li>
+<li><strong>réutilisabilité</strong> : <code>EntierPositif</code> s'applique à <code>age</code> et <code>taille</code> — zéro duplication de logique</li>
+</ul>
+<hr />
+<h2 id="82-non-data-descriptor-__get__-uniquement">8.2 Non-Data Descriptor — <code>__get__</code> uniquement<a class="headerlink" href="#82-non-data-descriptor-__get__-uniquement" title="Permanent link">&para;</a></h2>
+<p>Un <strong>Non-Data Descriptor</strong> n'implémente que <code>__get__</code>. Il a une priorité <strong>plus faible</strong> que le <code>__dict__</code> de l'instance — peut être écrasé.</p>
+<pre><code class="language-python">class MethodeCalc:
+    &quot;&quot;&quot;Descripteur non-data : ajoute une méthode calculée.&quot;&quot;&quot;
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        # Retourne une fonction liée à l'instance
+        def calculer():
+            return instance.prix * 1.19   # prix TTC
+        return calculer
+
+
+class Produit:
+    prix_ttc = MethodeCalc()   # non-data descriptor
+
+    def __init__(self, nom, prix):
+        self.nom  = nom
+        self.prix = prix
+
+p = Produit(&quot;Clavier&quot;, 100)
+print(p.prix_ttc())       # 119.0  ← __get__ retourne la fonction, on l'appelle
+
+# Un non-data descriptor peut être écrasé par l'instance
+p.prix_ttc = &quot;remplacé&quot;   # écrit dans p.__dict__ directement
+print(p.prix_ttc)         # &quot;remplacé&quot; ← l'instance gagne sur le descripteur
+</code></pre>
+<pre><code>119.0
+remplacé
+</code></pre>
+<p><strong>Différence de priorité :</strong></p>
+<pre><code>Accès à obj.attr :
+
+  Data Descriptor    →  priorité HAUTE   (gagne sur __dict__)
+  (a __set__)
+
+  obj.__dict__[attr] →  priorité MOYENNE
+
+  Non-Data Descriptor→  priorité BASSE   (perd contre __dict__)
+  (pas de __set__)
+</code></pre>
+<ul>
+<li><strong>Non-Data Descriptor</strong> : utilisé pour les <strong>méthodes</strong> en Python — <code>obj.methode</code> est un Non-Data Descriptor qui retourne une méthode liée</li>
+<li><strong>Data Descriptor</strong> : utilisé pour les <strong>attributs validés</strong> — <code>@property</code> est un Data Descriptor intégré</li>
+<li><strong><code>@property</code> est un Data Descriptor</strong> : il définit <code>__get__</code> ET <code>__set__</code> (même si le setter lève <code>AttributeError</code> par défaut) → priorité haute</li>
+</ul>
+<hr />
+<h1 id="9-property-descripteur-integre-de-python">9️⃣ <code>@property</code> — descripteur intégré de Python<a class="headerlink" href="#9-property-descripteur-integre-de-python" title="Permanent link">&para;</a></h1>
+<p><code>@property</code> est la façon la plus pythonique d'ajouter de la logique sur un attribut sans changer la syntaxe d'accès.</p>
+<pre><code class="language-python">class CompteBancaire:
+
+    def __init__(self, titulaire: str, solde: float = 0):
+        self.titulaire = titulaire
+        self._solde    = solde      # convention : _ = &quot;pas accès direct&quot;
+        self._historique = []
+
+    @property
+    def solde(self):
+        &quot;&quot;&quot;Lecture du solde — lecture seule depuis l'extérieur.&quot;&quot;&quot;
+        return self._solde
+
+    @property
+    def historique(self):
+        return list(self._historique)   # copie — l'original ne peut pas être modifié
+
+    def deposer(self, montant: float):
+        if montant &lt;= 0:
+            raise ValueError(&quot;Montant doit être positif&quot;)
+        self._solde += montant
+        self._historique.append(f&quot;+{montant}&quot;)
+
+    def retirer(self, montant: float):
+        if montant &gt; self._solde:
+            raise ValueError(&quot;Solde insuffisant&quot;)
+        self._solde -= montant
+        self._historique.append(f&quot;-{montant}&quot;)
+
+compte = CompteBancaire(&quot;Bechir&quot;, 1000)
+compte.deposer(500)
+compte.retirer(200)
+
+print(f&quot;Solde     : {compte.solde} TND&quot;)       # lecture via @property
+print(f&quot;Historique: {compte.historique}&quot;)
+
+try:
+    compte.solde = 9999   # ← @property sans setter → AttributeError
+except AttributeError as e:
+    print(f&quot;Lecture seule : {e}&quot;)
+</code></pre>
+<pre><code>Solde     : 1300.0 TND
+Historique: ['+500', '-200']
+Lecture seule : can't set attribute
+</code></pre>
+<ul>
+<li><strong><code>@property</code></strong> sans setter = <strong>attribut en lecture seule</strong> — toute tentative d'écriture lève <code>AttributeError</code></li>
+<li><strong><code>self._solde</code></strong> : le vrai stockage avec <code>_</code> — convention "interne, ne pas accéder directement"</li>
+<li><strong>retourner <code>list(self._historique)</code></strong> : copie défensive — l'appelant ne peut pas modifier l'historique interne</li>
+</ul>
+<hr />
+<h1 id="bonnes-pratiques-et-guide-de-choix">🔟 Bonnes pratiques et guide de choix<a class="headerlink" href="#bonnes-pratiques-et-guide-de-choix" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">from functools import wraps
+
+# ✅ Pratique 1 : toujours @wraps pour préserver les métadonnées
+def mon_decorateur(fn):
+    @wraps(fn)               # sans ça : fn.__name__ = 'wrapper', fn.__doc__ = None
+    def wrapper(*args, **kwargs):
+        return fn(*args, **kwargs)
+    return wrapper
+
+# ✅ Pratique 2 : toujours *args, **kwargs dans wrapper
+# ❌ def wrapper():          → casse toute fonction avec arguments
+# ✅ def wrapper(*a, **k):   → transparent, fonctionne avec n'importe quelle signature
+
+# ✅ Pratique 3 : descripteur → stocker dans instance.__dict__, pas dans self
+class BonDescripteur:
+    def __set_name__(self, owner, name):
+        self.cle = f&quot;_{name}&quot;   # clé unique par attribut
+
+    def __set__(self, instance, valeur):
+        instance.__dict__[self.cle] = valeur   # ✅ dans l'instance
+
+    def __get__(self, instance, owner):
+        if instance is None: return self
+        return instance.__dict__.get(self.cle)
+
+# ❌ Mauvais : stockage dans self du descripteur → tous les objets partagent la même valeur !
+class MauvaisDescripteur:
+    def __set__(self, instance, valeur):
+        self.valeur = valeur   # ← stocké dans le descripteur, pas l'instance
+</code></pre>
+<hr />
+<p><strong>Guide de choix :</strong></p>
+<pre><code>Je veux ajouter un comportement autour d'une fonction ?
+    → Décorateur  @mon_decorateur
+
+Je veux configurer ce comportement ?
+    → Décorateur paramétré  @mon_decorateur(option=True)
+
+Je veux valider/contrôler UN attribut dans UNE classe ?
+    → @property
+
+Je veux la même validation pour le même attribut dans PLUSIEURS classes ?
+    → Descripteur (classe séparée réutilisable)
+
+┌────────────────────────────────────────────────────┐
+│  @wraps          → toujours dans un décorateur     │
+│  *args, **kwargs → toujours dans wrapper()         │
+│  instance.__dict__ → toujours dans __set__         │
+│  if instance is None → toujours dans __get__       │
+└────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<blockquote>
+<p>✅ <strong>Récapitulatif — les 5 points clés</strong></p>
+<p><strong>Décorateur</strong> = fonction qui enveloppe une fonction · <strong><code>@wraps</code></strong> = préserve le nom et la doc · <strong><code>*args, **kwargs</code></strong> = rend le wrapper transparent · <strong><code>@property</code></strong> = attribut avec logique, syntaxe simple · <strong>Descripteur</strong> = <code>@property</code> réutilisable entre plusieurs classes </p>
+</blockquote>
+<h1 id="20-questions-intelligentes">20 QUESTIONS INTELLIGENTES<a class="headerlink" href="#20-questions-intelligentes" title="Permanent link">&para;</a></h1>
+<p>Décorateurs &amp; Descripteurs — Niveau Intermédiaire / Avancé</p>
+<p>Chaque question contient :</p>
+<ul>
+<li>
+<p>Énoncé</p>
+</li>
+<li>
+<p>Explication structurée</p>
+</li>
+<li>
+<p>Enchaînement démonstratif complet</p>
+</li>
+<li>
+<p>Script commenté</p>
+</li>
+<li>
+<p>Résultat observable</p>
+</li>
+</ul>
+<hr />
+<h1 id="1-pourquoi-un-decorateur-casse-parfois-name-et-doc">1️⃣ Pourquoi un décorateur casse parfois <strong>name</strong> et <strong>doc</strong> ?<a class="headerlink" href="#1-pourquoi-un-decorateur-casse-parfois-name-et-doc" title="Permanent link">&para;</a></h1>
+<h2 id="enonce">Énoncé<a class="headerlink" href="#enonce" title="Permanent link">&para;</a></h2>
+<p>Pourquoi une fonction décorée perd son nom et sa documentation ?</p>
+<h2 id="explication">Explication<a class="headerlink" href="#explication" title="Permanent link">&para;</a></h2>
+<p>Quand on retourne wrapper, on remplace la fonction originale.<br />
+Sans précaution, les métadonnées sont perdues.</p>
+<p>Solution : utiliser functools.wraps.</p>
+<hr />
+<pre><code class="language-python">&quot;&quot;&quot;
+Démonstration du problème :
+- Sans wraps, le nom devient 'wrapper'
+&quot;&quot;&quot;
+
+def decor(fn):
+    def wrapper(*args, **kwargs):
+        return fn(*args, **kwargs)
+    return wrapper
+
+
+@decor
+def mafonction():
+    &quot;&quot;&quot;Documentation originale&quot;&quot;&quot;
+    print(&quot;Execution&quot;)
+
+print(&quot;Nom:&quot;, mafonction.__name__)
+print(&quot;Doc:&quot;, mafonction.__doc__)
+</code></pre>
+<p>Sortie observée :</p>
+<p>Nom: wrapper<br />
+Doc: None</p>
+<hr />
+<p>Correction :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Solution correcte avec functools.wraps
+&quot;&quot;&quot;
+
+from functools import wraps
+
+def decor(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        return fn(*args, **kwargs)
+    return wrapper
+
+
+@decor
+def mafonction():
+    &quot;&quot;&quot;Documentation originale&quot;&quot;&quot;
+    print(&quot;Execution&quot;)
+
+print(&quot;Nom:&quot;, mafonction.__name__)
+print(&quot;Doc:&quot;, mafonction.__doc__)
+</code></pre>
+<hr />
+<h1 id="2-pourquoi-un-decorateur-mal-ecrit-casse-les-arguments">2️⃣ Pourquoi un décorateur mal écrit casse les arguments ?<a class="headerlink" href="#2-pourquoi-un-decorateur-mal-ecrit-casse-les-arguments" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_1">Énoncé<a class="headerlink" href="#enonce_1" title="Permanent link">&para;</a></h2>
+<p>Pourquoi wrapper() sans <em>args, </em>*kwargs est dangereux ?</p>
+<hr />
+<pre><code class="language-python">&quot;&quot;&quot;
+Erreur classique :
+Le wrapper ne transmet pas les arguments.
+&quot;&quot;&quot;
+
+def decor(fn):
+    def wrapper():
+        return fn()  # pas d'arguments transmis
+    return wrapper
+
+
+@decor
+def addition(a, b):
+    return a + b
+
+try:
+    print(addition(3, 4))
+except TypeError as e:
+    print(&quot;Erreur:&quot;, e)
+</code></pre>
+<p>Correction :</p>
+<pre><code class="language-python">def decor(fn):
+    def wrapper(*args, **kwargs):
+        return fn(*args, **kwargs)
+    return wrapper
+</code></pre>
+<hr />
+<h1 id="3-pourquoi-un-decorateur-sur-methode-doit-gerer-self">3️⃣ Pourquoi un décorateur sur méthode doit gérer self ?<a class="headerlink" href="#3-pourquoi-un-decorateur-sur-methode-doit-gerer-self" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_2">Énoncé<a class="headerlink" href="#enonce_2" title="Permanent link">&para;</a></h2>
+<p>Pourquoi un décorateur de méthode doit accepter self ?</p>
+<hr />
+<pre><code class="language-python">&quot;&quot;&quot;
+Si wrapper oublie self, l'appel casse.
+&quot;&quot;&quot;
+
+def decor(fn):
+    def wrapper(*args, **kwargs):
+        print(&quot;Avant&quot;)
+        return fn(*args, **kwargs)
+    return wrapper
+
+
+class A:
+    @decor
+    def afficher(self):
+        print(&quot;OK&quot;)
+
+a = A()
+a.afficher()
+</code></pre>
+<p>Observation : self est dans args automatiquement.</p>
+<hr />
+<h1 id="4-pourquoi-un-decorateur-parametre-a-deux-niveaux">4️⃣ Pourquoi un décorateur paramétré a deux niveaux ?<a class="headerlink" href="#4-pourquoi-un-decorateur-parametre-a-deux-niveaux" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_3">Énoncé<a class="headerlink" href="#enonce_3" title="Permanent link">&para;</a></h2>
+<p>Pourquoi il faut trois fonctions ?</p>
+<hr />
+<pre><code class="language-python">&quot;&quot;&quot;
+Structure :
+decor(param) -&gt; inner(fn) -&gt; wrapper()
+&quot;&quot;&quot;
+
+def decor(delai):
+    def inner(fn):
+        def wrapper(*args, **kwargs):
+            print(&quot;Avant&quot;)
+            return fn(*args, **kwargs)
+        return wrapper
+    return inner
+
+
+@decor(3)
+def test():
+    print(&quot;OK&quot;)
+
+test()
+</code></pre>
+<hr />
+<h1 id="5-pourquoi-get-recoit-instance-et-owner">5️⃣ Pourquoi <strong>get</strong> reçoit instance et owner ?<a class="headerlink" href="#5-pourquoi-get-recoit-instance-et-owner" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_4">Énoncé<a class="headerlink" href="#enonce_4" title="Permanent link">&para;</a></h2>
+<p>À quoi sert owner ?</p>
+<hr />
+<pre><code class="language-python">&quot;&quot;&quot;
+- instance : objet courant
+- owner : classe propriétaire
+&quot;&quot;&quot;
+
+class Descriptor:
+    def __get__(self, instance, owner):
+        print(&quot;Instance:&quot;, instance)
+        print(&quot;Owner:&quot;, owner)
+        return 42
+
+
+class A:
+    x = Descriptor()
+
+a = A()
+print(a.x)
+</code></pre>
+<hr />
+<h1 id="6-pourquoi-un-data-descriptor-a-priorite-sur-dict">6️⃣ Pourquoi un Data Descriptor a priorité sur <strong>dict</strong> ?<a class="headerlink" href="#6-pourquoi-un-data-descriptor-a-priorite-sur-dict" title="Permanent link">&para;</a></h1>
+<hr />
+<pre><code class="language-python">&quot;&quot;&quot;
+Data Descriptor = définit __set__
+Il prend priorité sur instance.__dict__
+&quot;&quot;&quot;
+
+class D:
+    def __get__(self, instance, owner):
+        return &quot;Descriptor&quot;
+
+    def __set__(self, instance, value):
+        instance.__dict__[&quot;x&quot;] = value
+
+
+class A:
+    x = D()
+
+a = A()
+a.__dict__[&quot;x&quot;] = &quot;Direct&quot;
+
+print(a.x)  # priorité descriptor
+</code></pre>
+<hr />
+<h1 id="7-pourquoi-un-non-data-descriptor-peut-etre-ecrase">7️⃣ Pourquoi un Non-Data Descriptor peut être écrasé ?<a class="headerlink" href="#7-pourquoi-un-non-data-descriptor-peut-etre-ecrase" title="Permanent link">&para;</a></h1>
+<hr />
+<pre><code class="language-python">class D:
+    def __get__(self, instance, owner):
+        return &quot;Descriptor&quot;
+
+
+class A:
+    x = D()
+
+a = A()
+a.x = &quot;Direct&quot;
+
+print(a.x)  # ici valeur instance
+</code></pre>
+<hr />
+<h1 id="8-pourquoi-set-peut-provoquer-recursion-infinie">8️⃣ Pourquoi <strong>set</strong> peut provoquer récursion infinie ?<a class="headerlink" href="#8-pourquoi-set-peut-provoquer-recursion-infinie" title="Permanent link">&para;</a></h1>
+<hr />
+<pre><code class="language-python">&quot;&quot;&quot;
+Erreur fréquente :
+instance.x = value dans __set__
+Appelle encore __set__
+&quot;&quot;&quot;
+
+class D:
+    def __set__(self, instance, value):
+        instance.x = value  # boucle infinie
+
+
+class A:
+    x = D()
+</code></pre>
+<p>Solution :</p>
+<pre><code class="language-python">instance.__dict__[&quot;x&quot;] = value
+</code></pre>
+<hr />
+<h1 id="9-pourquoi-property-est-un-data-descriptor">9️⃣ Pourquoi property est un Data Descriptor ?<a class="headerlink" href="#9-pourquoi-property-est-un-data-descriptor" title="Permanent link">&para;</a></h1>
+<hr />
+<pre><code class="language-python">class A:
+    @property
+    def x(self):
+        return 10
+
+a = A()
+print(type(A.x))
+</code></pre>
+<p>Observation : property implémente <strong>get</strong> et <strong>set</strong>.</p>
+<hr />
+<h1 id="pourquoi-getattribute-est-dangereux">🔟 Pourquoi <strong>getattribute</strong> est dangereux ?<a class="headerlink" href="#pourquoi-getattribute-est-dangereux" title="Permanent link">&para;</a></h1>
+<hr />
+<pre><code class="language-python">&quot;&quot;&quot;
+__getattribute__ intercepte TOUT.
+Une erreur bloque tout accès.
+&quot;&quot;&quot;
+
+class A:
+    def __getattribute__(self, name):
+        print(&quot;Accès:&quot;, name)
+        return super().__getattribute__(name)
+
+a = A()
+print(a.__class__)
+</code></pre>
+    </div>
+    <div class="page-nav">
+      <a href="06_le_threading_coroutine.html">◀ Le Threading & Coroutine</a>
+      <a href="10_les_meta_classes.html">Les Méta-Classes ▶</a>
+    </div>
+    <footer>
+  Les Décorateurs & Descripteurs — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

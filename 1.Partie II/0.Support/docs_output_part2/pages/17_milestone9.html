@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milestone 9 — Rapport Excel &amp; import bon de commande — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="active">Main Page</a>
+    <a href="#" class="">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html" class="current"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-milestones">Milestones</a><span>»</span>Milestone 9 — Rapport Excel &amp; import bon de commande</div>
+    <div class="page-header-band">
+      <h1><span class="milestone-badge">🏁 Milestone 9</span>Milestone 9 — Rapport Excel &amp; import bon de commande</h1>
+    </div>
+    <div class="content-body">
+<h1 id="milestone-9-rapport-stock-excel-colore-import-bon-de-commande"><a href="17_milestone9.html">Milestone 9</a> — Rapport stock Excel coloré &amp; import bon de commande<a class="headerlink" href="#milestone-9-rapport-stock-excel-colore-import-bon-de-commande" title="Permanent link">&para;</a></h1>
+<p>Le support est une propriété de <strong>Bechir Bejaoui</strong></p>
+<hr />
+<h2 id="objectif-du-sprint">Objectif du sprint<a class="headerlink" href="#objectif-du-sprint" title="Permanent link">&para;</a></h2>
+<p>Connecter <strong>Al Qalam Stock Manager</strong> au monde professionnel Excel via <code>openpyxl</code>.<br />
+À la fin de ce sprint, l'application peut :</p>
+<ul>
+<li><strong>Générer</strong> un classeur Excel <code>.xlsx</code> multi-feuilles avec colorisation conditionnelle du stock</li>
+<li><strong>Styliser</strong> les cellules : polices, alignements, bordures, largeurs de colonnes adaptées</li>
+<li><strong>Fusionner</strong> des cellules pour les titres et les lignes de totaux</li>
+<li><strong>Insérer</strong> un graphique en barres dans la feuille Statistiques</li>
+<li><strong>Lire</strong> un bon de commande fournisseur Excel et approvisionner le stock automatiquement</li>
+<li><strong>Prévisualiser</strong> un fichier Excel avant de l'importer (structure + aperçu des données)</li>
+</ul>
+<hr />
+<h2 id="concepts-python-mis-en-pratique">Concepts Python mis en pratique<a class="headerlink" href="#concepts-python-mis-en-pratique" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Classe / Fonction</th>
+<th>Usage dans Al Qalam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Workbook</code> / <code>Worksheet</code></td>
+<td><code>openpyxl</code></td>
+<td>Création classeur multi-feuilles</td>
+</tr>
+<tr>
+<td><code>PatternFill</code></td>
+<td><code>openpyxl.styles</code></td>
+<td>Colorisation conditionnelle (rouge/orange/vert)</td>
+</tr>
+<tr>
+<td><code>Font</code> / <code>Alignment</code> / <code>Border</code></td>
+<td><code>openpyxl.styles</code></td>
+<td>Mise en forme professionnelle</td>
+</tr>
+<tr>
+<td><code>merge_cells()</code></td>
+<td><code>Worksheet</code></td>
+<td>Titres et totaux sur plusieurs colonnes</td>
+</tr>
+<tr>
+<td><code>column_dimensions</code></td>
+<td><code>Worksheet</code></td>
+<td>Largeur automatique des colonnes</td>
+</tr>
+<tr>
+<td><code>freeze_panes</code></td>
+<td><code>Worksheet</code></td>
+<td>Figer la ligne d'en-tête</td>
+</tr>
+<tr>
+<td><code>BarChart</code> / <code>Reference</code></td>
+<td><code>openpyxl.chart</code></td>
+<td>Graphique valeur stock par catégorie</td>
+</tr>
+<tr>
+<td><code>load_workbook()</code></td>
+<td><code>openpyxl</code></td>
+<td>Lecture bon de commande fournisseur</td>
+</tr>
+<tr>
+<td><code>iter_rows(values_only=True)</code></td>
+<td><code>Worksheet</code></td>
+<td>Parcours ligne par ligne</td>
+</tr>
+<tr>
+<td><code>get_column_letter()</code></td>
+<td><code>openpyxl.utils</code></td>
+<td>Conversion index numérique → lettre</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="architecture-v9">Architecture V9<a class="headerlink" href="#architecture-v9" title="Permanent link">&para;</a></h2>
+<pre><code>alqalamv9/
+├── config.py                    ← v9.0.0 + EXCEL_DIR + 5 constantes couleurs Excel
+├── main.py                      ← [V9] docstring mise à jour
+├── models/                      ← inchangé V8
+├── decorateurs/                 ← inchangé V8
+├── metaclasses/                 ← inchangé V8
+├── validators/                  ← inchangé V8
+├── services/
+│   ├── stock_service.py         ← inchangé V8
+│   ├── journal_service.py       ← inchangé V8
+│   ├── surveillance_service.py  ← inchangé V8
+│   ├── log_parser.py            ← inchangé V8
+│   ├── csv_service.py           ← inchangé V8
+│   └── excel_service.py         ← [V9] NOUVEAU — export rapport + import bon commande
+├── ui/
+│   ├── app.py                   ← [V9] 8ème onglet &quot;📊 Excel&quot; ajouté
+│   └── frames/
+│       ├── excel_frame.py       ← [V9] NOUVEAU — UI export/import Excel
+│       └── ...                  ← autres frames inchangées
+└── data/
+    ├── stock.json
+    ├── csv/
+    └── excel/                   ← [V9] rapports générés + bon de commande démo
+        └── bon_commande_fournisseur.xlsx
+</code></pre>
+<hr />
+<h2 id="ce-qui-a-ete-implemente">Ce qui a été implémenté<a class="headerlink" href="#ce-qui-a-ete-implemente" title="Permanent link">&para;</a></h2>
+<h3 id="1-configpy-nouvelles-constantes-excel">1. <code>config.py</code> — Nouvelles constantes Excel<a class="headerlink" href="#1-configpy-nouvelles-constantes-excel" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">EXCEL_DIR             = DATA_DIR / &quot;excel&quot;   # dossier exports Excel
+
+EXCEL_COULEUR_ENTETE  = &quot;1F4E79&quot;  # bleu foncé — en-têtes
+EXCEL_COULEUR_RUPTURE = &quot;FDECEA&quot;  # rouge pâle — stock = 0
+EXCEL_COULEUR_ALERTE  = &quot;FEF9E7&quot;  # orange pâle — 0 &lt; stock ≤ seuil
+EXCEL_COULEUR_OK      = &quot;EAFAF1&quot;  # vert pâle   — stock &gt; seuil
+EXCEL_COULEUR_TOTAL   = &quot;EBF5FB&quot;  # bleu pâle   — lignes totaux
+</code></pre>
+<hr />
+<h3 id="2-servicesexcel_servicepy-excelservice">2. <code>services/excel_service.py</code> — ExcelService<a class="headerlink" href="#2-servicesexcel_servicepy-excelservice" title="Permanent link">&para;</a></h3>
+<h4 id="export-rapport-de-stock-multi-feuilles">Export : rapport de stock multi-feuilles<a class="headerlink" href="#export-rapport-de-stock-multi-feuilles" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">service = ExcelService(stock_service)
+chemin  = service.exporter_rapport_stock()   # → Path du .xlsx créé
+</code></pre>
+<p><strong>Feuille 1 — "📦 Catalogue"</strong><br />
+- Toutes les colonnes produit : ref, nom, catégorie, qté, seuil, prix, valeur, marge, statut<br />
+- Colorisation conditionnelle ligne par ligne selon l'état du stock<br />
+- Ligne de total fusionnée (7 colonnes) avec valeur totale du stock<br />
+- En-têtes figés avec <code>freeze_panes</code></p>
+<p><strong>Feuille 2 — "⚠️ Ruptures"</strong><br />
+- Filtre automatique sur les produits avec <code>qte ≤ seuil_min</code><br />
+- Message "Aucune rupture" si le stock est en parfait état</p>
+<p><strong>Feuille 3 — "📊 Statistiques"</strong><br />
+- Agrégation par catégorie : nb produits, valeur stock, marge totale, ruptures, alertes<br />
+- Ligne TOTAL GÉNÉRAL<br />
+- Graphique en barres verticales (valeur de stock par catégorie)</p>
+<h4 id="import-bon-de-commande-fournisseur">Import : bon de commande fournisseur<a class="headerlink" href="#import-bon-de-commande-fournisseur" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">rapport = service.importer_bon_commande(&quot;bon_commande.xlsx&quot;)
+# → {&quot;traites&quot;: 5, &quot;erreurs&quot;: [], &quot;total_lues&quot;: 6, &quot;total_qte&quot;: 90}
+</code></pre>
+<ul>
+<li>Lit la <strong>première feuille</strong> du classeur</li>
+<li><strong>Ligne 1</strong> : en-têtes (doit contenir <code>ref</code> et <code>qte</code>, <code>note</code> optionnel)</li>
+<li>Pour chaque ligne valide : appelle <code>stock_service.entree_stock(ref, qte, note)</code></li>
+<li>Lignes invalides (ref inconnue, qté négative) → rapport d'erreurs sans interruption</li>
+</ul>
+<h4 id="previsualisation">Prévisualisation<a class="headerlink" href="#previsualisation" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">apercu = service.previsualiser_excel(&quot;fichier.xlsx&quot;, nb_lignes=5)
+# → {&quot;colonnes&quot;: [...], &quot;lignes&quot;: [...], &quot;valide&quot;: True, &quot;feuilles&quot;: [...]}
+</code></pre>
+<hr />
+<h3 id="3-uiframesexcel_framepy-excelframe">3. <code>ui/frames/excel_frame.py</code> — ExcelFrame<a class="headerlink" href="#3-uiframesexcel_framepy-excelframe" title="Permanent link">&para;</a></h3>
+<p><strong>Section Export (colonne gauche)</strong><br />
+- Légende colorisation : rouge / orange / vert avec explication<br />
+- Bouton "📊 Générer rapport Excel" → dialogue <code>asksaveasfilename</code> → génération<br />
+- Bouton "📂 Ouvrir le dernier rapport" → <code>os.startfile()</code> (Windows)<br />
+- Journal des exports horodatés<br />
+- Compteur stock courant mis à jour par polling (5 s)</p>
+<p><strong>Section Import (colonne droite)</strong><br />
+- Sélection fichier via <code>filedialog.askopenfilename</code><br />
+- Prévisualisation automatique dans un <code>Treeview</code> (5 premières lignes)<br />
+- Détection des feuilles (<code>nb_feuilles</code>, noms)<br />
+- Validation structure (colonnes <code>ref</code> et <code>qte</code> requises)<br />
+- Bouton "⬇️ Importer le bon de commande" → rapport détaillé</p>
+<hr />
+<h3 id="4-uiapppy-integration-v9">4. <code>ui/app.py</code> — Intégration V9<a class="headerlink" href="#4-uiapppy-integration-v9" title="Permanent link">&para;</a></h3>
+<p>Modifications apportées :<br />
+- Instanciation et ajout de <code>ExcelFrame</code> dans l'onglet <code>"📊 Excel"</code><br />
+- <code>_post_operation()</code> : rafraîchissement de <code>excel_frame</code><br />
+- <code>_quitter()</code> : arrêt du polling <code>excel_frame.arreter_polling()</code><br />
+- Pied de page mis à jour : "V9 Excel Rapport &amp; Bon de commande"</p>
+<hr />
+<h2 id="fichier-demo-fourni">Fichier démo fourni<a class="headerlink" href="#fichier-demo-fourni" title="Permanent link">&para;</a></h2>
+<p><code>data/excel/bon_commande_fournisseur.xlsx</code></p>
+<table>
+<thead>
+<tr>
+<th>ref</th>
+<th>qte</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRAY-002</td>
+<td>20</td>
+<td>Réassort crayons HB — fournisseur Bic</td>
+</tr>
+<tr>
+<td>STYL-002</td>
+<td>15</td>
+<td>Réassort stylos encre rouge</td>
+</tr>
+<tr>
+<td>PAP-A3</td>
+<td>10</td>
+<td>Réassort ramettes A3</td>
+</tr>
+<tr>
+<td>CAR-001</td>
+<td>8</td>
+<td>Réassort carnets lignes</td>
+</tr>
+<tr>
+<td>GOM-001</td>
+<td>25</td>
+<td>Réassort gommes blanches</td>
+</tr>
+<tr>
+<td>CIS-001</td>
+<td>12</td>
+<td>Réassort ciseaux bureau</td>
+</tr>
+</tbody>
+</table>
+<p>Ce fichier peut être importé directement via l'onglet "📊 Excel" pour tester l'approvisionnement automatique du stock.</p>
+<hr />
+<h2 id="points-cles-openpyxl-a-retenir">Points clés openpyxl à retenir<a class="headerlink" href="#points-cles-openpyxl-a-retenir" title="Permanent link">&para;</a></h2>
+<h3 id="colorisation-conditionnelle-cote-python-pas-formule-excel">Colorisation conditionnelle (côté Python, pas formule Excel)<a class="headerlink" href="#colorisation-conditionnelle-cote-python-pas-formule-excel" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># On choisit la couleur AVANT d'écrire la cellule, selon la logique métier
+if produit.qte == 0:
+    couleur = EXCEL_COULEUR_RUPTURE   # rouge pâle
+elif produit.qte &lt;= produit.seuil_min:
+    couleur = EXCEL_COULEUR_ALERTE    # orange pâle
+else:
+    couleur = EXCEL_COULEUR_OK        # vert pâle
+
+cellule.fill = PatternFill(fill_type=&quot;solid&quot;, fgColor=couleur)
+</code></pre>
+<h3 id="graphique-en-barres">Graphique en barres<a class="headerlink" href="#graphique-en-barres" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">from openpyxl.chart import BarChart, Reference
+
+chart = BarChart()
+chart.type  = &quot;col&quot;            # barres verticales
+chart.title = &quot;Valeur par catégorie&quot;
+
+# Données : colonne C, lignes 2 → 2+nb_cats (inclut en-tête pour légende)
+data = Reference(ws, min_col=3, max_col=3, min_row=2, max_row=2 + nb_cats)
+cats = Reference(ws, min_col=1, min_row=3, max_row=2 + nb_cats)
+
+chart.add_data(data, titles_from_data=True)
+chart.set_categories(cats)
+ws.add_chart(chart, &quot;A10&quot;)   # position dans la feuille
+</code></pre>
+<h3 id="lecture-dun-excel-externe">Lecture d'un Excel externe<a class="headerlink" href="#lecture-dun-excel-externe" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">wb = openpyxl.load_workbook(&quot;fichier.xlsx&quot;, data_only=True)
+ws = wb.active
+
+entetes = [str(c.value).strip().lower() for c in ws[1]]
+
+for ligne in ws.iter_rows(min_row=2, values_only=True):
+    if all(v is None for v in ligne):
+        continue          # ignorer lignes vides
+    ref = ligne[entetes.index(&quot;ref&quot;)]
+    qte = int(float(str(ligne[entetes.index(&quot;qte&quot;)])))
+</code></pre>
+<hr />
+<h2 id="test-de-lancement">Test de lancement<a class="headerlink" href="#test-de-lancement" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash"># Installer openpyxl si pas encore fait
+py -3 -m pip install openpyxl
+
+# Lancer l'application V9
+cd alqalamv9
+py -3 main.py
+</code></pre>
+<p>Vérifier :<br />
+1. L'onglet "📊 Excel" est présent (8ème onglet)<br />
+2. Clic "📊 Générer rapport Excel" → choisir un emplacement → fichier <code>.xlsx</code> créé<br />
+3. Clic "📂 Ouvrir le dernier rapport" → Excel s'ouvre avec 3 feuilles colorisées<br />
+4. Section Import → "📁 Parcourir" → sélectionner <code>data/excel/bon_commande_fournisseur.xlsx</code><br />
+5. Prévisualisation affichée → "⬇️ Importer" → stock approvisionné</p>
+<hr />
+<h2 id="differences-v8-v9">Différences V8 → V9<a class="headerlink" href="#differences-v8-v9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>V8 — CSV</th>
+<th>V9 — Excel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module</td>
+<td><code>csv</code> (stdlib)</td>
+<td><code>openpyxl</code> (pip)</td>
+</tr>
+<tr>
+<td>Format</td>
+<td><code>.csv</code> (texte brut)</td>
+<td><code>.xlsx</code> (binaire structuré)</td>
+</tr>
+<tr>
+<td>Styles</td>
+<td>Aucun</td>
+<td>Polices, couleurs, bordures</td>
+</tr>
+<tr>
+<td>Graphiques</td>
+<td>Impossible</td>
+<td><code>BarChart</code> intégré</td>
+</tr>
+<tr>
+<td>Feuilles</td>
+<td>Une seule</td>
+<td>Multi-feuilles</td>
+</tr>
+<tr>
+<td>Types de données</td>
+<td>Tout en chaîne</td>
+<td>Typés : int, float, date, str</td>
+</tr>
+<tr>
+<td>Ouverture</td>
+<td>Éditeur texte / Excel</td>
+<td>Excel / LibreOffice uniquement</td>
+</tr>
+</tbody>
+</table>
+    </div>
+    <div class="page-nav">
+      <a href="15_milestone8.html">◀ Milestone 8 — Import catalogue &amp; export CSV</a>
+      <a href="19_milestone10.html">Milestone 10 — Persistance complète ▶</a>
+    </div>
+    <footer>
+  Milestone 9 — Rapport Excel &amp; import bon de commande — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

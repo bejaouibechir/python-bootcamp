@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milestone 10 — Persistance complète — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="active">Main Page</a>
+    <a href="#" class="">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html" class="current"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-milestones">Milestones</a><span>»</span>Milestone 10 — Persistance complète</div>
+    <div class="page-header-band">
+      <h1><span class="milestone-badge">🏁 Milestone 10</span>Milestone 10 — Persistance complète</h1>
+    </div>
+    <div class="content-body">
+<h1 id="milestone-10-persistance-complete-sqlite"><a href="01_milestone1.html">Milestone 1</a>0 — Persistance complète SQLite<a class="headerlink" href="#milestone-10-persistance-complete-sqlite" title="Permanent link">&para;</a></h1>
+<p>Le support est une propriété de <strong>Bechir Bejaoui</strong></p>
+<hr />
+<h2 id="objectif-du-sprint">Objectif du sprint<a class="headerlink" href="#objectif-du-sprint" title="Permanent link">&para;</a></h2>
+<p>Remplacer la persistance JSON par une <strong>base de données SQLite</strong> dans Al Qalam Stock Manager.<br />
+À la fin de ce sprint, l'application :</p>
+<ul>
+<li><strong>Stocke</strong> le catalogue produits dans une table SQL (<code>produits</code>)</li>
+<li><strong>Historise</strong> chaque mouvement de stock dans une table (<code>mouvements</code>)</li>
+<li><strong>Migre automatiquement</strong> les données de <code>stock.json</code> vers <code>alqalam.db</code> au premier lancement</li>
+<li><strong>Interroge</strong> l'historique avec des filtres dynamiques (type, référence, plage de dates)</li>
+<li>Affiche un nouvel onglet <strong>"🗄️ Historique"</strong> avec statistiques et export CSV</li>
+</ul>
+<hr />
+<h2 id="concepts-python-mis-en-pratique">Concepts Python mis en pratique<a class="headerlink" href="#concepts-python-mis-en-pratique" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>API sqlite3</th>
+<th>Usage dans Al Qalam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Connexion</td>
+<td><code>sqlite3.connect(chemin)</code></td>
+<td>Ouverture/création du fichier <code>.db</code></td>
+</tr>
+<tr>
+<td>Row factory</td>
+<td><code>conn.row_factory = sqlite3.Row</code></td>
+<td>Accès résultat par nom de colonne</td>
+</tr>
+<tr>
+<td>PRAGMA</td>
+<td><code>PRAGMA foreign_keys</code>, <code>journal_mode = WAL</code></td>
+<td>Intégrité + performances</td>
+</tr>
+<tr>
+<td>Context manager</td>
+<td><code>with conn as conn:</code></td>
+<td>Commit auto, rollback sur exception</td>
+</tr>
+<tr>
+<td>DDL idempotent</td>
+<td><code>CREATE TABLE IF NOT EXISTS</code></td>
+<td>Schéma créé une seule fois</td>
+</tr>
+<tr>
+<td>Index</td>
+<td><code>CREATE INDEX IF NOT EXISTS</code></td>
+<td>Filtres rapides sur date/ref/type</td>
+</tr>
+<tr>
+<td>Paramètres nommés</td>
+<td><code>VALUES (:ref, :nom, ...)</code></td>
+<td>Protection injection SQL</td>
+</tr>
+<tr>
+<td>Paramètres positionnels</td>
+<td><code>WHERE ref = ?</code></td>
+<td>Requêtes dynamiques</td>
+</tr>
+<tr>
+<td>Agrégation</td>
+<td><code>COUNT(*), SUM(qte) GROUP BY type_mvt</code></td>
+<td>Stats sans boucle Python</td>
+</tr>
+<tr>
+<td>Multi-instructions</td>
+<td><code>conn.executescript("""...""")</code></td>
+<td>Création schéma complet en une fois</td>
+</tr>
+<tr>
+<td>Migration</td>
+<td>lecture JSON → INSERT → renommage <code>.bak</code></td>
+<td>Transition sans perte de données</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="architecture-v10">Architecture V10<a class="headerlink" href="#architecture-v10" title="Permanent link">&para;</a></h2>
+<pre><code>alqalamv10/
+├── config.py                    ← v10.0.0 + DB_PATH = data/alqalam.db
+├── main.py                      ← [V10] docstring mise à jour
+├── models/                      ← inchangé V9
+├── decorateurs/                 ← inchangé V9
+├── metaclasses/                 ← inchangé V9
+├── validators/                  ← inchangé V9
+├── services/
+│   ├── surveillance_service.py  ← inchangé V9
+│   ├── journal_service.py       ← inchangé V9
+│   ├── log_parser.py            ← inchangé V9
+│   ├── csv_service.py           ← inchangé V9
+│   ├── excel_service.py         ← inchangé V9
+│   ├── database_service.py      ← [V10] NOUVEAU — couche SQLite complète
+│   └── stock_service.py         ← [V10] refactorisé — SQLite au lieu de JSON
+├── ui/
+│   ├── app.py                   ← [V10] 9ème onglet &quot;🗄️ Historique&quot; ajouté
+│   └── frames/
+│       ├── historique_frame.py  ← [V10] NOUVEAU — UI consultation SQLite
+│       └── ...                  ← autres frames inchangées
+└── data/
+    ├── alqalam.db               ← [V10] base SQLite (remplace stock.json)
+    ├── stock.json.bak           ← [V10] sauvegarde après migration
+    ├── csv/
+    └── excel/
+</code></pre>
+<hr />
+<h2 id="schema-de-base-de-donnees">Schéma de base de données<a class="headerlink" href="#schema-de-base-de-donnees" title="Permanent link">&para;</a></h2>
+<pre><code class="language-sql">-- Table catalogue — un enregistrement par produit
+CREATE TABLE IF NOT EXISTS produits (
+    ref        TEXT PRIMARY KEY,
+    nom        TEXT NOT NULL,
+    categorie  TEXT NOT NULL,
+    prix_achat REAL NOT NULL CHECK(prix_achat &gt;= 0),
+    prix_vente REAL NOT NULL CHECK(prix_vente &gt;= 0),
+    qte        INTEGER NOT NULL DEFAULT 0 CHECK(qte &gt;= 0),
+    seuil_min  INTEGER NOT NULL DEFAULT 5 CHECK(seuil_min &gt;= 0)
+);
+
+-- Table historique — un enregistrement par mouvement
+CREATE TABLE IF NOT EXISTS mouvements (
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    date      TEXT NOT NULL,          -- ISO 8601 : &quot;2026-03-10T14:32:05&quot;
+    type_mvt  TEXT NOT NULL,          -- &quot;entree&quot; | &quot;sortie&quot; | &quot;ajustement&quot; | &quot;retour&quot;
+    ref       TEXT NOT NULL,          -- référence produit concerné
+    produit   TEXT NOT NULL,          -- nom produit (dénormalisé pour lisibilité)
+    qte       INTEGER NOT NULL CHECK(qte &gt; 0),
+    note      TEXT DEFAULT ''
+);
+
+-- Index de performance pour les filtres courants
+CREATE INDEX IF NOT EXISTS idx_mvt_date    ON mouvements(date);
+CREATE INDEX IF NOT EXISTS idx_mvt_ref     ON mouvements(ref);
+CREATE INDEX IF NOT EXISTS idx_mvt_type    ON mouvements(type_mvt);
+</code></pre>
+<hr />
+<h2 id="ce-qui-a-ete-implemente">Ce qui a été implémenté<a class="headerlink" href="#ce-qui-a-ete-implemente" title="Permanent link">&para;</a></h2>
+<h3 id="1-configpy-nouvelle-constante">1. <code>config.py</code> — Nouvelle constante<a class="headerlink" href="#1-configpy-nouvelle-constante" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">DB_PATH = DATA_DIR / &quot;alqalam.db&quot;   # base de données SQLite
+</code></pre>
+<hr />
+<h3 id="2-servicesdatabase_servicepy-databaseservice-nouveau">2. <code>services/database_service.py</code> — DatabaseService (nouveau)<a class="headerlink" href="#2-servicesdatabase_servicepy-databaseservice-nouveau" title="Permanent link">&para;</a></h3>
+<p>Couche d'accès aux données 100% SQLite. Toutes les opérations passent par cette classe.</p>
+<h4 id="connexion-configuree">Connexion configurée<a class="headerlink" href="#connexion-configuree" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def _connexion(self) -&gt; sqlite3.Connection:
+    conn = sqlite3.connect(str(self._chemin))
+    conn.row_factory = sqlite3.Row          # accès résultat[&quot;ref&quot;] au lieu de résultat[0]
+    conn.execute(&quot;PRAGMA foreign_keys = ON&quot;)
+    conn.execute(&quot;PRAGMA journal_mode = WAL&quot;)   # Write-Ahead Logging
+    return conn
+</code></pre>
+<h4 id="requetes-filtrees-dynamiques">Requêtes filtrées dynamiques<a class="headerlink" href="#requetes-filtrees-dynamiques" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def charger_mouvements(self, type_mvt=None, ref=None,
+                        date_debut=None, date_fin=None, limite=None):
+    conditions, params = [], []
+    if type_mvt:   conditions.append(&quot;type_mvt = ?&quot;); params.append(type_mvt)
+    if ref:        conditions.append(&quot;ref = ?&quot;);       params.append(ref)
+    if date_debut: conditions.append(&quot;date &gt;= ?&quot;);     params.append(date_debut)
+    if date_fin:   conditions.append(&quot;date &lt;= ?&quot;);     params.append(date_fin + &quot;T23:59:59&quot;)
+
+    clause_where = (&quot;WHERE &quot; + &quot; AND &quot;.join(conditions)) if conditions else &quot;&quot;
+    clause_limit = f&quot;LIMIT {limite}&quot; if limite else &quot;&quot;
+
+    sql = f&quot;SELECT * FROM mouvements {clause_where} ORDER BY date DESC {clause_limit}&quot;
+    with self._connexion() as conn:
+        return [dict(row) for conn.execute(sql, params).fetchall()]
+</code></pre>
+<h4 id="agregation-par-type">Agrégation par type<a class="headerlink" href="#agregation-par-type" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def stats_mouvements(self) -&gt; dict:
+    with self._connexion() as conn:
+        rows = conn.execute(
+            &quot;SELECT type_mvt, COUNT(*) as nb, SUM(qte) as qte_totale &quot;
+            &quot;FROM mouvements GROUP BY type_mvt&quot;
+        ).fetchall()
+    # → {&quot;entree&quot;: {&quot;nb&quot;: 12, &quot;qte_totale&quot;: 450}, &quot;sortie&quot;: {...}, ...}
+</code></pre>
+<h4 id="migration-json-sqlite">Migration JSON → SQLite<a class="headerlink" href="#migration-json-sqlite" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">def migrer_depuis_json(self, chemin_json: Path) -&gt; int:
+    &quot;&quot;&quot;Appelée au 1er lancement : importe stock.json et le renomme en .bak.&quot;&quot;&quot;
+    if not chemin_json.exists(): return 0
+    # Ne migrer que si la table est vide
+    if conn.execute(&quot;SELECT COUNT(*) FROM produits&quot;).fetchone()[0] &gt; 0: return 0
+
+    data = json.loads(chemin_json.read_text(encoding=&quot;utf-8&quot;))
+    for d in data:
+        self.inserer_produit(d)
+    chemin_json.rename(chemin_json.with_suffix(&quot;.json.bak&quot;))
+    return len(data)
+</code></pre>
+<hr />
+<h3 id="3-servicesstock_servicepy-refactorise-v10">3. <code>services/stock_service.py</code> — Refactorisé V10<a class="headerlink" href="#3-servicesstock_servicepy-refactorise-v10" title="Permanent link">&para;</a></h3>
+<p>Changements par rapport à V9 :</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>V9 — JSON</th>
+<th>V10 — SQLite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>charger()</code></td>
+<td><code>json.loads(stock.json)</code></td>
+<td><code>db.charger_produits()</code></td>
+</tr>
+<tr>
+<td><code>ajouter_produit()</code></td>
+<td><code>json.dumps → fichier</code></td>
+<td><code>db.inserer_produit(p.to_dict())</code></td>
+</tr>
+<tr>
+<td><code>entree_stock()</code></td>
+<td>mise à jour JSON complet</td>
+<td><code>db.mettre_a_jour_qte()</code> + <code>db.inserer_mouvement()</code></td>
+</tr>
+<tr>
+<td>Historique</td>
+<td>liste mémoire (perdue au redémarrage)</td>
+<td>table <code>mouvements</code> (persistant)</td>
+</tr>
+<tr>
+<td><code>stats_par_type()</code></td>
+<td>comptage boucle Python</td>
+<td>délègue à <code>db.stats_mouvements()</code> (GROUP BY)</td>
+</tr>
+</tbody>
+</table>
+<p>L'API publique (tous les appels UI) reste identique — aucun changement dans les frames.</p>
+<p>Nouvelle propriété exposée :</p>
+<pre><code class="language-python">@property
+def db(self) -&gt; DatabaseService:
+    &quot;&quot;&quot;Expose la DatabaseService pour les requêtes de l'onglet Historique.&quot;&quot;&quot;
+    return self._db
+</code></pre>
+<hr />
+<h3 id="4-uiframeshistorique_framepy-historiqueframe-nouveau">4. <code>ui/frames/historique_frame.py</code> — HistoriqueFrame (nouveau)<a class="headerlink" href="#4-uiframeshistorique_framepy-historiqueframe-nouveau" title="Permanent link">&para;</a></h3>
+<p><strong>Zone filtres</strong><br />
+- Combobox <strong>Type</strong> : Tous / 📦 Entrée / 🛒 Sortie / 🔧 Ajustement / ↩️ Retour<br />
+- Combobox <strong>Référence</strong> : peuplée dynamiquement depuis <code>db.refs_distinctes()</code><br />
+- Champs <strong>Du / Au</strong> : plage de dates au format <code>YYYY-MM-DD</code><br />
+- Bouton <strong>Filtrer</strong> → relance la requête SQLite<br />
+- Bouton <strong>↺ Tout</strong> → réinitialise les filtres (30 derniers jours)<br />
+- Bouton <strong>💾 Export CSV</strong> → exporte les résultats filtrés</p>
+<p><strong>Tableau de bord KPI</strong> (5 cartes)<br />
+- 📦 Entrées, 🛒 Sorties, 🔧 Ajustements, ↩️ Retours, 🗄️ Total<br />
+- Données depuis <code>db.stats_mouvements()</code> (agrégation SQL <code>GROUP BY</code>)</p>
+<p><strong>Treeview résultats</strong> (limite 200 lignes)<br />
+- Colonnes : ID, Date, Type, Référence, Produit, Qté, Note<br />
+- Colorisation par type via <code>Treeview.tag_configure</code><br />
+- Scrollbars horizontale et verticale<br />
+- Rafraîchissement automatique toutes les 10 secondes (polling)</p>
+<hr />
+<h3 id="5-uiapppy-integration-v10">5. <code>ui/app.py</code> — Intégration V10<a class="headerlink" href="#5-uiapppy-integration-v10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>9ème onglet <code>"🗄️ Historique"</code> ajouté au TabView</li>
+<li><code>_post_operation()</code> : rafraîchissement de <code>historique_frame</code></li>
+<li><code>_quitter()</code> : arrêt du polling <code>historique_frame.arreter_polling()</code></li>
+<li>Pied de page : "V10 SQLite — Persistance complète &amp; Historique"</li>
+</ul>
+<hr />
+<h2 id="differences-v9-v10">Différences V9 → V10<a class="headerlink" href="#differences-v9-v10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>V9 — Excel</th>
+<th>V10 — SQLite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nouvelles dépendances</td>
+<td><code>openpyxl</code> (pip)</td>
+<td><code>sqlite3</code> (stdlib — rien à installer)</td>
+</tr>
+<tr>
+<td>Persistance produits</td>
+<td><code>stock.json</code> (JSON)</td>
+<td>table <code>produits</code> (SQLite)</td>
+</tr>
+<tr>
+<td>Persistance mouvements</td>
+<td>liste mémoire (volatile)</td>
+<td>table <code>mouvements</code> (permanente)</td>
+</tr>
+<tr>
+<td>Historique au redémarrage</td>
+<td>perdu</td>
+<td>conservé indéfiniment</td>
+</tr>
+<tr>
+<td>Filtrage historique</td>
+<td>impossible</td>
+<td><code>WHERE</code>, <code>ORDER BY</code>, <code>LIMIT</code> SQL</td>
+</tr>
+<tr>
+<td>Statistiques</td>
+<td>boucles Python</td>
+<td><code>COUNT(*) GROUP BY</code> SQL</td>
+</tr>
+<tr>
+<td>Performances (gros stock)</td>
+<td>tout en mémoire</td>
+<td>index B-tree SQLite</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="test-de-lancement">Test de lancement<a class="headerlink" href="#test-de-lancement" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash"># Lancer l'application V10 (sqlite3 est dans la stdlib)
+cd alqalamv10
+py -3 main.py
+</code></pre>
+<p><strong>Scénario de test :</strong><br />
+1. Premier lancement → migration <code>stock.json</code> → <code>alqalam.db</code> + <code>stock.json.bak</code><br />
+2. Faire quelques entrées/sorties dans l'onglet "📦 Stock"<br />
+3. Aller dans l'onglet "🗄️ Historique" → mouvements visibles avec couleurs<br />
+4. Filtrer par type "📦 Entrée" → seules les entrées s'affichent<br />
+5. Filtrer par référence "CRAY-001" → mouvements de ce produit uniquement<br />
+6. Cliquer "💾 Export CSV" → fichier exporté<br />
+7. Redémarrer l'application → historique toujours présent (persistance SQLite)</p>
+<hr />
+<h2 id="points-cles-sqlite-a-retenir">Points clés SQLite à retenir<a class="headerlink" href="#points-cles-sqlite-a-retenir" title="Permanent link">&para;</a></h2>
+<h3 id="toujours-utiliser-des-parametres-jamais-de-f-string-sql">Toujours utiliser des paramètres, jamais de f-string SQL<a class="headerlink" href="#toujours-utiliser-des-parametres-jamais-de-f-string-sql" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># ✅ Correct — paramètre ? protège contre les injections SQL
+conn.execute(&quot;SELECT * FROM produits WHERE ref = ?&quot;, (ref,))
+
+# ❌ Dangereux — injection SQL possible si ref contient du SQL
+conn.execute(f&quot;SELECT * FROM produits WHERE ref = '{ref}'&quot;)
+</code></pre>
+<h3 id="le-context-manager-with-conn-gere-les-transactions">Le context manager <code>with conn</code> gère les transactions<a class="headerlink" href="#le-context-manager-with-conn-gere-les-transactions" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># Commit automatique si aucune exception
+# Rollback automatique en cas d'exception
+with sqlite3.connect(&quot;alqalam.db&quot;) as conn:
+    conn.execute(&quot;UPDATE produits SET qte=? WHERE ref=?&quot;, (50, &quot;CRAY-001&quot;))
+    conn.execute(&quot;INSERT INTO mouvements ...&quot;)
+    # → si une des deux échoue, AUCUNE des deux n'est persistée (atomicité)
+</code></pre>
+<h3 id="row_factory-sqlite3row-pour-un-acces-lisible"><code>row_factory = sqlite3.Row</code> pour un accès lisible<a class="headerlink" href="#row_factory-sqlite3row-pour-un-acces-lisible" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">conn.row_factory = sqlite3.Row
+
+row = conn.execute(&quot;SELECT ref, nom FROM produits WHERE ref=?&quot;, (&quot;CRAY-001&quot;,)).fetchone()
+
+# Avec row_factory :
+print(row[&quot;ref&quot;])    # &quot;CRAY-001&quot;  ← accès par nom
+print(row[&quot;nom&quot;])    # &quot;Crayon HB&quot;
+
+# Sans row_factory (par défaut) :
+print(row[0])        # &quot;CRAY-001&quot;  ← accès par index seulement
+</code></pre>
+<h3 id="wal-mode-pour-de-meilleures-performances">WAL mode pour de meilleures performances<a class="headerlink" href="#wal-mode-pour-de-meilleures-performances" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">conn.execute(&quot;PRAGMA journal_mode = WAL&quot;)
+# Write-Ahead Logging : les lectures et écritures ne se bloquent plus mutuellement
+# Recommandé pour toute application avec lectures fréquentes
+</code></pre>
+    </div>
+    <div class="page-nav">
+      <a href="17_milestone9.html">◀ Milestone 9 — Rapport Excel &amp; import bon de commande</a>
+      <a href="22_milestone11.html">Milestone 11 — Suite de tests (couverture 80%) ▶</a>
+    </div>
+    <footer>
+  Milestone 10 — Persistance complète — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

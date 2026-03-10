@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La POO — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="">Main Page</a>
+    <a href="#" class="active">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html" class="current"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group collapsed">
+    <div class="sidebar-group-header collapsed" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-chapters">Chapitres</a><span>»</span>La POO</div>
+    <div class="page-header-band">
+      <h1>La POO</h1>
+    </div>
+    <div class="content-body">
+<h1 id="la-programmation-orientee-objet-en-python">🧠 La Programmation Orientée Objet en Python<a class="headerlink" href="#la-programmation-orientee-objet-en-python" title="Permanent link">&para;</a></h1>
+<p>Le support est une propriété de <strong>Bechir Bejaoui</strong></p>
+<hr />
+<h1 id="1-pourquoi-la-poo">1️⃣ Pourquoi la POO ?<a class="headerlink" href="#1-pourquoi-la-poo" title="Permanent link">&para;</a></h1>
+<p>La programmation procédurale (fonctions + variables globales) fonctionne bien pour les petits scripts, mais devient vite ingérable sur des projets réels. La POO apporte une réponse structurée à ce problème.</p>
+<p><strong>Le problème sans POO :</strong></p>
+<pre><code class="language-python"># Style procédural : tout est dispersé, rien n'est regroupé
+nom_employe = &quot;Bechir&quot;
+salaire_employe = 3000
+equipe_employe = 5
+
+def afficher_employe(nom, salaire):
+    print(f&quot;{nom} gagne {salaire}&quot;)
+
+def augmenter_salaire(salaire, pct):
+    return salaire * (1 + pct / 100)
+
+# Avec 50 employés : 150 variables, chaos garanti
+</code></pre>
+<ul>
+<li><strong>problème</strong> : les données (<code>nom</code>, <code>salaire</code>) et les comportements (<code>afficher</code>, <code>augmenter</code>) sont séparés — il n'y a aucun lien logique entre eux</li>
+<li><strong>risque</strong> : modifier <code>salaire_employe</code> n'importe où dans le code, sans aucun contrôle</li>
+<li><strong>conclusion</strong> : plus le programme grandit, plus c'est incontrôlable</li>
+</ul>
+<hr />
+<p><strong>La solution POO :</strong></p>
+<pre><code class="language-python"># Style POO : données + comportements regroupés dans un objet
+class Employe:
+    def __init__(self, nom: str, salaire: float):
+        self.nom = nom
+        self.salaire = salaire
+
+    def afficher(self):
+        print(f&quot;{self.nom} gagne {self.salaire}&quot;)
+
+    def augmenter(self, pct: float):
+        self.salaire *= (1 + pct / 100)
+
+# Tout est encapsulé, propre, réutilisable
+e = Employe(&quot;Bechir&quot;, 5000)
+e.augmenter(10)
+e.afficher()  # Bechir gagne 5500.0
+</code></pre>
+<ul>
+<li><strong><code>class</code></strong> : mot-clé qui définit un nouveau type personnalisé</li>
+<li><strong><code>self</code></strong> : référence à l'objet courant — c'est lui qui "possède" les données</li>
+<li><strong><code>__init__</code></strong> : constructeur — appelé automatiquement à la création de l'objet</li>
+<li><strong>encapsulation</strong> : les données et les fonctions qui les manipulent sont réunies au même endroit</li>
+</ul>
+<hr />
+<p><strong>Les 5 bénéfices concrets de la POO :</strong></p>
+<table>
+<thead>
+<tr>
+<th>Bénéfice</th>
+<th>Ce que ça veut dire concrètement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Structurer</strong> un programme complexe</td>
+<td>Chaque entité du monde réel devient une classe (<code>Client</code>, <code>Commande</code>, <code>Produit</code>)</td>
+</tr>
+<tr>
+<td><strong>Modéliser</strong> des entités réelles</td>
+<td>Le code ressemble au problème qu'il résout</td>
+</tr>
+<tr>
+<td><strong>Réduire le couplage</strong></td>
+<td>Changer <code>Employe</code> n'impacte pas <code>Commande</code></td>
+</tr>
+<tr>
+<td><strong>Améliorer la maintenabilité</strong></td>
+<td>On sait exactement où toucher quand un bug survient</td>
+</tr>
+<tr>
+<td><strong>Faciliter les tests</strong></td>
+<td>On teste chaque classe indépendamment</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>🔍 Exemple réel : boutique en ligne</strong></p>
+<p>Sans POO, une boutique avec 100 produits, 500 clients et 1000 commandes, c'est des milliers de variables et fonctions éparpillées. Avec la POO :</p>
+<pre><code class="language-python">class Produit:
+    def __init__(self, nom, prix, stock):
+        self.nom = nom
+        self.prix = prix
+        self.stock = stock
+
+    def est_disponible(self):
+        return self.stock &gt; 0
+
+class Client:
+    def __init__(self, nom, email):
+        self.nom = nom
+        self.email = email
+        self.panier = []
+
+    def ajouter_au_panier(self, produit: Produit):
+        if produit.est_disponible():
+            self.panier.append(produit)
+            print(f&quot;✅ {produit.nom} ajouté au panier de {self.nom}&quot;)
+        else:
+            print(f&quot;❌ {produit.nom} est en rupture de stock&quot;)
+
+class Commande:
+    def __init__(self, client: Client):
+        self.client = client
+        self.lignes = list(client.panier)  # snapshot du panier
+
+    def total(self):
+        return sum(p.prix for p in self.lignes)
+
+    def afficher_recap(self):
+        print(f&quot;\n🧾 Commande de {self.client.nom}&quot;)
+        for p in self.lignes:
+            print(f&quot;  - {p.nom} : {p.prix} TND&quot;)
+        print(f&quot;  TOTAL : {self.total()} TND&quot;)
+
+# Simulation
+clavier = Produit(&quot;Clavier&quot;, 99, stock=5)
+souris  = Produit(&quot;Souris&quot;, 45, stock=0)
+bechir  = Client(&quot;Bechir&quot;, &quot;bechir@mail.com&quot;)
+
+bechir.ajouter_au_panier(clavier)   # ✅ ajouté
+bechir.ajouter_au_panier(souris)    # ❌ rupture
+
+cmd = Commande(bechir)
+cmd.afficher_recap()
+</code></pre>
+<ul>
+<li><strong><code>Produit</code>, <code>Client</code>, <code>Commande</code></strong> : chaque entité du monde réel devient une classe indépendante</li>
+<li><strong><code>est_disponible()</code></strong> : la logique métier est portée par l'objet lui-même — pas par une fonction externe</li>
+<li><strong><code>ajouter_au_panier(produit: Produit)</code></strong> : les <strong>types hints</strong> rendent les signatures lisibles et autodocumentées</li>
+<li><strong>composition naturelle</strong> : <code>Commande</code> contient un <code>Client</code>, qui contient une liste de <code>Produit</code> — le code reflète la réalité</li>
+</ul>
+<hr />
+<h1 id="2-classe-vs-objet">2️⃣ Classe vs Objet<a class="headerlink" href="#2-classe-vs-objet" title="Permanent link">&para;</a></h1>
+<h2 id="definition">Définition<a class="headerlink" href="#definition" title="Permanent link">&para;</a></h2>
+<p>La distinction classe/objet est la pierre angulaire de la POO. Une confusion fréquente chez les débutants.</p>
+<ul>
+<li><strong>Classe</strong> → le <strong>plan</strong> de construction, le moule, le type — il n'existe qu'en mémoire de programme, pas comme donnée concrète</li>
+<li><strong>Objet (instance)</strong> → l'<strong>élément concret</strong> fabriqué à partir du plan — c'est lui qui occupe de la mémoire avec de vraies valeurs</li>
+<li><strong>instanciation</strong> → l'acte de créer un objet à partir d'une classe (<code>p1 = Personne(...)</code>)</li>
+<li><strong>attribut</strong> → une variable appartenant à un objet (<code>self.nom</code>, <code>self.age</code>)</li>
+<li><strong>méthode</strong> → une fonction appartenant à une classe, qui agit sur ses attributs</li>
+</ul>
+<blockquote>
+<p>🏠 Analogie : <code>Personne</code> est le plan d'architecte. <code>p1 = Personne("Bechir", 40)</code> est la maison construite à partir de ce plan. On peut construire 1000 maisons différentes avec le même plan.</p>
+</blockquote>
+<hr />
+<h2 id="exemple-de-base">Exemple de base<a class="headerlink" href="#exemple-de-base" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">class Personne:
+    #        ↑ mot-clé &quot;class&quot; + nom en PascalCase (convention Python)
+
+    def __init__(self, nom: str, age: int):
+        #  ↑ constructeur — Python l'appelle automatiquement lors de Personne(...)
+        #  ↑ &quot;self&quot; = l'objet en cours de création
+        self.nom = nom    # crée l'attribut &quot;nom&quot; sur l'objet
+        self.age = age    # crée l'attribut &quot;age&quot; sur l'objet
+
+    def afficher(self):
+        # méthode d'instance : reçoit toujours &quot;self&quot; en premier paramètre
+        print(f&quot;Nom: {self.nom}, Age: {self.age}&quot;)
+</code></pre>
+<pre><code class="language-python">p1 = Personne(&quot;Bechir&quot;, 47)   # instanciation → __init__ est appelé
+p2 = Personne(&quot;Sarra&quot;, 35)    # deuxième objet indépendant
+
+p1.afficher()   # Nom: Bechir, Age: 47
+p2.afficher()   # Nom: Sarra, Age: 35
+
+# Chaque objet a SES propres données
+print(p1.nom)   # Bechir
+print(p2.nom)   # Sarra
+</code></pre>
+<ul>
+<li><strong><code>p1</code> et <code>p2</code></strong> sont deux objets distincts — modifier <code>p1.nom</code> ne touche pas <code>p2.nom</code></li>
+<li><strong><code>self</code></strong> est automatiquement fourni par Python — on ne le passe jamais manuellement lors de l'appel</li>
+<li><strong><code>PascalCase</code></strong> pour les noms de classes (<code>Personne</code>, <code>CompteBancaire</code>) — c'est la convention universelle en Python</li>
+</ul>
+<hr />
+<h2 id="comprendre-la-notion-de-membres-de-classes">🔍 Comprendre la notion de membres de classes<a class="headerlink" href="#comprendre-la-notion-de-membres-de-classes" title="Permanent link">&para;</a></h2>
+<p>Comment savoir combien d'objets ont été créés issus d'une classe?  :</p>
+<p>Il fau définir un membre avec <strong>cls</strong> et non <strong>self</strong> comme il est le cas du <strong>_compteur</strong></p>
+<pre><code class="language-python">class Ticket:
+    # attribut DE CLASSE : partagé par tous les objets
+    _compteur = 0
+
+    def __init__(self, description: str):
+        Ticket._compteur += 1           # incrémenté à chaque création
+        self.numero = Ticket._compteur  # chaque ticket a un numéro unique
+        self.description = description
+        self.resolu = False
+
+    def resoudre(self):
+        self.resolu = True
+
+    def __str__(self):
+        statut = &quot;✅ résolu&quot; if self.resolu else &quot;⏳ en attente&quot;
+        return f&quot;Ticket #{self.numero} | {self.description} | {statut}&quot;
+
+    @classmethod
+    def total_tickets(cls):
+        return cls._compteur
+
+# Création de plusieurs instances
+t1 = Ticket(&quot;Écran noir au démarrage&quot;)
+t2 = Ticket(&quot;Imprimante ne répond pas&quot;)
+t3 = Ticket(&quot;Mot de passe oublié&quot;)
+
+t2.resoudre()
+
+for t in [t1, t2, t3]:
+    print(t)
+
+print(f&quot;\n📊 Total tickets créés : {Ticket.total_tickets()}&quot;)
+</code></pre>
+<pre><code>Ticket #1 | Écran noir au démarrage | ⏳ en attente
+Ticket #2 | Imprimante ne répond pas | ✅ résolu
+Ticket #3 | Mot de passe oublié | ⏳ en attente
+
+📊 Total tickets créés : 3
+</code></pre>
+<ul>
+<li><strong><code>_compteur = 0</code></strong> : attribut de classe — une seule copie, partagée entre toutes les instances</li>
+<li><strong><code>self.numero = Ticket._compteur</code></strong> : chaque objet "capture" la valeur au moment de sa création → numéro unique garanti</li>
+<li><strong><code>__str__</code></strong> : méthode spéciale qui définit ce qu'affiche <code>print(objet)</code> — beaucoup plus propre qu'une méthode <code>afficher()</code> manuelle</li>
+<li><strong><code>@classmethod</code></strong> : méthode qui reçoit la <strong>classe</strong> (<code>cls</code>) au lieu de l'instance — parfaite pour accéder aux attributs de classe</li>
+</ul>
+<hr />
+<h2 id="modelisation-des-objets">🔍  Modelisation des objets<a class="headerlink" href="#modelisation-des-objets" title="Permanent link">&para;</a></h2>
+<p>Un objet peut recevoir un autre objet en paramètre. C'est la base de toute architecture POO réelle :</p>
+<pre><code class="language-python">class Etudiant:
+    def __init__(self, nom: str):
+        self.nom = nom
+        self.notes = []
+
+    def ajouter_note(self, note: float):
+        if 0 &lt;= note &lt;= 20:
+            self.notes.append(note)
+
+    def moyenne(self) -&gt; float:
+        if not self.notes:
+            return 0.0
+        return sum(self.notes) / len(self.notes)
+
+    def __str__(self):
+        return f&quot;{self.nom} | moyenne : {self.moyenne():.2f}/20&quot;
+
+
+class Classe:
+    def __init__(self, nom: str):
+        self.nom = nom
+        self.etudiants = []
+
+    def inscrire(self, etudiant: Etudiant):
+        self.etudiants.append(etudiant)
+
+    def major(self) -&gt; Etudiant:
+        # retourne l'étudiant avec la meilleure moyenne
+        return max(self.etudiants, key=lambda e: e.moyenne())
+
+    def afficher_classement(self):
+        print(f&quot;\n📋 Classement — {self.nom}&quot;)
+        classement = sorted(self.etudiants, key=lambda e: e.moyenne(), reverse=True)
+        for rang, e in enumerate(classement, start=1):
+            print(f&quot;  {rang}. {e}&quot;)
+
+
+# Création des étudiants
+ali   = Etudiant(&quot;Ali&quot;)
+lina  = Etudiant(&quot;Lina&quot;)
+omar  = Etudiant(&quot;Omar&quot;)
+
+for note in [14, 17, 12]: ali.ajouter_note(note)
+for note in [18, 19, 16]: lina.ajouter_note(note)
+for note in [10, 13, 11]: omar.ajouter_note(note)
+
+# Création de la classe et inscription
+classe_info = Classe(&quot;Informatique L2&quot;)
+for e in [ali, lina, omar]:
+    classe_info.inscrire(e)
+
+classe_info.afficher_classement()
+print(f&quot;\n🏆 Major de promotion : {classe_info.major().nom}&quot;)
+</code></pre>
+<pre><code>📋 Classement — Informatique L2
+  1. Lina | moyenne : 17.67/20
+  2. Ali | moyenne : 14.33/20
+  3. Omar | moyenne : 11.33/20
+
+🏆 Major de promotion : Lina
+</code></pre>
+<ul>
+<li><strong><code>Classe</code> contient des <code>Etudiant</code></strong> : c'est la <strong>composition</strong> — une relation "a-un" ou "contient"</li>
+<li><strong><code>inscrire(self, etudiant: Etudiant)</code></strong> : le type hint <code>Etudiant</code> documente clairement ce qu'attend la méthode</li>
+<li><strong><code>lambda e: e.moyenne()</code></strong> : on trie les objets par leur méthode — les objets se comportent comme des données riches</li>
+<li><strong><code>enumerate(classement, start=1)</code></strong> : astuce Python pour obtenir le rang directement dans la boucle</li>
+</ul>
+<hr />
+<blockquote>
+<p>✅ <strong>À retenir pour la partie 1</strong> :</p>
+<ul>
+<li>Une <strong>classe</strong> est un moule, un <strong>objet</strong> est ce qu'on fabrique avec</li>
+<li><code>__init__</code> s'exécute automatiquement à chaque <code>NomClasse(...)</code></li>
+<li><code>self</code> est toujours le premier paramètre d'une méthode — Python le fournit tout seul</li>
+<li>Les objets peuvent <strong>contenir</strong> d'autres objets → c'est la composition</li>
+<li><code>__str__</code> remplace avantageusement les méthodes <code>afficher()</code> manuelles</li>
+</ul>
+</blockquote>
+<h2 id="heritage-multiple-et-utilisation-de-super-en-python">Héritage multiple et utilisation de super() en Python<a class="headerlink" href="#heritage-multiple-et-utilisation-de-super-en-python" title="Permanent link">&para;</a></h2>
+<h2 id="1-heritage-multiple-principe">1. Héritage multiple : principe<a class="headerlink" href="#1-heritage-multiple-principe" title="Permanent link">&para;</a></h2>
+<p>L’héritage multiple permet à une classe d’hériter <strong>de plusieurs classes parentes</strong>.<br />
+La classe enfant récupère les méthodes de toutes les classes dont elle hérite.</p>
+<h3 id="exemple-simple">Exemple simple<a class="headerlink" href="#exemple-simple" title="Permanent link">&para;</a></h3>
+<p>Créer deux comportements :</p>
+<ul>
+<li>
+<p>marcher</p>
+</li>
+<li>
+<p>nager</p>
+</li>
+</ul>
+<pre><code class="language-python">class Marcheur:
+
+    # méthode pour marcher
+    def marcher(self):
+        print(&quot;Je marche&quot;)
+
+
+class Nageur:
+
+    # méthode pour nager
+    def nager(self):
+        print(&quot;Je nage&quot;)
+
+
+# classe héritant des deux
+class Personne(Marcheur, Nageur):
+    pass
+
+
+p = Personne()
+
+p.marcher()
+p.nager()
+</code></pre>
+<p>Résultat :</p>
+<p>Je marche<br />
+Je nage</p>
+<p>La classe Personne possède automatiquement :</p>
+<ul>
+<li>
+<p>marcher() venant de Marcheur</p>
+</li>
+<li>
+<p>nager() venant de Nageur</p>
+</li>
+</ul>
+<p>Syntaxe de l’héritage multiple :</p>
+<p>class ClasseEnfant(Parent1, Parent2)</p>
+<hr />
+<h1 id="2-ordre-de-recherche-des-methodes-mro">2. Ordre de recherche des méthodes (MRO)<a class="headerlink" href="#2-ordre-de-recherche-des-methodes-mro" title="Permanent link">&para;</a></h1>
+<p>Lorsqu’une méthode est appelée, Python cherche la méthode selon un ordre appelé <strong>MRO (Method Resolution Order)</strong>.</p>
+<p>Exemple :</p>
+<pre><code class="language-python">class A:
+
+    def parler(self):
+        print(&quot;A parle&quot;)
+
+
+class B(A):
+
+    def parler(self):
+        print(&quot;B parle&quot;)
+
+
+class C(A):
+
+    def parler(self):
+        print(&quot;C parle&quot;)
+
+
+class D(B, C):
+    pass
+
+
+d = D()
+d.parler()
+</code></pre>
+<p>Résultat :</p>
+<p>B parle</p>
+<p>Python utilise l’ordre :</p>
+<pre><code class="language-python">print(D.__mro__)
+</code></pre>
+<p>Résultat :</p>
+<p>(D, B, C, A, object)</p>
+<p>Ordre de recherche :</p>
+<ol>
+<li>
+<p>D</p>
+</li>
+<li>
+<p>B</p>
+</li>
+<li>
+<p>C</p>
+</li>
+<li>
+<p>A</p>
+</li>
+<li>
+<p>object</p>
+</li>
+</ol>
+<hr />
+<h1 id="3-le-probleme-du-diamant">3. Le problème du diamant<a class="headerlink" href="#3-le-probleme-du-diamant" title="Permanent link">&para;</a></h1>
+<p>Structure classique :</p>
+<pre><code>      A
+     / \
+    B   C
+     \ /
+      D
+</code></pre>
+<p>A est l’ancêtre commun.</p>
+<h2 id="exemple-problematique">Exemple problématique<a class="headerlink" href="#exemple-problematique" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">class A:
+
+    def __init__(self):
+        print(&quot;init A&quot;)
+
+
+class B(A):
+
+    def __init__(self):
+        A.__init__(self)
+        print(&quot;init B&quot;)
+
+
+class C(A):
+
+    def __init__(self):
+        A.__init__(self)
+        print(&quot;init C&quot;)
+
+
+class D(B, C):
+
+    def __init__(self):
+        B.__init__(self)
+        C.__init__(self)
+        print(&quot;init D&quot;)
+
+
+d = D()
+</code></pre>
+<p>Résultat :</p>
+<p>init A<br />
+init B<br />
+init A<br />
+init C<br />
+init D</p>
+<p>Le constructeur de A est exécuté <strong>deux fois</strong>.</p>
+<p>C’est le <strong>problème du diamant</strong>.</p>
+<hr />
+<h1 id="4-solution">4. Solution<a class="headerlink" href="#4-solution" title="Permanent link">&para;</a></h1>
+<p>changer l'ordre de classe d'héritage c prend la place de B dans le premier ordre</p>
+<pre><code class="language-python">class D(C, B):
+
+    def __init__(self):
+        super().__init__()
+        print(&quot;init D&quot;)
+</code></pre>
+<pre><code class="language-python">class A:
+
+    def __init__(self):
+        print(&quot;init A&quot;)
+
+
+class B(A):
+
+    def __init__(self):
+        super().__init__()
+        print(&quot;init B&quot;)
+
+
+class C(A):
+
+    def __init__(self):
+        super().__init__()
+        print(&quot;init C&quot;)
+
+
+class D(C, B):
+
+    def __init__(self):
+        super().__init__()
+        print(&quot;init D&quot;)
+
+
+d = D()
+</code></pre>
+<p>Résultat :</p>
+<p>init A<br />
+init C<br />
+init B<br />
+init D</p>
+<p>Chaque constructeur est exécuté <strong>une seule fois</strong>.</p>
+<p>Ordre utilisé :</p>
+<p>D → B → C → A → object</p>
+<hr />
+<h1 id="utiliser-super-pour-appeler-une-methode-dun-ancetre">Utiliser super() pour appeler une méthode d’un ancêtre<a class="headerlink" href="#utiliser-super-pour-appeler-une-methode-dun-ancetre" title="Permanent link">&para;</a></h1>
+<p>super() permet d’appeler une méthode de la classe parent.</p>
+<pre><code class="language-python">class Animal:
+
+    def parler(self):
+        print(&quot;Son animal&quot;)
+
+
+class Chien(Animal):
+
+    def parler(self):
+        print(&quot;Le chien aboie&quot;)
+
+        # appel de la méthode parent
+        super().parler()
+
+
+c = Chien()
+c.parler()
+</code></pre>
+<p>Résultat :</p>
+<p>Le chien aboie<br />
+Son animal</p>
+<p>La méthode de la classe parent est exécutée après celle de la classe enfant.</p>
+<hr />
+<h1 id="6-autre-exemple">6. Autre exemple<a class="headerlink" href="#6-autre-exemple" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">class Vehicule:
+
+    def demarrer(self):
+        print(&quot;Le véhicule démarre&quot;)
+
+
+class Voiture(Vehicule):
+
+    def demarrer(self):
+        super().demarrer()
+        print(&quot;La voiture roule&quot;)
+
+
+v = Voiture()
+v.demarrer()
+</code></pre>
+<p>Résultat :</p>
+<p>Le véhicule démarre<br />
+La voiture roule</p>
+<hr />
+<h1 id="7-ancienne-syntaxe-de-super">7. Ancienne syntaxe de super()<a class="headerlink" href="#7-ancienne-syntaxe-de-super" title="Permanent link">&para;</a></h1>
+<p>Avant Python 3, on écrivait :</p>
+<pre><code class="language-python">super(NomClasse, self).methode()
+</code></pre>
+<p>Exemple :</p>
+<pre><code class="language-python">class Animal:
+
+    def parler(self):
+        print(&quot;Son animal&quot;)
+
+
+class Chien(Animal):
+
+    def parler(self):
+        super(Chien, self).parler()
+        print(&quot;Aboie&quot;)
+</code></pre>
+<p>Aujourd’hui on utilise simplement :</p>
+<pre><code class="language-python">super().methode()
+</code></pre>
+<hr />
+<h1 id="8-equivalence">8. Équivalence<a class="headerlink" href="#8-equivalence" title="Permanent link">&para;</a></h1>
+<p>Ces deux lignes sont équivalentes :</p>
+<pre><code class="language-python">super().parler()
+</code></pre>
+<p>et</p>
+<pre><code class="language-python">super(Chien, self).parler()
+</code></pre>
+<p>Python déduit automatiquement :</p>
+<ul>
+<li>
+<p>la classe courante</p>
+</li>
+<li>
+<p>l’objet self</p>
+</li>
+</ul>
+<hr />
+<h1 id="9bonne-pratique">9.Bonne pratique<a class="headerlink" href="#9bonne-pratique" title="Permanent link">&para;</a></h1>
+<p>Toujours utiliser :</p>
+<p>super().methode()</p>
+<p>et éviter :</p>
+<p>A.<strong>init</strong>(self)</p>
+<p>ou</p>
+<p>super(NomClasse, self)</p>
+<p>sauf cas avancés.</p>
+<p>Cela garantit :</p>
+<ul>
+<li>
+<p>respect du MRO</p>
+</li>
+<li>
+<p>compatibilité avec l’héritage multiple</p>
+</li>
+<li>
+<p>absence d’appels multiples des constructeurs.</p>
+</li>
+</ul>
+<hr />
+<h1 id="20-questions-dentretien-poo-en-python">🎯 20 Questions d'Entretien — POO en Python<a class="headerlink" href="#20-questions-dentretien-poo-en-python" title="Permanent link">&para;</a></h1>
+<h2 id="1-self-pourquoi-obligatoire-et-que-se-passe-t-il-sans-lui">1) <code>self</code> — pourquoi obligatoire, et que se passe-t-il sans lui ?<a class="headerlink" href="#1-self-pourquoi-obligatoire-et-que-se-passe-t-il-sans-lui" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Expliquez le rôle de <code>self</code>. Que se passe-t-il si on l'oublie ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : Croire que <code>self</code> est un mot-clé réservé Python — ce n'est qu'une <strong>convention</strong>. On pourrait l'appeler <code>this</code> ou <code>moi</code>, ça fonctionnerait.</p>
+<pre><code class="language-python">class Demo:
+    def afficher(self):
+        print(f&quot;Je suis l'objet : {self}&quot;)
+
+    def sans_self():  # ← oubli de self
+        print(&quot;méthode sans self&quot;)
+
+d = Demo()
+d.afficher()       # ✅ fonctionne — Python passe d automatiquement
+
+try:
+    d.sans_self()  # ❌ TypeError: sans_self() takes 0 positional arguments but 1 was given
+except TypeError as e:
+    print(f&quot;Erreur : {e}&quot;)
+
+# Preuve que &quot;self&quot; n'est qu'une convention
+class Bizarre:
+    def afficher(moi):         # &quot;moi&quot; à la place de &quot;self&quot; — valide !
+        print(f&quot;moi = {moi}&quot;)
+
+Bizarre().afficher()           # ✅ fonctionne parfaitement
+</code></pre>
+<ul>
+<li><strong><code>self</code></strong> = référence à l'instance courante — Python la passe automatiquement comme 1er argument</li>
+<li><strong><code>d.afficher()</code></strong> est équivalent à <strong><code>Demo.afficher(d)</code></strong> — c'est exactement la même chose</li>
+<li>L'erreur <em>"takes 0 positional arguments but 1 was given"</em> signifie toujours : <strong><code>self</code> manquant</strong></li>
+</ul>
+<hr />
+<h2 id="2-attribut-de-classe-vs-attribut-dinstance-le-piege-de-la-mutation">2) Attribut de classe vs attribut d'instance — le piège de la mutation<a class="headerlink" href="#2-attribut-de-classe-vs-attribut-dinstance-le-piege-de-la-mutation" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Quelle est la différence ? Montrez un cas où la confusion provoque un bug silencieux.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Modifier un attribut de classe via <code>self</code> au lieu de <code>NomClasse</code> — crée un attribut d'instance qui <strong>masque</strong> l'attribut de classe sans le modifier.</p>
+<pre><code class="language-python">class Equipe:
+    membres = []        # ← attribut de CLASSE (partagé)
+    count = 0           # ← attribut de CLASSE
+
+    def __init__(self, nom: str):
+        self.nom = nom  # ← attribut d'INSTANCE (propre à chaque objet)
+        Equipe.count += 1
+
+    def ajouter(self, membre: str):
+        self.membres.append(membre)  # ⚠️ bug : modifie la liste PARTAGÉE
+
+# Démonstration du bug
+e1 = Equipe(&quot;Dev&quot;)
+e2 = Equipe(&quot;QA&quot;)
+
+e1.ajouter(&quot;Bechir&quot;)
+e2.ajouter(&quot;Sarra&quot;)
+
+print(e1.membres)   # ['Bechir', 'Sarra']  ← bug ! Sarra est dans l'équipe Dev ?!
+print(e2.membres)   # ['Bechir', 'Sarra']  ← même liste partagée
+
+print(Equipe.count)  # 2 ← correct, count bien géré via Equipe.count
+
+# ✅ VERSION CORRECTE : liste propre à chaque instance
+class EquipeCorrecte:
+    count = 0
+
+    def __init__(self, nom: str):
+        self.nom = nom
+        self.membres = []   # ← créée dans __init__ = propre à chaque objet
+        EquipeCorrecte.count += 1
+
+    def ajouter(self, membre: str):
+        self.membres.append(membre)
+
+e1 = EquipeCorrecte(&quot;Dev&quot;)
+e2 = EquipeCorrecte(&quot;QA&quot;)
+e1.ajouter(&quot;Bechir&quot;)
+e2.ajouter(&quot;Sarra&quot;)
+
+print(e1.membres)   # ['Bechir']  ✅
+print(e2.membres)   # ['Sarra']   ✅
+</code></pre>
+<ul>
+<li><strong>Attribut de classe</strong> : défini dans le corps de la classe, <strong>partagé</strong> entre toutes les instances — utile pour des compteurs, des constantes</li>
+<li><strong>Attribut d'instance</strong> : défini via <code>self.x = ...</code> dans <code>__init__</code>, <strong>propre</strong> à chaque objet</li>
+<li>Le piège : une liste ou un dict de classe est <strong>muté</strong> (pas réassigné) → toutes les instances voient la modification</li>
+</ul>
+<hr />
+<h2 id="3-super-pourquoi-pas-parent__init__self">3) <code>super()</code> — pourquoi pas <code>Parent.__init__(self, ...)</code> ?<a class="headerlink" href="#3-super-pourquoi-pas-parent__init__self" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Expliquez <code>super()</code> et pourquoi il est préférable à l'appel direct du parent en héritage multiple.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Appeler <code>A.__init__(self)</code> directement en héritage multiple provoque des initialisations en double ou manquantes.</p>
+<pre><code class="language-python">class A:
+    def __init__(self):
+        print(&quot;Init A&quot;)
+
+class B(A):
+    def __init__(self):
+        super().__init__()   # suit le MRO — chaîne correcte
+        print(&quot;Init B&quot;)
+
+class C(A):
+    def __init__(self):
+        super().__init__()
+        print(&quot;Init C&quot;)
+
+class D(B, C):               # héritage multiple
+    def __init__(self):
+        super().__init__()   # déclenche toute la chaîne MRO
+        print(&quot;Init D&quot;)
+
+print(&quot;=== Avec super() ===&quot;)
+d = D()
+# Init A  ← appelé UNE SEULE fois grâce au MRO
+# Init C
+# Init B
+# Init D
+
+print(&quot;\nMRO de D :&quot;, [cls.__name__ for cls in D.mro()])
+# [D, B, C, A, object]
+
+# ❌ VERSION CASSÉE sans super()
+class B2(A):
+    def __init__(self):
+        A.__init__(self)     # appel direct
+        print(&quot;Init B2&quot;)
+
+class C2(A):
+    def __init__(self):
+        A.__init__(self)     # appel direct
+        print(&quot;Init C2&quot;)
+
+class D2(B2, C2):
+    def __init__(self):
+        B2.__init__(self)    # appelle A.__init__ via B2
+        C2.__init__(self)    # appelle A.__init__ une 2ème fois !
+        print(&quot;Init D2&quot;)
+
+print(&quot;\n=== Sans super() ===&quot;)
+d2 = D2()
+# Init A  ← appelé DEUX fois — bug silencieux
+# Init B2
+# Init A  ← doublon !
+# Init C2
+# Init D2
+</code></pre>
+<ul>
+<li><strong>MRO</strong> <em>(Method Resolution Order)</em> : ordre dans lequel Python cherche les méthodes dans la hiérarchie — calculé par l'algorithme <strong>C3 linearization</strong></li>
+<li><strong><code>super()</code></strong> respecte le MRO et garantit que chaque classe de la hiérarchie est initialisée <strong>exactement une fois</strong></li>
+<li><code>super()</code> sans arguments fonctionne depuis Python 3 — plus besoin de <code>super(NomClasse, self)</code></li>
+</ul>
+<hr />
+<h2 id="4-attribut-prive-est-il-vraiment-inaccessible">4) Attribut privé — est-il vraiment inaccessible ?<a class="headerlink" href="#4-attribut-prive-est-il-vraiment-inaccessible" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : <code>__attribut</code> est-il vraiment privé en Python ? Prouvez-le.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Confondre <strong>name mangling</strong> (protection technique) avec de la vraie <strong>encapsulation</strong> comme en Java.</p>
+<pre><code class="language-python">class Coffre:
+    def __init__(self, code: int):
+        self.visible = &quot;Je suis public&quot;
+        self._discret = &quot;Convention : ne pas toucher&quot;
+        self.__secret = code     # name mangling → _Coffre__secret
+
+    def verifier(self, tentative: int) -&gt; bool:
+        return tentative == self.__secret
+
+c = Coffre(1234)
+
+# Accès public : normal
+print(c.visible)
+
+# Accès &quot;protégé&quot; : fonctionne, juste une convention
+print(c._discret)
+
+# Accès privé direct : erreur
+try:
+    print(c.__secret)
+except AttributeError as e:
+    print(f&quot;Accès direct bloqué : {e}&quot;)
+
+# Accès via name mangling : POSSIBLE (Python ne cache rien vraiment)
+print(f&quot;Contournement : {c._Coffre__secret}&quot;)   # 1234 — accessible !
+
+# Vérification du vrai nom de l'attribut
+print(vars(c))
+# {'visible': ..., '_discret': ..., '_Coffre__secret': 1234}
+</code></pre>
+<ul>
+<li><strong><code>_nom</code></strong> : convention "protégé" — signale aux autres développeurs <em>"ne pas utiliser directement"</em>, mais pas de blocage</li>
+<li><strong><code>__nom</code></strong> : Python le renomme en <code>_NomClasse__nom</code> (<strong>name mangling</strong>) — évite les collisions en héritage, pas une vraie sécurité</li>
+<li><strong><code>vars(obj)</code></strong> : affiche le <code>__dict__</code> de l'objet — révèle tous les vrais noms d'attributs</li>
+<li>En Python, la philosophie est <em>"we're all consenting adults"</em> — la convention prime sur la restriction forcée</li>
+</ul>
+<hr />
+<h2 id="5-classmethod-vs-staticmethod-quand-choisir-lequel">5) <code>@classmethod</code> vs <code>@staticmethod</code> — quand choisir lequel ?<a class="headerlink" href="#5-classmethod-vs-staticmethod-quand-choisir-lequel" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Quelle différence entre les deux ? Donnez un cas d'usage concret pour chacun.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Utiliser <code>@staticmethod</code> là où <code>@classmethod</code> serait nécessaire pour supporter l'héritage.</p>
+<pre><code class="language-python">class Animal:
+    espece = &quot;Animal générique&quot;
+
+    def __init__(self, nom: str, age: int):
+        self.nom = nom
+        self.age = age
+
+    # @classmethod → reçoit la CLASSE (cls) — utile pour les factories et l'héritage
+    @classmethod
+    def depuis_texte(cls, texte: str):
+        # &quot;Rex:5&quot; → Animal(&quot;Rex&quot;, 5)
+        nom, age = texte.split(&quot;:&quot;)
+        return cls(nom, int(age))   # cls = la classe appelante (pas forcément Animal)
+
+    # @staticmethod → ni self ni cls — utilitaire pur, lié thématiquement à la classe
+    @staticmethod
+    def est_age_valide(age: int) -&gt; bool:
+        return 0 &lt; age &lt; 150
+
+    def __str__(self):
+        return f&quot;{self.nom} ({self.age} ans)&quot;
+
+class Chien(Animal):
+    espece = &quot;Canis lupus familiaris&quot;
+
+# Factory method : cls = Animal ici
+a = Animal.depuis_texte(&quot;Simba:3&quot;)
+print(a)              # Simba (3 ans)
+
+# Avantage de @classmethod : héritage respecté — cls = Chien !
+rex = Chien.depuis_texte(&quot;Rex:5&quot;)
+print(type(rex))      # &lt;class '__main__.Chien'&gt; ← pas Animal !
+print(rex)            # Rex (5 ans)
+
+# Méthode statique : même résultat peu importe si appelée sur la classe ou l'instance
+print(Animal.est_age_valide(5))    # True
+print(Animal.est_age_valide(-1))   # False
+print(a.est_age_valide(200))       # False — même résultat depuis l'instance
+</code></pre>
+<ul>
+<li><strong><code>@classmethod</code></strong> : reçoit <code>cls</code> (la classe) — essentiel pour les <strong>factory methods</strong> et quand on veut que les sous-classes fonctionnent correctement</li>
+<li><strong><code>@staticmethod</code></strong> : ne reçoit ni <code>self</code> ni <code>cls</code> — c'est une fonction ordinaire logée dans la classe pour des raisons d'organisation</li>
+<li>Règle simple : si la méthode n'a pas besoin de l'instance ni de la classe → <code>@staticmethod</code> ; si elle doit fonctionner avec les sous-classes → <code>@classmethod</code></li>
+</ul>
+<hr />
+<h2 id="6-__str__-vs-__repr__-la-bonne-pratique">6) <code>__str__</code> vs <code>__repr__</code> — la bonne pratique<a class="headerlink" href="#6-__str__-vs-__repr__-la-bonne-pratique" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Quelle est la différence ? Que retourne Python si seul <code>__repr__</code> est défini ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : Implémenter <code>__str__</code> sans <code>__repr__</code>, et se retrouver avec <code>&lt;__main__.X object&gt;</code> dans les logs et les listes.</p>
+<pre><code class="language-python">class Produit:
+    def __init__(self, nom: str, prix: float, stock: int):
+        self.nom = nom
+        self.prix = prix
+        self.stock = stock
+
+    def __str__(self) -&gt; str:
+        # Pour l'utilisateur final : lisible
+        return f&quot;{self.nom} — {self.prix} TND&quot;
+
+    def __repr__(self) -&gt; str:
+        # Pour le développeur : précis, reproductible
+        return f&quot;Produit(nom={self.nom!r}, prix={self.prix!r}, stock={self.stock!r})&quot;
+
+p = Produit(&quot;Clavier&quot;, 99.9, 10)
+
+print(str(p))          # Clavier — 99.9 TND         ← __str__
+print(repr(p))         # Produit(nom='Clavier', prix=99.9, stock=10)  ← __repr__
+print(p)               # Clavier — 99.9 TND         ← print() appelle __str__
+
+# Dans une liste : c'est __repr__ qui est utilisé !
+catalogue = [Produit(&quot;Clavier&quot;, 99.9, 10), Produit(&quot;Souris&quot;, 45.0, 3)]
+print(catalogue)
+# [Produit(nom='Clavier'...), Produit(nom='Souris'...)]  ← __repr__
+
+# Règle de fallback : si __str__ absent, Python utilise __repr__
+class SansStr:
+    def __repr__(self):
+        return &quot;SansStr()&quot;
+
+s = SansStr()
+print(s)    # SansStr() ← __repr__ utilisé comme fallback pour __str__
+</code></pre>
+<ul>
+<li><strong><code>__str__</code></strong> : appelé par <code>print()</code> et <code>str()</code> — doit être <strong>lisible</strong> pour un humain</li>
+<li><strong><code>__repr__</code></strong> : appelé par <code>repr()</code>, dans les listes, les logs, le shell interactif — doit être <strong>précis et reproductible</strong> (idéalement, <code>eval(repr(obj)) == obj</code>)</li>
+<li><strong><code>!r</code></strong> dans les f-strings : applique <code>repr()</code> à la valeur — met les guillemets autour des chaînes automatiquement</li>
+<li>Bonne pratique : <strong>toujours implémenter <code>__repr__</code></strong> en priorité ; <code>__str__</code> est optionnel</li>
+</ul>
+<hr />
+<h2 id="7-property-pourquoi-cest-plus-pythonique-que-get_set_">7) <code>@property</code> — pourquoi c'est plus pythonique que <code>get_</code>/<code>set_</code><a class="headerlink" href="#7-property-pourquoi-cest-plus-pythonique-que-get_set_" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Transformez un attribut public en propriété validée sans casser le code existant.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Créer un getter/setter style Java (<code>get_age()</code>, <code>set_age()</code>) alors que Python fournit <code>@property</code> pour garder la syntaxe <code>obj.age</code>.</p>
+<pre><code class="language-python">class Employe:
+    def __init__(self, nom: str, salaire: float):
+        self.nom = nom
+        self._salaire = salaire    # stockage interne avec underscore
+
+    @property
+    def salaire(self):
+        &quot;&quot;&quot;Lecture du salaire.&quot;&quot;&quot;
+        return self._salaire
+
+    @salaire.setter
+    def salaire(self, valeur: float):
+        &quot;&quot;&quot;Modification avec validation.&quot;&quot;&quot;
+        if valeur &lt; 0:
+            raise ValueError(&quot;Le salaire ne peut pas être négatif&quot;)
+        if valeur &gt; 100_000:
+            raise ValueError(&quot;Salaire plafonné à 100 000 TND&quot;)
+        self._salaire = valeur
+
+    @salaire.deleter
+    def salaire(self):
+        &quot;&quot;&quot;Suppression contrôlée.&quot;&quot;&quot;
+        print(&quot;⚠️ Suppression du salaire&quot;)
+        del self._salaire
+
+e = Employe(&quot;Bechir&quot;, 3000)
+
+# Syntaxe d'attribut — mais passe par le getter/setter
+print(e.salaire)      # 3000  — appelle le @property getter
+e.salaire = 3500      # appelle le setter — validation incluse
+print(e.salaire)      # 3500
+
+try:
+    e.salaire = -500  # ❌ déclenche ValueError
+except ValueError as e_err:
+    print(f&quot;Erreur : {e_err}&quot;)
+
+# Astuce : propriété calculée (pas de setter nécessaire)
+class Rectangle:
+    def __init__(self, largeur: float, hauteur: float):
+        self.largeur = largeur
+        self.hauteur = hauteur
+
+    @property
+    def aire(self) -&gt; float:
+        return self.largeur * self.hauteur   # calculée à la volée, pas stockée
+
+r = Rectangle(4, 5)
+print(r.aire)      # 20 — accès comme attribut, mais calculé dynamiquement
+r.largeur = 10
+print(r.aire)      # 50 — toujours à jour automatiquement
+</code></pre>
+<ul>
+<li><strong><code>@property</code></strong> : transforme une méthode en accès attribut — le code appelant reste <code>obj.salaire</code>, pas <code>obj.get_salaire()</code></li>
+<li><strong><code>@salaire.setter</code></strong> : intercepte les assignations <code>obj.salaire = x</code> — parfait pour la validation</li>
+<li><strong>propriété calculée</strong> : <code>aire</code> n'est jamais stockée — recalculée à chaque accès → toujours cohérente avec <code>largeur</code> et <code>hauteur</code></li>
+<li>Avantage clé : on peut commencer avec un attribut public simple, puis ajouter un <code>@property</code> plus tard <strong>sans changer le code appelant</strong></li>
+</ul>
+<hr />
+<h2 id="8-le-piege-des-valeurs-par-defaut-mutables">8) Le piège des valeurs par défaut mutables<a class="headerlink" href="#8-le-piege-des-valeurs-par-defaut-mutables" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Pourquoi <code>def __init__(self, items=[])</code> est un bug classique ? Quelle est la bonne pratique ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : C'est l'un des bugs Python les plus célèbres — la liste est créée <strong>une seule fois</strong> à la définition de la classe, pas à chaque instanciation.</p>
+<pre><code class="language-python"># ❌ VERSION BUGUÉE
+class PanierBug:
+    def __init__(self, items=[]):   # ← la liste [] est créée UNE SEULE FOIS
+        self.items = items
+
+p1 = PanierBug()
+p2 = PanierBug()
+
+p1.items.append(&quot;Clavier&quot;)
+print(&quot;p1:&quot;, p1.items)    # ['Clavier']
+print(&quot;p2:&quot;, p2.items)    # ['Clavier']  ← BUG : p2 est contaminé !
+print(p1.items is p2.items)  # True — même objet en mémoire !
+
+# ✅ VERSION CORRECTE : None comme sentinelle
+class PanierCorrect:
+    def __init__(self, items=None):
+        self.items = items if items is not None else []
+        # ou plus court :
+        # self.items = list(items) if items else []
+
+p3 = PanierCorrect()
+p4 = PanierCorrect()
+
+p3.items.append(&quot;Clavier&quot;)
+print(&quot;p3:&quot;, p3.items)    # ['Clavier']
+print(&quot;p4:&quot;, p4.items)    # []  ✅ indépendant
+
+# Même problème avec les dicts
+class ConfigBug:
+    def __init__(self, options={}):  # ← même piège
+        self.options = options
+
+class ConfigCorrecte:
+    def __init__(self, options=None):
+        self.options = options if options is not None else {}
+</code></pre>
+<ul>
+<li><strong>valeur par défaut</strong> : évaluée <strong>une seule fois</strong> au moment où Python parse la définition de la fonction — pas à chaque appel</li>
+<li><strong><code>None</code> comme sentinelle</strong> : pattern universel en Python pour éviter ce piège avec tout objet mutable (liste, dict, set)</li>
+<li>La règle : <strong>jamais de liste, dict ou set comme valeur par défaut</strong> — toujours <code>None</code> + création dans le corps</li>
+<li>Ce bug affecte aussi bien les méthodes ordinaires que <code>__init__</code></li>
+</ul>
+<hr />
+<h2 id="9-isinstance-vs-type-lequel-choisir-et-pourquoi">9) <code>isinstance()</code> vs <code>type()</code> — lequel choisir et pourquoi ?<a class="headerlink" href="#9-isinstance-vs-type-lequel-choisir-et-pourquoi" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Dans quel cas <code>type(obj) == Classe</code> est-il une mauvaise pratique ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : Utiliser <code>type()</code> dans du code polymorphique — ça casse dès qu'on utilise l'héritage.</p>
+<pre><code class="language-python">class Animal:
+    def parler(self):
+        return &quot;...&quot;
+
+class Chien(Animal):
+    def parler(self):
+        return &quot;Wouf&quot;
+
+class ChienPolicier(Chien):
+    def parler(self):
+        return &quot;WOUF WOUF&quot;
+
+rex = ChienPolicier()
+
+# type() : teste le type EXACT — trop strict
+print(type(rex) == Chien)         # False ← problème : ChienPolicier EST un Chien
+print(type(rex) == ChienPolicier) # True
+
+# isinstance() : teste la hiérarchie complète — correct en POO
+print(isinstance(rex, Chien))          # True  ✅
+print(isinstance(rex, Animal))         # True  ✅
+print(isinstance(rex, ChienPolicier))  # True  ✅
+
+# Cas réel : fonction qui accepte tout type d'animal
+def faire_parler(animal):
+    # ❌ MAUVAISE approche : casse avec les sous-classes
+    if type(animal) == Animal:
+        print(animal.parler())
+
+    # ✅ BONNE approche : respecte le polymorphisme
+    if isinstance(animal, Animal):
+        print(animal.parler())
+
+faire_parler(rex)   # WOUF WOUF ✅
+
+# isinstance() accepte aussi un tuple de types
+valeur = 42
+print(isinstance(valeur, (int, float)))   # True — int OU float
+</code></pre>
+<ul>
+<li><strong><code>type(obj)</code></strong> : retourne le type <strong>exact</strong> — utile seulement quand on veut distinguer strictement <code>Chien</code> de <code>ChienPolicier</code></li>
+<li><strong><code>isinstance(obj, Classe)</code></strong> : vérifie si l'objet est une instance de <code>Classe</code> <strong>ou de n'importe quelle sous-classe</strong> — respecte l'héritage</li>
+<li>En POO, on code "contre l'interface" (la classe parent), pas contre l'implémentation → <code>isinstance</code> est presque toujours le bon choix</li>
+<li><strong><code>isinstance(val, (int, float))</code></strong> : raccourci élégant pour tester plusieurs types à la fois</li>
+</ul>
+<hr />
+<h2 id="10-mro-et-heritage-multiple-comment-python-resout-les-conflits">10) MRO et héritage multiple — comment Python résout les conflits<a class="headerlink" href="#10-mro-et-heritage-multiple-comment-python-resout-les-conflits" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Avec l'héritage multiple, comment Python décide-t-il quelle méthode appeler ? Expliquez le MRO.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Supposer que l'ordre de résolution est aléatoire ou imprévisible — il est en réalité <strong>déterministe</strong> via l'algorithme C3.</p>
+<pre><code class="language-python">class Vehicule:
+    def demarrer(self):
+        print(&quot;Vehicule démarre&quot;)
+
+class Terrestre(Vehicule):
+    def demarrer(self):
+        print(&quot;Terrestre démarre (roues)&quot;)
+
+class Aquatique(Vehicule):
+    def demarrer(self):
+        print(&quot;Aquatique démarre (hélice)&quot;)
+
+class Amphibie(Terrestre, Aquatique):
+    pass   # pas de demarrer() → Python cherche dans le MRO
+
+a = Amphibie()
+a.demarrer()    # Terrestre démarre (roues) ← premier dans le MRO
+
+# Visualiser le MRO complet
+print(&quot;\nMRO d'Amphibie :&quot;)
+for i, cls in enumerate(Amphibie.mro()):
+    print(f&quot;  {i+1}. {cls.__name__}&quot;)
+# 1. Amphibie
+# 2. Terrestre   ← trouvé ici, s'arrête
+# 3. Aquatique
+# 4. Vehicule
+# 5. object
+
+# Forcer l'appel d'une classe spécifique
+class AmphibieForce(Terrestre, Aquatique):
+    def demarrer(self):
+        Aquatique.demarrer(self)   # force l'appel aquatique
+        print(&quot;Mode amphibie activé&quot;)
+
+AmphibieForce().demarrer()
+
+# Cas d'erreur : MRO impossible → Python refuse
+class X: pass
+class Y(X): pass
+
+try:
+    # Python refuse une hiérarchie incohérente
+    exec(&quot;class Z(X, Y): pass&quot;)   # ← Y déjà après X dans la chaîne
+except TypeError as e:
+    print(f&quot;\nMRO impossible : {e}&quot;)
+</code></pre>
+<ul>
+<li><strong>MRO</strong> <em>(Method Resolution Order)</em> : ordre linéaire dans lequel Python parcourt les classes pour trouver une méthode</li>
+<li><strong>Algorithme C3</strong> : garantit que les parents apparaissent <strong>après</strong> leurs enfants et que l'ordre de déclaration est respecté</li>
+<li><code>Amphibie.mro()</code> ou <code>Amphibie.__mro__</code> : affiche la liste complète — toujours se terminer par <code>object</code></li>
+<li>Python lève <code>TypeError</code> si le MRO est incohérent (hiérarchie contradictoire) — fail rapide, pas de comportement imprévisible</li>
+</ul>
+<hr />
+<h2 id="11-__slots__-optimisation-memoire-et-restriction-dattributs">11) <code>__slots__</code> — optimisation mémoire et restriction d'attributs<a class="headerlink" href="#11-__slots__-optimisation-memoire-et-restriction-dattributs" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : À quoi sert <code>__slots__</code> ? Quand l'utiliser, et quels sont ses inconvénients ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : Utiliser <code>__slots__</code> et s'étonner que <code>__dict__</code> n'existe plus, ce qui casse certaines bibliothèques (serialisation, etc.).</p>
+<pre><code class="language-python">import sys
+
+# Sans __slots__ : chaque instance a un __dict__ (dictionnaire)
+class PointNormal:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+# Avec __slots__ : stockage optimisé, pas de __dict__
+class PointSlots:
+    __slots__ = (&quot;x&quot;, &quot;y&quot;)   # liste exhaustive des attributs autorisés
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p_normal = PointNormal(1, 2)
+p_slots  = PointSlots(1, 2)
+
+# Comparaison mémoire
+print(f&quot;Normal : {sys.getsizeof(p_normal)} octets + dict {sys.getsizeof(p_normal.__dict__)}&quot;)
+print(f&quot;Slots  : {sys.getsizeof(p_slots)} octets (pas de __dict__)&quot;)
+
+# __slots__ bloque la création d'attributs non déclarés
+try:
+    p_slots.z = 3    # ❌ AttributeError
+except AttributeError as e:
+    print(f&quot;Attribut refusé : {e}&quot;)
+
+# __dict__ n'existe plus
+print(hasattr(p_normal, &quot;__dict__&quot;))   # True
+print(hasattr(p_slots,  &quot;__dict__&quot;))   # False ← attention aux outils qui s'appuient dessus
+
+# Impact réel : 1 million d'objets
+points_normaux = [PointNormal(i, i) for i in range(1_000_000)]
+points_slots   = [PointSlots(i, i)  for i in range(1_000_000)]
+
+import tracemalloc
+tracemalloc.start()
+big_normal = [PointNormal(i, i) for i in range(100_000)]
+_, peak_n = tracemalloc.get_traced_memory(); tracemalloc.stop()
+
+tracemalloc.start()
+big_slots = [PointSlots(i, i) for i in range(100_000)]
+_, peak_s = tracemalloc.get_traced_memory(); tracemalloc.stop()
+
+print(f&quot;\n100 000 objets normaux : {peak_n / 1024:.0f} Ko&quot;)
+print(f&quot;100 000 objets slots   : {peak_s / 1024:.0f} Ko&quot;)
+</code></pre>
+<ul>
+<li><strong><code>__slots__</code></strong> remplace le <code>__dict__</code> par un stockage fixe en C → gain mémoire significatif (souvent 40-50%) pour de grandes collections d'objets</li>
+<li><strong>inconvénient</strong> : pas de <code>__dict__</code> → certains outils (<code>pickle</code> par défaut, <code>copy</code>, ORMs) peuvent se comporter différemment</li>
+<li><strong>à utiliser quand</strong> : on crée des <strong>millions</strong> d'instances (points géographiques, pixels, lignes de log)</li>
+<li><strong>à éviter quand</strong> : on a besoin de flexibilité (ajout dynamique d'attributs) ou d'interopérabilité avec des bibliothèques</li>
+</ul>
+<hr />
+<h2 id="12-classes-abstraites-abc-et-abstractmethod">12) Classes abstraites — <code>ABC</code> et <code>@abstractmethod</code><a class="headerlink" href="#12-classes-abstraites-abc-et-abstractmethod" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Comment forcer les sous-classes à implémenter certaines méthodes ? Montrez un exemple métier.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Croire qu'une méthode avec <code>pass</code> dans le parent suffit à forcer l'implémentation — Python n'émet aucune erreur jusqu'à l'appel.</p>
+<pre><code class="language-python">from abc import ABC, abstractmethod
+
+# Contrat : toute méthode de paiement DOIT implémenter payer() et rembourser()
+class MethodePaiement(ABC):
+
+    @abstractmethod
+    def payer(self, montant: float) -&gt; bool:
+        &quot;&quot;&quot;Effectue le paiement. Retourne True si succès.&quot;&quot;&quot;
+        ...
+
+    @abstractmethod
+    def rembourser(self, montant: float) -&gt; bool:
+        &quot;&quot;&quot;Effectue le remboursement.&quot;&quot;&quot;
+        ...
+
+    # Méthode concrète : partagée par toutes les sous-classes
+    def recu(self, montant: float):
+        print(f&quot;✅ Reçu de paiement : {montant} TND via {self.__class__.__name__}&quot;)
+
+# Tentative d'instanciation directe → erreur immédiate
+try:
+    m = MethodePaiement()
+except TypeError as e:
+    print(f&quot;Instanciation interdite : {e}&quot;)
+
+# Sous-classe incomplète → erreur à l'instanciation
+class CarteInComplete(MethodePaiement):
+    def payer(self, montant):
+        return True
+    # rembourser() manquante !
+
+try:
+    c = CarteInComplete()
+except TypeError as e:
+    print(f&quot;Méthode manquante : {e}&quot;)
+
+# Implémentations complètes et correctes
+class CarteBancaire(MethodePaiement):
+    def __init__(self, numero: str):
+        self.numero = numero
+
+    def payer(self, montant: float) -&gt; bool:
+        print(f&quot;💳 Paiement carte {self.numero[-4:]} : {montant} TND&quot;)
+        return True
+
+    def rembourser(self, montant: float) -&gt; bool:
+        print(f&quot;↩️  Remboursement carte : {montant} TND&quot;)
+        return True
+
+class Virement(MethodePaiement):
+    def payer(self, montant: float) -&gt; bool:
+        print(f&quot;🏦 Virement de {montant} TND&quot;)
+        return True
+
+    def rembourser(self, montant: float) -&gt; bool:
+        print(f&quot;↩️  Contre-virement de {montant} TND&quot;)
+        return True
+
+# Code générique : fonctionne avec n'importe quelle méthode de paiement
+def traiter_commande(paiement: MethodePaiement, montant: float):
+    if paiement.payer(montant):
+        paiement.recu(montant)
+
+traiter_commande(CarteBancaire(&quot;1234567890123456&quot;), 199.9)
+traiter_commande(Virement(), 500.0)
+</code></pre>
+<ul>
+<li><strong><code>ABC</code></strong> <em>(Abstract Base Class)</em> : classe mère qui définit un <strong>contrat</strong> — ne peut pas être instanciée directement</li>
+<li><strong><code>@abstractmethod</code></strong> : méthode que toute sous-classe <strong>doit</strong> implémenter — Python lève <code>TypeError</code> à l'instanciation si elle manque</li>
+<li><strong>méthodes concrètes dans l'ABC</strong> : autorisées — permettent de partager du comportement commun tout en forçant certaines implémentations</li>
+<li>Différence avec une interface Java : en Python, une ABC peut avoir des méthodes concrètes et des attributs → c'est un hybride classe abstraite / interface</li>
+</ul>
+<hr />
+<h2 id="13-dataclass-eviter-le-boilerplate-repetitif">13) <code>dataclass</code> — éviter le boilerplate répétitif<a class="headerlink" href="#13-dataclass-eviter-le-boilerplate-repetitif" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Réécrivez une classe avec <code>@dataclass</code>. Quelles méthodes sont générées automatiquement ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : Oublier que <code>@dataclass</code> ne gère pas la validation — <code>__post_init__</code> est là pour ça.</p>
+<pre><code class="language-python">from dataclasses import dataclass, field
+from typing import List
+
+# ❌ VERSION VERBOSE (sans dataclass)
+class ProduitManuel:
+    def __init__(self, nom: str, prix: float, tags: list):
+        self.nom = nom
+        self.prix = prix
+        self.tags = tags
+
+    def __repr__(self):
+        return f&quot;ProduitManuel(nom={self.nom!r}, prix={self.prix!r}, tags={self.tags!r})&quot;
+
+    def __eq__(self, other):
+        return self.nom == other.nom and self.prix == other.prix
+
+# ✅ VERSION DATACLASS : 3x moins de code
+@dataclass
+class Produit:
+    nom: str
+    prix: float
+    tags: List[str] = field(default_factory=list)  # liste vide par défaut (évite le piège mutable)
+    en_stock: bool = True
+
+    # Validation dans __post_init__ : appelé après __init__ généré
+    def __post_init__(self):
+        if self.prix &lt; 0:
+            raise ValueError(f&quot;Prix invalide : {self.prix}&quot;)
+        self.nom = self.nom.strip().capitalize()    # normalisation automatique
+
+# Méthodes générées automatiquement : __init__, __repr__, __eq__
+p1 = Produit(&quot;clavier&quot;, 99.9, [&quot;informatique&quot;, &quot;bureau&quot;])
+p2 = Produit(&quot;clavier&quot;, 99.9)
+p3 = Produit(&quot;souris&quot;, 45.0)
+
+print(p1)                    # Produit(nom='Clavier', prix=99.9, tags=[...], en_stock=True)
+print(p1 == p2)              # True  ← __eq__ généré compare tous les champs
+print(p1 == p3)              # False
+
+# dataclass frozen : objet immutable (hashable → utilisable comme clé de dict)
+@dataclass(frozen=True)
+class Point:
+    x: float
+    y: float
+
+pt = Point(1.0, 2.0)
+print(hash(pt))              # hashable ✅
+
+try:
+    pt.x = 5.0               # ❌ FrozenInstanceError
+except Exception as e:
+    print(f&quot;Immutable : {e}&quot;)
+</code></pre>
+<ul>
+<li><strong><code>@dataclass</code></strong> génère automatiquement : <code>__init__</code>, <code>__repr__</code>, <code>__eq__</code> — et optionnellement <code>__lt__</code>, <code>__hash__</code>, <code>__frozen__</code></li>
+<li><strong><code>field(default_factory=list)</code></strong> : solution propre pour les valeurs par défaut mutables — équivalent du pattern <code>None</code> + création manuelle</li>
+<li><strong><code>__post_init__</code></strong> : appelé juste après le <code>__init__</code> généré — idéal pour validation et normalisation</li>
+<li><strong><code>frozen=True</code></strong> : rend l'objet <strong>immutable</strong> et <strong>hashable</strong> → peut être utilisé comme clé de dictionnaire ou dans un <code>set</code></li>
+</ul>
+<hr />
+<h2 id="14-__call__-rendre-un-objet-appelable-comme-une-fonction">14) <code>__call__</code> — rendre un objet appelable comme une fonction<a class="headerlink" href="#14-__call__-rendre-un-objet-appelable-comme-une-fonction" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : À quoi sert <code>__call__</code> ? Donnez un exemple concret où c'est préférable à une simple fonction.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Confondre <code>objet()</code> (appelle <code>__call__</code>) et <code>objet.methode()</code> — les deux sont valides mais ont des usages différents.</p>
+<pre><code class="language-python"># Cas d'usage : pipeline de transformation de texte configurable
+class Nettoyeur:
+    def __init__(self, minuscules=True, strip=True, remplacements=None):
+        self.minuscules = minuscules
+        self.strip = strip
+        self.remplacements = remplacements or {}
+
+    def __call__(self, texte: str) -&gt; str:
+        if self.strip:
+            texte = texte.strip()
+        if self.minuscules:
+            texte = texte.lower()
+        for ancien, nouveau in self.remplacements.items():
+            texte = texte.replace(ancien, nouveau)
+        return texte
+
+# L'objet &quot;se souvient&quot; de sa configuration entre les appels
+nettoyeur = Nettoyeur(remplacements={&quot;é&quot;: &quot;e&quot;, &quot;à&quot;: &quot;a&quot;})
+
+textes = [&quot;  Bonjour  &quot;, &quot;PYTHON EST GÉNIAL  &quot;, &quot;À bientôt&quot;]
+for t in textes:
+    print(repr(nettoyeur(t)))   # appelé comme une fonction !
+# 'bonjour'
+# 'python est genial'
+# 'a bientot'
+
+# Vérification : est-il appelable ?
+print(callable(nettoyeur))    # True
+print(callable(print))        # True
+print(callable(42))           # False
+
+# Autre exemple : accumulateur avec état
+class Compteur:
+    def __init__(self, debut=0):
+        self._valeur = debut
+
+    def __call__(self, increment=1):
+        self._valeur += increment
+        return self._valeur
+
+c = Compteur(10)
+print(c())     # 11
+print(c())     # 12
+print(c(5))    # 17
+</code></pre>
+<ul>
+<li><strong><code>__call__</code></strong> : permet d'utiliser un objet <strong>comme une fonction</strong> — <code>nettoyeur(texte)</code> au lieu de <code>nettoyeur.transformer(texte)</code></li>
+<li>Avantage sur une simple fonction : l'objet <strong>garde un état</strong> entre les appels (configuration, compteur, cache…)</li>
+<li><strong><code>callable(obj)</code></strong> : retourne <code>True</code> si l'objet possède <code>__call__</code> — bon moyen de vérifier avant d'appeler</li>
+<li>Très utilisé dans les frameworks ML (les modèles Keras/PyTorch sont appelables : <code>modele(inputs)</code>)</li>
+</ul>
+<hr />
+<h2 id="15-__new__-vs-__init__-controle-de-la-creation-dobjet">15) <code>__new__</code> vs <code>__init__</code> — contrôle de la création d'objet<a class="headerlink" href="#15-__new__-vs-__init__-controle-de-la-creation-dobjet" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Quelle est la différence entre <code>__new__</code> et <code>__init__</code> ? Implémentez un Singleton avec <code>__new__</code>.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Implémenter un Singleton dans <code>__init__</code> — c'est trop tard, l'objet est déjà créé.</p>
+<pre><code class="language-python"># __new__ : crée l'objet (appelé en 1er, retourne l'instance)
+# __init__ : initialise l'objet déjà créé (appelé en 2nd, ne retourne rien)
+
+class Trace:
+    def __new__(cls, *args, **kwargs):
+        print(f&quot;1. __new__ : création de l'objet en mémoire&quot;)
+        instance = super().__new__(cls)   # allocation réelle
+        return instance                   # DOIT retourner l'instance
+
+    def __init__(self, nom: str):
+        print(f&quot;2. __init__ : initialisation de {nom}&quot;)
+        self.nom = nom
+
+t = Trace(&quot;test&quot;)
+# 1. __new__ : création de l'objet en mémoire
+# 2. __init__ : initialisation de test
+
+# ✅ SINGLETON avec __new__ : une seule instance possible
+class Singleton:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            print(&quot;Première création — instance unique&quot;)
+            cls._instance = super().__new__(cls)
+        else:
+            print(&quot;Instance existante retournée&quot;)
+        return cls._instance
+
+    def __init__(self):
+        # __init__ est rappelé à chaque &quot;création&quot; — attention !
+        pass
+
+s1 = Singleton()   # Première création
+s2 = Singleton()   # Instance existante
+s3 = Singleton()   # Instance existante
+
+print(s1 is s2)    # True  ← même objet en mémoire
+print(s1 is s3)    # True
+
+# Cas d'usage réel : connexion à une base de données (une seule connexion)
+class ConnexionDB(Singleton):
+    def __init__(self):
+        if not hasattr(self, &quot;_connecte&quot;):   # évite la réinitialisation
+            self._connecte = True
+            print(&quot;✅ Connexion DB établie&quot;)
+
+db1 = ConnexionDB()   # Connexion DB établie
+db2 = ConnexionDB()   # (rien — déjà initialisé)
+print(db1 is db2)     # True
+</code></pre>
+<ul>
+<li><strong><code>__new__</code></strong> : méthode de <strong>classe</strong> (reçoit <code>cls</code>) — alloue et retourne le nouvel objet — appelée <strong>avant</strong> <code>__init__</code></li>
+<li><strong><code>__init__</code></strong> : méthode d'<strong>instance</strong> (reçoit <code>self</code>) — initialise l'objet déjà créé — ne retourne rien (<code>None</code>)</li>
+<li>Si <code>__new__</code> ne retourne pas une instance de <code>cls</code>, <code>__init__</code> n'est <strong>pas</strong> appelé</li>
+<li><strong>Singleton</strong> : pattern qui garantit une unique instance — utile pour connexions DB, configurations globales, caches</li>
+</ul>
+<hr />
+<h2 id="16-shallow-copy-vs-deep-copy-piege-en-poo">16) <code>shallow copy</code> vs <code>deep copy</code> — piège en POO<a class="headerlink" href="#16-shallow-copy-vs-deep-copy-piege-en-poo" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Pourquoi <code>b = list(a)</code> ne protège pas toujours contre les modifications ? Comment corriger ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : Croire que copier une liste crée une copie indépendante de tout son contenu.</p>
+<pre><code class="language-python">import copy
+
+class Adresse:
+    def __init__(self, ville: str):
+        self.ville = ville
+
+    def __repr__(self):
+        return f&quot;Adresse({self.ville!r})&quot;
+
+class Client:
+    def __init__(self, nom: str, adresse: Adresse, historique: list):
+        self.nom = nom
+        self.adresse = adresse
+        self.historique = historique
+
+    def __repr__(self):
+        return f&quot;Client({self.nom!r}, {self.adresse}, historique={self.historique})&quot;
+
+# Objet original
+original = Client(&quot;Bechir&quot;, Adresse(&quot;Tunis&quot;), [&quot;commande_1&quot;, &quot;commande_2&quot;])
+
+# Shallow copy : copie l'objet, mais PAS les objets imbriqués
+shallow = copy.copy(original)
+
+# Deep copy : copie tout récursivement
+deep = copy.deepcopy(original)
+
+# Modification de l'adresse (objet imbriqué)
+original.adresse.ville = &quot;Sfax&quot;
+original.historique.append(&quot;commande_3&quot;)
+
+print(&quot;Original :&quot;, original)
+print(&quot;Shallow  :&quot;, shallow)   # adresse=Sfax et historique avec commande_3 — partagé !
+print(&quot;Deep     :&quot;, deep)      # adresse=Tunis et historique sans commande_3 — indépendant ✅
+
+print(&quot;\nComparaison des identités :&quot;)
+print(f&quot;shallow.adresse is original.adresse : {shallow.adresse is original.adresse}&quot;)  # True  ← même objet
+print(f&quot;deep.adresse    is original.adresse : {deep.adresse    is original.adresse}&quot;)  # False ← copie indépendante
+</code></pre>
+<ul>
+<li><strong>shallow copy</strong> (<code>copy.copy()</code>, <code>list(x)</code>, <code>x[:]</code>) : crée un <strong>nouvel objet</strong> mais ses attributs pointent vers les <strong>mêmes objets</strong> que l'original</li>
+<li><strong>deep copy</strong> (<code>copy.deepcopy()</code>) : crée un <strong>arbre entier de copies</strong> — chaque objet imbriqué est dupliqué indépendamment</li>
+<li>Règle pratique : si l'objet ne contient que des types immuables (int, str, tuple), shallow suffit ; dès qu'il y a des listes, dicts ou autres objets → deep copy</li>
+</ul>
+<hr />
+<h2 id="17-methode-liee-vs-non-liee-comprendre-le-descripteur">17) Méthode liée vs non liée — comprendre le descripteur<a class="headerlink" href="#17-methode-liee-vs-non-liee-comprendre-le-descripteur" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Quelle différence entre <code>instance.methode</code> et <code>Classe.methode</code> ? Démontrez-le.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Stocker une méthode dans une variable et ne pas comprendre pourquoi elle "se souvient" de l'instance.</p>
+<pre><code class="language-python">class Calculatrice:
+    def __init__(self, valeur: float):
+        self.valeur = valeur
+
+    def doubler(self):
+        return self.valeur * 2
+
+    def ajouter(self, x: float):
+        return self.valeur + x
+
+c = Calculatrice(10)
+
+# Méthode LIÉE : l'instance est déjà attachée
+methode_liee = c.doubler
+print(type(methode_liee))      # &lt;class 'method'&gt;
+print(methode_liee.__self__)   # &lt;__main__.Calculatrice object&gt; ← instance attachée
+print(methode_liee())          # 20 — pas besoin de passer l'instance
+
+# Méthode NON LIÉE : simple fonction, l'instance doit être passée manuellement
+methode_non_liee = Calculatrice.doubler
+print(type(methode_non_liee))  # &lt;class 'function'&gt;
+print(methode_non_liee(c))     # 20 — on passe c explicitement
+
+# Application pratique : callbacks et délégation
+class Bouton:
+    def __init__(self, label: str, action):
+        self.label = label
+        self.action = action   # stocke une méthode liée
+
+    def cliquer(self):
+        print(f&quot;[{self.label}] cliqué →&quot;, end=&quot; &quot;)
+        self.action()
+
+calc = Calculatrice(7)
+btn = Bouton(&quot;Doubler&quot;, calc.doubler)   # méthode liée : calc &quot;embarquée&quot;
+btn.cliquer()   # [Doubler] cliqué → 14
+
+# La méthode liée se souvient de calc même après réassignation
+calc.valeur = 100
+btn.cliquer()   # [Doubler] cliqué → 200 ← suit les changements de calc
+</code></pre>
+<ul>
+<li><strong>méthode liée</strong> : accédée via <code>instance.methode</code> — l'instance est "attachée" dans l'objet méthode via <code>__self__</code></li>
+<li><strong>méthode non liée</strong> : accédée via <code>Classe.methode</code> — c'est une fonction ordinaire, <code>self</code> doit être fourni manuellement</li>
+<li><strong>descripteur</strong> : le mécanisme Python qui transforme une fonction en méthode liée à l'accès — c'est <code>__get__</code> dans les coulisses</li>
+<li>Très utile pour les <strong>callbacks</strong> : passer <code>objet.methode</code> comme argument garantit que l'appel agira toujours sur le bon objet</li>
+</ul>
+<hr />
+<h2 id="18-composition-vs-heritage-quand-choisir-quoi">18) Composition vs Héritage — quand choisir quoi ?<a class="headerlink" href="#18-composition-vs-heritage-quand-choisir-quoi" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Expliquez le principe "Favor composition over inheritance". Donnez un exemple où l'héritage échoue.</p>
+<p><strong>⚠️ Piège fréquent</strong> : Utiliser l'héritage pour réutiliser du code alors que la relation <em>"est-un"</em> n'est pas vraie.</p>
+<pre><code class="language-python"># ❌ MAUVAIS DESIGN : héritage pour réutiliser le code de sauvegarde
+class BaseDeDonnees:
+    def sauvegarder(self, data):
+        print(f&quot;Sauvegarde en DB : {data}&quot;)
+
+class Rapport(BaseDeDonnees):    # Un Rapport EST-IL une BaseDeDonnees ? Non !
+    def __init__(self, titre):
+        self.titre = titre
+
+    def generer(self):
+        self.sauvegarder(self.titre)   # réutilise la méthode parent
+
+# Problème : Rapport hérite AUSSI de toutes les méthodes DB non voulues
+
+# ✅ BON DESIGN : composition — Rapport A-UN système de sauvegarde
+class SauvegardeDB:
+    def sauvegarder(self, data):
+        print(f&quot;💾 DB : {data}&quot;)
+
+class SauvegardeFichier:
+    def sauvegarder(self, data):
+        print(f&quot;📄 Fichier : {data}&quot;)
+
+class SauvegardeCloud:
+    def sauvegarder(self, data):
+        print(f&quot;☁️  Cloud : {data}&quot;)
+
+class RapportCompose:
+    def __init__(self, titre: str, sauvegarde):
+        self.titre = titre
+        self._sauvegarde = sauvegarde   # injecté → interchangeable
+
+    def generer(self):
+        contenu = f&quot;Rapport: {self.titre}&quot;
+        print(f&quot;📊 Génération de '{self.titre}'&quot;)
+        self._sauvegarde.sauvegarder(contenu)
+
+# Flexibilité totale : changer le backend sans toucher à RapportCompose
+r1 = RapportCompose(&quot;Ventes Q1&quot;, SauvegardeDB())
+r2 = RapportCompose(&quot;RH 2024&quot;,   SauvegardeFichier())
+r3 = RapportCompose(&quot;Bilan&quot;,     SauvegardeCloud())
+
+for r in [r1, r2, r3]:
+    r.generer()
+    print()
+
+# Règle mnémotechnique :
+# &quot;est-un&quot;  → héritage   (Manager EST UN Employé)
+# &quot;a-un&quot;    → composition (Voiture A UN Moteur)
+# &quot;peut-faire&quot; → mixin ou ABC
+</code></pre>
+<ul>
+<li><strong>héritage</strong> : modélise une relation <em>"est-un"</em> — <code>Chien</code> EST UN <code>Animal</code>, <code>Manager</code> EST UN <code>Employé</code></li>
+<li><strong>composition</strong> : modélise une relation <em>"a-un"</em> — <code>Voiture</code> A UN <code>Moteur</code>, <code>Rapport</code> A UN système de sauvegarde</li>
+<li><strong>avantage clé de la composition</strong> : le comportement est <strong>interchangeable à l'exécution</strong> sans modifier la classe — c'est le principe ouvert/fermé (SOLID)</li>
+<li><strong>"Favor composition over inheritance"</strong> : maxime du GoF (<em>Gang of Four</em>) — l'héritage crée un couplage fort et difficile à modifier</li>
+</ul>
+<hr />
+<h2 id="19-__enter__-__exit__-le-protocole-context-manager">19) <code>__enter__</code> / <code>__exit__</code> — le protocole context manager<a class="headerlink" href="#19-__enter__-__exit__-le-protocole-context-manager" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Comment implémenter <code>with monobjet as x</code> pour vos propres classes ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : Oublier de gérer les exceptions dans <code>__exit__</code> — une ressource peut rester ouverte si l'exception n'est pas capturée.</p>
+<pre><code class="language-python">class ConnexionFichier:
+    def __init__(self, chemin: str, mode: str = &quot;r&quot;):
+        self.chemin = chemin
+        self.mode = mode
+        self._fichier = None
+
+    def __enter__(self):
+        print(f&quot;📂 Ouverture de {self.chemin}&quot;)
+        self._fichier = open(self.chemin, self.mode)
+        return self._fichier    # valeur de &quot;as x&quot; dans le with
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print(f&quot;🔒 Fermeture de {self.chemin}&quot;)
+        if self._fichier:
+            self._fichier.close()
+
+        if exc_type is not None:
+            print(f&quot;⚠️  Exception interceptée : {exc_val}&quot;)
+            return False    # False → propage l'exception ; True → la supprime
+
+# Utilisation avec &quot;with&quot;
+import tempfile, os
+
+with tempfile.NamedTemporaryFile(mode=&quot;w&quot;, suffix=&quot;.txt&quot;, delete=False) as tmp:
+    tmp.write(&quot;ligne 1\nligne 2\nligne 3&quot;)
+    tmp_path = tmp.name
+
+with ConnexionFichier(tmp_path) as f:
+    for ligne in f:
+        print(ligne.strip())
+# 📂 Ouverture...
+# ligne 1 / ligne 2 / ligne 3
+# 🔒 Fermeture...  ← garanti même si exception
+
+os.unlink(tmp_path)
+
+# Version simplifiée avec @contextmanager (alternative sans classe)
+from contextlib import contextmanager
+
+@contextmanager
+def chronometre(label: str):
+    import time
+    debut = time.time()
+    print(f&quot;⏱  Début : {label}&quot;)
+    try:
+        yield                        # point d'entrée du bloc &quot;with&quot;
+    finally:
+        duree = time.time() - debut
+        print(f&quot;⏱  Fin : {label} — {duree:.4f}s&quot;)
+
+with chronometre(&quot;calcul intensif&quot;):
+    total = sum(range(10_000_000))
+</code></pre>
+<ul>
+<li><strong><code>__enter__</code></strong> : appelé au début du <code>with</code> — doit retourner la ressource (la valeur assignée à <code>as x</code>)</li>
+<li><strong><code>__exit__(exc_type, exc_val, exc_tb)</code></strong> : appelé à la sortie du bloc — <strong>toujours</strong>, même si une exception se produit</li>
+<li><strong>retourner <code>False</code></strong> (ou <code>None</code>) dans <code>__exit__</code> : propage l'exception ; <strong>retourner <code>True</code></strong> : la supprime silencieusement</li>
+<li><strong><code>@contextmanager</code></strong> : alternative légère pour les cas simples — <code>yield</code> délimite l'entrée et la sortie du contexte</li>
+</ul>
+<hr />
+<h2 id="20-mixins-reutilisation-horizontale-sans-heritage-profond">20) Mixins — réutilisation horizontale sans héritage profond<a class="headerlink" href="#20-mixins-reutilisation-horizontale-sans-heritage-profond" title="Permanent link">&para;</a></h2>
+<p><strong>❓ Énoncé</strong> : Qu'est-ce qu'un Mixin ? Comment l'utiliser pour ajouter des comportements transversaux ?</p>
+<p><strong>⚠️ Piège fréquent</strong> : Confondre Mixin et classe parent ordinaire — un Mixin ne doit <strong>jamais</strong> être instancié seul et ne doit pas avoir de <code>__init__</code>.</p>
+<pre><code class="language-python"># Mixins : petites classes de comportement, conçues pour être combinées
+
+class JsonMixin:
+    &quot;&quot;&quot;Ajoute la sérialisation JSON à n'importe quelle classe.&quot;&quot;&quot;
+    def to_json(self) -&gt; str:
+        import json
+        return json.dumps(self.__dict__, ensure_ascii=False, indent=2)
+
+    @classmethod
+    def from_json(cls, json_str: str):
+        import json
+        data = json.loads(json_str)
+        obj = cls.__new__(cls)
+        obj.__dict__.update(data)
+        return obj
+
+class LogMixin:
+    &quot;&quot;&quot;Ajoute le logging automatique des appels de méthodes.&quot;&quot;&quot;
+    def log(self, message: str):
+        import datetime
+        horodatage = datetime.datetime.now().strftime(&quot;%H:%M:%S&quot;)
+        print(f&quot;[{horodatage}] {self.__class__.__name__} | {message}&quot;)
+
+class ValidationMixin:
+    &quot;&quot;&quot;Ajoute une validation générique des attributs.&quot;&quot;&quot;
+    def valider(self) -&gt; bool:
+        for attr, valeur in self.__dict__.items():
+            if valeur is None:
+                self.log(f&quot;⚠️  Attribut '{attr}' est None&quot;) if hasattr(self, 'log') else None
+                return False
+        return True
+
+# Combinaison de mixins : ordre important (gauche → droite dans le MRO)
+class Produit(JsonMixin, LogMixin, ValidationMixin):
+    def __init__(self, nom: str, prix: float, stock: int):
+        self.nom = nom
+        self.prix = prix
+        self.stock = stock
+
+    def vendre(self, quantite: int):
+        self.log(f&quot;Vente de {quantite} × {self.nom}&quot;)
+        self.stock -= quantite
+
+class Client(JsonMixin, LogMixin):
+    def __init__(self, nom: str, email: str):
+        self.nom = nom
+        self.email = email
+
+# Utilisation
+p = Produit(&quot;Clavier mécanique&quot;, 149.9, 25)
+p.vendre(3)
+print(p.to_json())
+
+c = Client(&quot;Bechir&quot;, &quot;bechir@mail.com&quot;)
+c.log(&quot;Connexion au compte&quot;)
+json_client = c.to_json()
+print(json_client)
+
+# Reconstituer depuis JSON
+c2 = Client.from_json(json_client)
+print(f&quot;Reconstitué : {c2.nom} — {c2.email}&quot;)
+
+# Vérification MRO
+print(&quot;\nMRO Produit :&quot;, [cls.__name__ for cls in Produit.mro()])
+</code></pre>
+<ul>
+<li><strong>Mixin</strong> : classe légère qui apporte un <strong>comportement transversal</strong> (logging, sérialisation, validation) sans modéliser une entité métier</li>
+<li><strong>règles d'un bon Mixin</strong> : pas de <code>__init__</code>, pas d'état propre, ne s'instancie jamais seul, nom suffixé <code>Mixin</code> par convention</li>
+<li><strong>ordre dans l'héritage multiple</strong> : les Mixins se placent <strong>avant</strong> la classe principale — <code>class Produit(JsonMixin, LogMixin, ClassePrincipale)</code></li>
+<li>Très utilisé dans Django (ex: <code>LoginRequiredMixin</code>), DRF, et tous les grands frameworks Python pour ajouter des comportements sans toucher à l'arbre d'héritage principal</li>
+</ul>
+<hr />
+<blockquote>
+<p>🎓 <strong>Résumé des points les plus souvent testés en entretien :</strong> <code>self</code> (convention, pas mot-clé) · attributs de classe mutables (piège liste partagée) · <code>super()</code> + MRO · name mangling ≠ vraie privacité · <code>@property</code> pythonique · valeurs par défaut mutables · <code>isinstance</code> vs <code>type</code> · <code>__slots__</code> pour la mémoire · ABC pour les contrats · <code>__call__</code> · <code>__new__</code> pour le Singleton · composition &gt; héritage · context managers · Mixins</p>
+</blockquote>
+    </div>
+    <div class="page-nav">
+      <span class="placeholder"></span>
+      <a href="02_les_methodes_magiques.html">Les Méthodes Magiques ▶</a>
+    </div>
+    <footer>
+  La POO — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

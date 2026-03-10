@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Threading & Coroutine — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="">Main Page</a>
+    <a href="#" class="active">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html" class="current"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group collapsed">
+    <div class="sidebar-group-header collapsed" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-chapters">Chapitres</a><span>»</span>Le Threading & Coroutine</div>
+    <div class="page-header-band">
+      <h1>Le Threading & Coroutine</h1>
+    </div>
+    <div class="content-body">
+<h1 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h1 id="threading-coroutines-en-python">🧵 Threading &amp; Coroutines en Python<a class="headerlink" href="#threading-coroutines-en-python" title="Permanent link">&para;</a></h1>
+<p>Le support est une propriété de <strong>Bechir Bejaoui</strong></p>
+<hr />
+<h1 id="1-pourquoi-la-concurrence">1️⃣ Pourquoi la concurrence ?<a class="headerlink" href="#1-pourquoi-la-concurrence" title="Permanent link">&para;</a></h1>
+<p>Imaginez un cuisinier qui prépare un repas. En mode <strong>séquentiel</strong>, il met l'eau à bouillir, <strong>attend</strong> qu'elle bout, puis coupe les légumes, <strong>attend</strong> qu'ils cuisent, puis fait la sauce. Chaque étape attend la précédente — il perd un temps fou à ne rien faire.</p>
+<p>En mode <strong>concurrent</strong>, il lance l'eau, et pendant qu'elle chauffe il coupe les légumes. Il <strong>fait plusieurs choses en même temps</strong> — ou du moins, il ne reste jamais inactif.</p>
+<p>C'est exactement le problème qu'on résout en programmation.</p>
+<pre><code class="language-python">import time
+
+# Simulation : chaque tâche &quot;attend&quot; une réponse (base de données, réseau…)
+def telecharger(fichier):
+    print(f&quot;  Début téléchargement : {fichier}&quot;)
+    time.sleep(2)   # on attend la réponse — le CPU ne fait RIEN pendant ce temps
+    print(f&quot;  ✅ Terminé : {fichier}&quot;)
+
+debut = time.perf_counter()
+
+# Mode séquentiel : on attend la fin de chaque téléchargement
+telecharger(&quot;rapport.pdf&quot;)
+telecharger(&quot;données.csv&quot;)
+telecharger(&quot;images.zip&quot;)
+
+print(f&quot;\n⏱ Temps total : {time.perf_counter() - debut:.1f}s&quot;)
+# ⏱ Temps total : 6.0s  → on a attendu 3 × 2s sans rien faire
+</code></pre>
+<ul>
+<li><strong><code>time.sleep(2)</code></strong> simule une opération lente : lecture en base, appel réseau, écriture fichier — le CPU attend sans travailler</li>
+<li><strong>6 secondes pour 3 fichiers</strong> : chaque fichier attend que le précédent soit fini — inacceptable en production</li>
+<li><strong>la concurrence</strong> va permettre de lancer les 3 téléchargements en même temps → temps total ≈ 2s au lieu de 6s</li>
+</ul>
+<hr />
+<p><strong>Les 3 outils de concurrence en Python :</strong></p>
+<table>
+<thead>
+<tr>
+<th>Outil</th>
+<th>Quand l'utiliser</th>
+<th>Exemple concret</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Threading</strong></td>
+<td>Opérations I/O avec code classique</td>
+<td>Téléchargements, lectures DB</td>
+</tr>
+<tr>
+<td><strong>asyncio</strong></td>
+<td>I/O massif, nombreuses connexions</td>
+<td>Serveur web, 1000 appels API</td>
+</tr>
+<tr>
+<td><strong>multiprocessing</strong></td>
+<td>Calcul intensif CPU</td>
+<td>Machine learning, encodage vidéo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="2-threads-vs-processus">2️⃣ Threads vs Processus<a class="headerlink" href="#2-threads-vs-processus" title="Permanent link">&para;</a></h1>
+<p>Le <strong>thread</strong> et le <strong>processus</strong> forunissent deux façons de faire tourner du code en parallèle. La différence clé : ce qu'ils <strong>partagent</strong>.</p>
+<pre><code>┌─────────────────────────────────────┐
+│         UN PROCESSUS PYTHON         │
+│                                     │
+│   Variables, objets, mémoire...     │
+│                                     │
+│   Thread 1   Thread 2   Thread 3    │
+│   (tâche A)  (tâche B)  (tâche C)   │
+│                                     │
+│   Les threads partagent TOUT        │
+└─────────────────────────────────────┘
+
+┌──────────────┐    ┌──────────────┐
+│  Processus 1 │    │  Processus 2 │
+│  sa mémoire  │    │  sa mémoire  │
+│  son thread  │    │  son thread  │
+│  son GIL     │    │  son GIL     │
+└──────────────┘    └──────────────┘
+  Processus isolés — ne partagent RIEN
+</code></pre>
+<ul>
+<li><strong>Thread</strong> → Un <strong>thread</strong> est simplement <strong>un chemin d’exécution supplémentaire dans le même processus</strong>.</li>
+<li><strong>Processus</strong> → Un <strong>processus</strong> est une <strong>instance d’un programme avec sa propre mémoire</strong></li>
+</ul>
+<h1 id="3-execution-sequentielle-point-de-depart">3️⃣ Exécution séquentielle (point de départ)<a class="headerlink" href="#3-execution-sequentielle-point-de-depart" title="Permanent link">&para;</a></h1>
+<p>Avant d'introduire les threads, mesurons précisément ce que coûte l'approche séquentielle. C'est notre <strong>référence</strong>.</p>
+<pre><code class="language-python">import time
+
+def preparer_commande(numero):
+    print(f&quot;  Commande #{numero} : en cours...&quot;)
+    time.sleep(1)   # simule une opération lente (appel DB, réseau…)
+    print(f&quot;  Commande #{numero} : ✅ prête&quot;)
+
+debut = time.perf_counter()
+
+# 3 commandes traitées l'une après l'autre
+preparer_commande(1)
+preparer_commande(2)
+preparer_commande(3)
+
+print(f&quot;\n⏱ Temps total : {time.perf_counter() - debut:.1f}s&quot;)
+</code></pre>
+<pre><code>  Commande #1 : en cours...
+  Commande #1 : ✅ prête
+  Commande #2 : en cours...
+  Commande #2 : ✅ prête
+  Commande #3 : en cours...
+  Commande #3 : ✅ prête
+
+⏱ Temps total : 3.0s
+</code></pre>
+<ul>
+<li><strong>3 secondes</strong> pour 3 commandes d'1 seconde chacune — le temps s'additionne</li>
+<li><strong>#2 attend que #1 soit finie</strong> même si les deux opérations sont indépendantes — pure perte</li>
+<li><strong>objectif</strong> : avec les threads, viser ~1 seconde pour les 3 commandes</li>
+</ul>
+<hr />
+<h1 id="4-introduction-au-threading">4️⃣ Introduction au Threading<a class="headerlink" href="#4-introduction-au-threading" title="Permanent link">&para;</a></h1>
+<p>Un <strong>thread</strong> permet de lancer une fonction en arrière-plan, sans bloquer le reste du programme. Python fournit <code>threading.Thread</code> pour ça.</p>
+<pre><code class="language-python">import time
+import threading
+
+def preparer_commande(numero):
+    print(f&quot;  Commande #{numero} : en cours...&quot;)
+    time.sleep(1)
+    print(f&quot;  Commande #{numero} : ✅ prête&quot;)
+
+debut = time.perf_counter()
+
+# Créer 3 threads — un par commande
+t1 = threading.Thread(target=preparer_commande, args=(1,))
+t2 = threading.Thread(target=preparer_commande, args=(2,))
+t3 = threading.Thread(target=preparer_commande, args=(3,))
+
+# .start() lance le thread — retourne immédiatement sans attendre
+t1.start()
+t2.start()
+t3.start()
+
+# .join() attend que CE thread soit terminé avant de continuer
+t1.join()
+t2.join()
+t3.join()
+
+print(f&quot;\n⏱ Temps total : {time.perf_counter() - debut:.1f}s&quot;)
+</code></pre>
+<pre><code>  Commande #1 : en cours...
+  Commande #2 : en cours...
+  Commande #3 : en cours...
+  Commande #1 : ✅ prête
+  Commande #2 : ✅ prête
+  Commande #3 : ✅ prête
+
+⏱ Temps total : 1.0s  ← 3× plus rapide !
+</code></pre>
+<ul>
+<li><strong><code>Thread(target=f, args=(...))</code></strong> : crée un thread qui va appeler <code>f</code> avec les arguments — le thread n'est pas encore démarré</li>
+<li><strong><code>.start()</code></strong> : lance le thread en arrière-plan et <strong>retourne immédiatement</strong> — les 3 commandes démarrent presque en même temps</li>
+<li><strong><code>.join()</code></strong> : dit au programme principal <em>"attends que ce thread soit fini avant de continuer"</em> — sans ça, le programme pourrait se terminer avant les threads</li>
+<li><strong>l'ordre d'affichage peut varier</strong> : les threads s'exécutent en parallèle, l'OS décide qui parle en premier</li>
+</ul>
+<hr />
+<p><strong>Version avec une classe (style orienté objet) :</strong></p>
+<pre><code class="language-python">import time
+import threading
+
+class CommandeThread(threading.Thread):
+
+    def __init__(self, numero):
+        super().__init__()
+        self.numero = numero
+
+    def run(self):
+        # run() est appelée automatiquement par .start()
+        print(f&quot;  Commande #{self.numero} : en cours...&quot;)
+        time.sleep(1)
+        print(f&quot;  Commande #{self.numero} : ✅ prête&quot;)
+
+threads = [CommandeThread(i) for i in range(1, 4)]
+for t in threads: t.start()
+for t in threads: t.join()
+</code></pre>
+<ul>
+<li><strong>hériter de <code>threading.Thread</code></strong> : utile quand le thread a besoin de <strong>garder un état</strong> (attributs, résultats)</li>
+<li><strong><code>run()</code></strong> : la méthode à redéfinir — c'est elle qui sera exécutée dans le thread</li>
+<li>les deux styles (avec <code>target=</code> ou avec héritage) produisent le même résultat — choisissez selon la complexité</li>
+</ul>
+<hr />
+<h1 id="5-race-condition-le-bug-silencieux">5️⃣ Race Condition — le bug silencieux<a class="headerlink" href="#5-race-condition-le-bug-silencieux" title="Permanent link">&para;</a></h1>
+<p>Voici le piège le plus dangereux du threading. Quand deux threads lisent et modifient <strong>la même variable en même temps</strong>, le résultat devient imprévisible.</p>
+<pre><code class="language-python">import threading
+
+compteur = 0   # variable partagée entre les deux threads
+
+def incrementer():
+    global compteur
+    for _ in range(100_000):
+        compteur += 1   # ⚠️ pas atomique : lire → ajouter 1 → écrire
+
+t1 = threading.Thread(target=incrementer)
+t2 = threading.Thread(target=incrementer)
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+
+print(f&quot;Résultat attendu : 200 000&quot;)
+print(f&quot;Résultat obtenu  : {compteur}&quot;)   # souvent &lt; 200 000 !
+</code></pre>
+<h1 id="ce-qui-se-passe-reellement">Ce qui se passe réellement<a class="headerlink" href="#ce-qui-se-passe-reellement" title="Permanent link">&para;</a></h1>
+<p>Sans verrou, l’exécution peut devenir :</p>
+<p>Thread A lit compteur<br />
+→ compteur = 10</p>
+<p>Thread B lit compteur<br />
+→ compteur = 10</p>
+<p>Thread A écrit 11</p>
+<p>Thread B écrit 11</p>
+<p>Résultat final :</p>
+<p>11 au lieu de 12</p>
+<p>Une <strong>incrémentation est perdue</strong>.</p>
+<p>Python exécute plusieurs instructions internes mais <strong>le GIL peut empêcher l’interruption au mauvais moment</strong>, donc les threads passent souvent l’un après l’autre.</p>
+<hr />
+<h1 id="6-lock-proteger-les-donnees-partagees">6️⃣ Lock — protéger les données partagées<a class="headerlink" href="#6-lock-proteger-les-donnees-partagees" title="Permanent link">&para;</a></h1>
+<p>Un <strong>Lock</strong> (verrou) garantit qu'une seule section de code s'exécute à la fois. Les autres threads <strong>attendent leur tour</strong>.</p>
+<pre><code class="language-python">import threading
+
+compteur = 0
+lock = threading.Lock()
+
+def incrementer():
+    global compteur
+
+    for _ in range(10000):
+
+        with lock:
+            compteur += 1
+
+
+t1 = threading.Thread(target=incrementer)
+t2 = threading.Thread(target=incrementer)
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+print(&quot;Résultat :&quot;, compteur)
+</code></pre>
+<p>Cette fois le résultat sera <strong>toujours correct</strong>.</p>
+<p><strong>Ce qui se passe avec le Lock :</strong></p>
+<ul>
+<li><strong><code>with lock:</code></strong> : acquiert le verrou à l'entrée, le libère automatiquement à la sortie — même en cas d'exception</li>
+<li><strong>section critique</strong> : le code entre <code>with lock:</code> ne peut être exécuté que par <strong>un thread à la fois</strong></li>
+<li><strong>coût</strong> : le lock ralentit légèrement (les threads attendent) — ne l'utiliser que sur les parties réellement partagées</li>
+</ul>
+<hr />
+<h1 id="7-semaphore-limiter-le-nombre-de-threads-simultanes">7️⃣ Semaphore — limiter le nombre de threads simultanés<a class="headerlink" href="#7-semaphore-limiter-le-nombre-de-threads-simultanes" title="Permanent link">&para;</a></h1>
+<p>Là où <code>Lock</code> n'autorise que <strong>1 thread à la fois</strong>, <code>Semaphore(n)</code> en autorise <strong>n simultanément</strong>. Utile pour ne pas surcharger une ressource (API, connexions DB).</p>
+<pre><code class="language-python">import threading
+import time
+
+# On simule une API externe qui n'accepte que 
+# 2 connexions simultanées
+semaphore = threading.Semaphore(2)
+
+def appeler_api(worker_id):
+    print(f&quot;  Worker {worker_id} : en attente d'un slot...&quot;)
+    with semaphore:
+        print(f&quot;  Worker {worker_id} : 🔗 connecté&quot;)
+        time.sleep(1)
+        print(f&quot;  Worker {worker_id} : ✅ terminé&quot;)
+
+# 5 workers veulent accéder à l'API en même temps
+threads = [threading.Thread(target=appeler_api, args=(i,))
+                                     for i in range(1, 6)]
+for t in threads: t.start()
+for t in threads: t.join()
+</code></pre>
+<pre><code>  Worker 1 : en attente d'un slot...
+  Worker 2 : en attente d'un slot...
+  Worker 3 : en attente d'un slot...
+  Worker 1 : 🔗 connecté      ← max 2 simultanément
+  Worker 2 : 🔗 connecté
+  Worker 1 : ✅ terminé
+  Worker 3 : 🔗 connecté      ← Worker 3 entre quand Worker 1 libère
+  ...
+</code></pre>
+<ul>
+<li><strong><code>Semaphore(2)</code></strong> : compteur initialisé à 2 — chaque <code>with semaphore</code> décrémente, chaque sortie incrémente</li>
+<li><strong>quand le compteur atteint 0</strong> : les threads suivants attendent qu'un slot se libère</li>
+<li><strong>cas d'usage typiques</strong> : limiter les connexions à une DB, respecter le rate limit d'une API externe, pool de ressources</li>
+</ul>
+<h2 id="quand-utiliser-lock-et-quand-utiliser-semaphore">Quand utiliser Lock et quand utiliser Semaphore<a class="headerlink" href="#quand-utiliser-lock-et-quand-utiliser-semaphore" title="Permanent link">&para;</a></h2>
+<h3 id="lock">Lock<a class="headerlink" href="#lock" title="Permanent link">&para;</a></h3>
+<p>À utiliser quand :</p>
+<ul>
+<li>
+<p><strong>une seule exécution à la fois</strong> doit entrer</p>
+</li>
+<li>
+<p>on protège une donnée critique</p>
+</li>
+<li>
+<p>on veut éviter toute modification concurrente</p>
+</li>
+</ul>
+<h3 id="semaphore">Semaphore<a class="headerlink" href="#semaphore" title="Permanent link">&para;</a></h3>
+<p>À utiliser quand :</p>
+<ul>
+<li>
+<p>on autorise <strong>plusieurs accès simultanés</strong></p>
+</li>
+<li>
+<p>la ressource supporte une capacité limitée</p>
+</li>
+</ul>
+<h2 id="exemple-concret-ou-semaphore-est-pertinent">Exemple concret où Semaphore est pertinent<a class="headerlink" href="#exemple-concret-ou-semaphore-est-pertinent" title="Permanent link">&para;</a></h2>
+<p>Imaginez une API qui accepte <strong>2 connexions simultanées</strong>.</p>
+<p>Chaque thread fait un appel réseau indépendant.<br />
+Ils ne modifient pas une même variable Python critique.</p>
+<p>Dans ce cas :</p>
+<ul>
+<li>
+<p>on ne veut pas 1 seul thread</p>
+</li>
+<li>
+<p>on veut juste éviter 20 connexions simultanées</p>
+</li>
+<li>
+<p>donc Semaphore(2) est logique</p>
+</li>
+</ul>
+<hr />
+<h1 id="8-rlock-verrou-reentrant">8️⃣ RLock — verrou réentrant<a class="headerlink" href="#8-rlock-verrou-reentrant" title="Permanent link">&para;</a></h1>
+<p>Un <code>Lock</code> ordinaire bloque si le <strong>même thread</strong> essaie de l'acquérir deux fois. Le <strong><code>RLock</code></strong> (Reentrant Lock) résout ce problème — le même thread peut l'acquérir plusieurs fois sans se bloquer lui-même.</p>
+<pre><code class="language-python">import threading
+
+lock_simple = threading.Lock()
+rlock       = threading.RLock()
+
+# Avec Lock ordinaire → DEADLOCK si même thread acquiert 2 fois
+def avec_lock():
+    with lock_simple:
+        print(&quot;  Niveau 1 acquis&quot;)
+        with lock_simple:   # ← bloque indéfiniment ! Le thread s'attend lui-même
+            print(&quot;  Niveau 2 acquis&quot;)   # jamais atteint
+
+# Avec RLock → fonctionne, le même thread peut entrer plusieurs fois
+def avec_rlock():
+    with rlock:
+        print(&quot;  Niveau 1 acquis&quot;)
+        with rlock:   # ← le même thread peut rentrer sans blocage
+            print(&quot;  Niveau 2 acquis&quot;)   # ✅ atteint normalement
+    print(&quot;  Tout libéré&quot;)
+
+# Test RLock uniquement (l'autre bloquerait le programme)
+avec_rlock()
+</code></pre>
+<pre><code>  Niveau 1 acquis
+  Niveau 2 acquis
+  Tout libéré
+</code></pre>
+<ul>
+<li><strong><code>RLock</code> maintient un compteur</strong> : même thread → compteur monte (2, 3…) sans bloquer ; libéré quand compteur revient à 0</li>
+<li><strong>quand utiliser <code>RLock</code></strong> : une méthode protégée appelle une autre méthode protégée du même objet — cas fréquent dans les classes thread-safe</li>
+<li><strong>règle simple</strong> : si vous n'êtes pas sûr, utilisez <code>RLock</code> — il est légèrement plus lent mais évite les deadlocks accidentels</li>
+</ul>
+<hr />
+<h1 id="9-la-notion-condition-pour-faire-communiquer-des-threads">9️⃣ La notion <code>Condition</code> pour  faire communiquer des threads<a class="headerlink" href="#9-la-notion-condition-pour-faire-communiquer-des-threads" title="Permanent link">&para;</a></h1>
+<p>Le type <strong><code>Condition</code></strong> permet à un thread <u>d'attendre qu'un autre lui envoie un signal</u>. C'est le pattern <strong>producteur/consommateur</strong> : l'un produit des données, l'autre attend qu'elles soient disponibles.</p>
+<pre><code class="language-python">import threading
+import time
+
+condition = threading.Condition()
+message   = None   # donnée partagée
+
+def producteur():
+    global message
+    time.sleep(1)   # prépare quelque chose...
+    with condition:
+        message = &quot;commande_prête&quot;
+        print(f&quot;  Producteur : message envoyé → '{message}'&quot;)
+        condition.notify()   # réveille le consommateur
+
+def consommateur():
+    with condition:
+        print(&quot;  Consommateur : j'attends un message...&quot;)
+        condition.wait()     # se met en pause jusqu'au notify()
+        print(f&quot;  Consommateur : message reçu → '{message}' ✅&quot;)
+
+t1 = threading.Thread(target=consommateur)
+t2 = threading.Thread(target=producteur)
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+</code></pre>
+<pre><code>  Consommateur : j'attends un message...
+  Producteur : message envoyé → 'commande_prête'
+  Consommateur : message reçu → 'commande_prête' ✅
+</code></pre>
+<ul>
+<li><strong><code>condition.wait()</code></strong> : le thread se met en pause <strong>et</strong> libère le lock — il reprend quand <code>notify()</code> est appelé</li>
+<li><strong><code>condition.notify()</code></strong> : réveille UN thread en attente — <code>notify_all()</code> les réveille tous</li>
+<li><strong>dans la pratique</strong> : <code>Condition</code> est bas niveau — pour la plupart des cas réels, <code>Queue</code> (section suivante) est plus simple</li>
+</ul>
+<hr />
+<h1 id="queue-la-solution-recommandee">🔟 Queue — la solution recommandée<a class="headerlink" href="#queue-la-solution-recommandee" title="Permanent link">&para;</a></h1>
+<p><code>queue.Queue</code> est une <strong>file d'attente thread-safe</strong> — elle intègre automatiquement les mécanismes de synchronisation. C'est l'outil recommandé pour le pattern producteur/consommateur.</p>
+<pre><code class="language-python">import threading
+import time
+from queue import Queue
+
+file = Queue()
+
+def producteur():
+    for commande in [&quot;cmd_1&quot;, &quot;cmd_2&quot;, &quot;cmd_3&quot;]:
+        time.sleep(0.3)
+        file.put(commande)           # ajoute à la file — thread-safe
+        print(f&quot;  📥 Mis en file : {commande}&quot;)
+
+def consommateur():
+    for _ in range(3):
+        commande = file.get()        # attend qu'un élément soit disponible
+        time.sleep(0.2)
+        print(f&quot;  ✅ Traité : {commande}&quot;)
+        file.task_done()             # signale que cet élément est traité
+
+t1 = threading.Thread(target=producteur)
+t2 = threading.Thread(target=consommateur)
+
+t1.start()
+t2.start()
+
+file.join()   # attend que tous les éléments aient été traités
+t1.join()
+t2.join()
+print(&quot;Pipeline terminé ✅&quot;)
+</code></pre>
+<pre><code>  📥 Mis en file : cmd_1
+  ✅ Traité : cmd_1
+  📥 Mis en file : cmd_2
+  ✅ Traité : cmd_2
+  📥 Mis en file : cmd_3
+  ✅ Traité : cmd_3
+Pipeline terminé ✅
+</code></pre>
+<ul>
+<li><strong><code>file.put(x)</code></strong> : ajoute un élément — thread-safe, pas besoin de Lock manuel</li>
+<li><strong><code>file.get()</code></strong> : récupère un élément — bloque si la file est vide jusqu'à ce qu'un élément arrive</li>
+<li><strong><code>file.task_done()</code></strong> : indique que le traitement de cet élément est terminé — obligatoire pour que <code>file.join()</code> fonctionne</li>
+<li><strong><code>file.join()</code></strong> : attend que <code>task_done()</code> ait été appelé pour chaque élément — garantie que tout a été traité</li>
+</ul>
+<hr />
+<h1 id="11-introduction-aux-coroutines-asyncio">1️⃣1 Introduction aux Coroutines (asyncio)<a class="headerlink" href="#11-introduction-aux-coroutines-asyncio" title="Permanent link">&para;</a></h1>
+<p><code>asyncio</code> offre une <strong>alternative aux threads</strong> pour les opérations I/O. Un seul thread gère de nombreuses tâches en les alternant grâce aux mots-clés <code>async</code> et <code>await</code>.</p>
+<p><strong>L'analogie :</strong> un serveur de restaurant. Avec les threads, on embauche un serveur par table. Avec asyncio, un seul serveur gère toutes les tables — il prend une commande, va en cuisine la déposer, revient prendre la commande d'une autre table, et ainsi de suite.</p>
+<pre><code class="language-python">import asyncio
+
+# &quot;async def&quot; : définit une coroutine (pas une fonction ordinaire)
+async def preparer_commande(numero):
+    print(f&quot;  Commande #{numero} : en cours...&quot;)
+    await asyncio.sleep(1)   # &quot;await&quot; = je lâche le contrôle pendant que j'attends
+    print(f&quot;  Commande #{numero} : ✅ prête&quot;)
+
+async def main():
+    # gather = lancer plusieurs coroutines EN MÊME TEMPS
+    await asyncio.gather(
+        preparer_commande(1),
+        preparer_commande(2),
+        preparer_commande(3),
+    )
+
+asyncio.run(main())
+</code></pre>
+<pre><code>  Commande #1 : en cours...
+  Commande #2 : en cours...
+  Commande #3 : en cours...
+  Commande #1 : ✅ prête
+  Commande #2 : ✅ prête
+  Commande #3 : ✅ prête
+</code></pre>
+<ul>
+<li><strong><code>async def</code></strong> : transforme une fonction en <strong>coroutine</strong> — elle peut être mise en pause</li>
+<li><strong><code>await</code></strong> : suspend la coroutine et <strong>rend la main</strong> à la boucle — d'autres coroutines peuvent s'exécuter pendant ce temps</li>
+<li><strong><code>asyncio.gather(...)</code></strong> : démarre plusieurs coroutines <strong>en même temps</strong> — attend que toutes soient finies</li>
+<li><strong><code>asyncio.run(main())</code></strong> : démarre la boucle événementielle — c'est toujours le point d'entrée</li>
+</ul>
+<hr />
+<h1 id="12-coroutine-simple-anatomie-pas-a-pas">1️⃣2 Coroutine simple — anatomie pas à pas<a class="headerlink" href="#12-coroutine-simple-anatomie-pas-a-pas" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">import asyncio
+
+# Une coroutine ressemble à une fonction normale, mais avec async/await
+async def dire_bonjour(nom, delai):
+    print(f&quot;Bonjour {nom} !&quot;)
+    await asyncio.sleep(delai)   # pause sans bloquer les autres
+    print(f&quot;Au revoir {nom} !&quot;)
+
+# Preuve : appeler une coroutine sans await ne l'exécute PAS
+coro = dire_bonjour(&quot;Bechir&quot;, 1)
+print(f&quot;Type obtenu : {type(coro)}&quot;)   # &lt;class 'coroutine'&gt; — pas encore exécutée
+coro.close()   # ferme sans exécuter
+
+# Pour exécuter, il faut await ou asyncio.run
+print(&quot;\n--- Exécution séquentielle ---&quot;)
+async def sequentiel():
+    await dire_bonjour(&quot;Alice&quot;, 0.5)   # attend la fin avant de continuer
+    await dire_bonjour(&quot;Bob&quot;,   0.5)
+
+asyncio.run(sequentiel())   # 1.0s
+
+print(&quot;\n--- Exécution concurrente ---&quot;)
+async def concurrent():
+    await asyncio.gather(
+        dire_bonjour(&quot;Alice&quot;, 0.5),   # les deux démarrent en même temps
+        dire_bonjour(&quot;Bob&quot;,   0.5),
+    )
+
+asyncio.run(concurrent())   # 0.5s — deux fois plus rapide !
+</code></pre>
+<pre><code>Type obtenu : &lt;class 'coroutine'&gt;
+
+--- Exécution séquentielle ---
+Bonjour Alice !
+Au revoir Alice !
+Bonjour Bob !
+Au revoir Bob !
+
+--- Exécution concurrente ---
+Bonjour Alice !
+Bonjour Bob !
+Au revoir Alice !
+Au revoir Bob !
+</code></pre>
+<ul>
+<li><strong>sans <code>await</code></strong> : appeler <code>dire_bonjour(...)</code> retourne un objet coroutine — rien ne s'exécute, Python vous avertit avec un <code>RuntimeWarning</code></li>
+<li><strong><code>await</code> dans <code>sequentiel</code></strong> : attend la fin de chaque coroutine avant de passer à la suivante — 1.0s au total</li>
+<li><strong><code>gather</code> dans <code>concurrent</code></strong> : les deux coroutines démarrent ensemble et partagent le temps d'attente — 0.5s au total</li>
+</ul>
+<hr />
+<h1 id="13-thread-vs-coroutine-comparaison-directe">1️⃣3 Thread vs Coroutine — comparaison directe<a class="headerlink" href="#13-thread-vs-coroutine-comparaison-directe" title="Permanent link">&para;</a></h1>
+<p>Même problème, deux solutions. Observez les différences.</p>
+<pre><code class="language-python">import threading
+import asyncio
+import time
+
+# ── Avec Threading ────────────────────────────────────────────────────────
+def tache_thread(nom):
+    print(f&quot;  Thread '{nom}' démarre&quot;)
+    time.sleep(1)
+    print(f&quot;  Thread '{nom}' termine&quot;)
+
+debut = time.perf_counter()
+t1 = threading.Thread(target=tache_thread, args=(&quot;A&quot;,))
+t2 = threading.Thread(target=tache_thread, args=(&quot;B&quot;,))
+t1.start(); t2.start()
+t1.join();  t2.join()
+print(f&quot;Threading : {time.perf_counter()-debut:.1f}s\n&quot;)
+
+# ── Avec Asyncio ──────────────────────────────────────────────────────────
+async def tache_async(nom):
+    print(f&quot;  Coroutine '{nom}' démarre&quot;)
+    await asyncio.sleep(1)
+    print(f&quot;  Coroutine '{nom}' termine&quot;)
+
+async def main():
+    debut = time.perf_counter()
+    await asyncio.gather(tache_async(&quot;A&quot;), tache_async(&quot;B&quot;))
+    print(f&quot;Asyncio   : {time.perf_counter()-debut:.1f}s&quot;)
+
+asyncio.run(main())
+</code></pre>
+<pre><code>  Thread 'A' démarre
+  Thread 'B' démarre
+  Thread 'A' termine
+  Thread 'B' termine
+Threading : 1.0s
+
+  Coroutine 'A' démarre
+  Coroutine 'B' démarre
+  Coroutine 'A' termine
+  Coroutine 'B' termine
+Asyncio   : 1.0s
+</code></pre>
+<p>Les deux donnent le même résultat. La différence est <strong>sous le capot</strong> :</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Threading</th>
+<th>Asyncio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nb de threads</strong></td>
+<td>1 par tâche</td>
+<td>1 seul pour tout</td>
+</tr>
+<tr>
+<td><strong>Changement de contexte</strong></td>
+<td>L'OS décide (imprévisible)</td>
+<td>Le code décide (<code>await</code>)</td>
+</tr>
+<tr>
+<td><strong>Race conditions</strong></td>
+<td>⚠️ Possible</td>
+<td>✅ Rare</td>
+</tr>
+<tr>
+<td><strong>Mémoire par tâche</strong></td>
+<td>~1 Mo par thread</td>
+<td>~1 Ko par coroutine</td>
+</tr>
+<tr>
+<td><strong>Limite pratique</strong></td>
+<td>~200 threads</td>
+<td>10 000+ coroutines</td>
+</tr>
+<tr>
+<td><strong>Code bloquant existant</strong></td>
+<td>✅ Fonctionne</td>
+<td>❌ Doit être réécrit</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="14-cas-reel-appels-api-en-masse">1️⃣4 Cas réel — appels API en masse<a class="headerlink" href="#14-cas-reel-appels-api-en-masse" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">import asyncio
+import time
+
+# Simule un appel à une API externe (lent par nature)
+async def appel_api(identifiant):
+    await asyncio.sleep(0.5)   # temps de réponse de l'API
+    return f&quot;résultat_{identifiant}&quot;
+
+async def main():
+    print(&quot;=== Séquentiel : un appel après l'autre ===&quot;)
+    t0 = time.perf_counter()
+    resultats = []
+    for i in range(5):
+        r = await appel_api(i)
+        resultats.append(r)
+    print(f&quot;  {resultats}&quot;)
+    print(f&quot;  Durée : {time.perf_counter()-t0:.1f}s\n&quot;)   # ≈ 2.5s
+
+    print(&quot;=== Concurrent : tous les appels en même temps ===&quot;)
+    t0 = time.perf_counter()
+    resultats = await asyncio.gather(*[appel_api(i) for i in range(5)])
+    print(f&quot;  {resultats}&quot;)
+    print(f&quot;  Durée : {time.perf_counter()-t0:.1f}s&quot;)     # ≈ 0.5s
+
+asyncio.run(main())
+</code></pre>
+<pre><code>=== Séquentiel : un appel après l'autre ===
+  ['résultat_0', 'résultat_1', 'résultat_2', 'résultat_3', 'résultat_4']
+  Durée : 2.5s
+
+=== Concurrent : tous les appels en même temps ===
+  ['résultat_0', 'résultat_1', 'résultat_2', 'résultat_3', 'résultat_4']
+  Durée : 0.5s
+</code></pre>
+<ul>
+<li><strong><code>*[appel_api(i) for i in range(5)]</code></strong> : crée une liste de 5 coroutines et les "déplie" comme arguments de <code>gather</code></li>
+<li><strong><code>gather</code> retourne les résultats dans l'ordre des arguments</strong> — même si les coroutines se terminent dans un ordre différent</li>
+<li><strong>gain ×5 ici</strong> : 5 appels de 0.5s → 0.5s au lieu de 2.5s — le gain augmente avec le nombre d'appels</li>
+</ul>
+<hr />
+<h1 id="15-cpu-bound-utiliser-multiprocessing">1️⃣5 CPU-bound — utiliser <code>multiprocessing</code><a class="headerlink" href="#15-cpu-bound-utiliser-multiprocessing" title="Permanent link">&para;</a></h1>
+<p>Quand la tâche est un <strong>calcul intensif</strong> (pas d'I/O), ni les threads ni asyncio n'aident. La solution : <code>multiprocessing</code>.</p>
+<pre><code class="language-python">import time
+import threading
+import asyncio
+from multiprocessing import Pool
+
+
+# -------------------------------------------------------------------
+# Tâche CPU-bound :
+# ici on effectue un calcul volontairement coûteux
+# -------------------------------------------------------------------
+def calcul_lourd(n):
+    total = 0
+
+    # Boucle de calcul pur
+    # Il n'y a ni fichier, ni réseau, ni attente I/O
+    for i in range(n):
+        total += i * i
+
+    return total
+
+
+# -------------------------------------------------------------------
+# Version thread :
+# chaque thread lance le même calcul CPU
+# les résultats sont stockés dans une liste partagée
+# -------------------------------------------------------------------
+def travail_thread(n, resultats, index):
+    resultats[index] = calcul_lourd(n)
+
+
+# -------------------------------------------------------------------
+# Version coroutine :
+# attention, ici la coroutine n'apporte rien pour du CPU pur
+# on l'écrit seulement pour comparer les temps
+# -------------------------------------------------------------------
+async def travail_async(n):
+    return calcul_lourd(n)
+
+
+# -------------------------------------------------------------------
+# Programme principal
+# -------------------------------------------------------------------
+if __name__ == &quot;__main__&quot;:
+
+    # Même charge répétée 4 fois
+    # Vous pouvez augmenter la valeur si la machine est très rapide
+    valeurs = [8_000_000, 8_000_000, 8_000_000, 8_000_000]
+
+    print(&quot;=== Comparaison sur tâche CPU-bound ===\n&quot;)
+
+    # ===============================================================
+    # 1. Exécution séquentielle
+    # ===============================================================
+    debut = time.perf_counter()
+
+    resultats_seq = []
+    for n in valeurs:
+        resultats_seq.append(calcul_lourd(n))
+
+    fin = time.perf_counter()
+
+    print(f&quot;Séquentiel        : {fin - debut:.2f} s&quot;)
+
+    # ===============================================================
+    # 2. Exécution avec threads
+    # ===============================================================
+    debut = time.perf_counter()
+
+    resultats_threads = [None] * len(valeurs)
+    threads = []
+
+    for index, n in enumerate(valeurs):
+        t = threading.Thread(
+            target=travail_thread,
+            args=(n, resultats_threads, index)
+        )
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    fin = time.perf_counter()
+
+    print(f&quot;Avec threads      : {fin - debut:.2f} s&quot;)
+
+    # ===============================================================
+    # 3. Exécution avec asyncio
+    # ===============================================================
+    async def executer_async():
+        debut_async = time.perf_counter()
+
+        # On crée 4 coroutines
+        # Mais chacune exécute un calcul CPU bloquant
+        # Donc il n'y a pas de vrai gain
+        taches = [travail_async(n) for n in valeurs]
+        resultats_async = await asyncio.gather(*taches)
+
+        fin_async = time.perf_counter()
+
+        print(f&quot;Avec asyncio      : {fin_async - debut_async:.2f} s&quot;)
+
+        return resultats_async
+
+    resultats_async = asyncio.run(executer_async())
+
+    # ===============================================================
+    # 4. Exécution avec multiprocessing
+    # ===============================================================
+    debut = time.perf_counter()
+
+    # Chaque processus a son propre interpréteur Python
+    # Donc on obtient du vrai parallélisme CPU
+    with Pool(processes=4) as pool:
+        resultats_process = pool.map(calcul_lourd, valeurs)
+
+    fin = time.perf_counter()
+
+    print(f&quot;Avec processus    : {fin - debut:.2f} s&quot;)
+
+    # ===============================================================
+    # Vérification simple
+    # Toutes les approches doivent produire les mêmes résultats
+    # ===============================================================
+    meme_resultat = (
+        resultats_seq == resultats_threads == resultats_async == resultats_process
+    )
+
+    print(f&quot;\nRésultats identiques : {meme_resultat}&quot;)
+</code></pre>
+<pre><code class="language-textile">=== Comparaison sur tâche CPU-bound ===
+
+Séquentiel        : 2.82 s
+Avec threads      : 2.44 s
+Avec asyncio      : 2.55 s
+Avec processus    : 1.23 s
+</code></pre>
+<p><strong><code>pool.map(f, liste)</code></strong> : distribue les éléments de la liste entre les processus — retourne les résultats dans le même ordre</p>
+<ul>
+<li><strong><code>if __name__ == "__main__"</code></strong> : obligatoire sur Windows — évite que chaque processus enfant relance le script entier au démarrage</li>
+</ul>
+<hr />
+<h1 id="16-bonnes-pratiques-resume-operationnel">1️⃣6 Bonnes pratiques — résumé opérationnel<a class="headerlink" href="#16-bonnes-pratiques-resume-operationnel" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">import threading
+import asyncio
+from queue import Queue
+
+# ✅ Pratique 1 : utiliser Queue plutôt que Lock + liste manuelle
+# ❌ fragile
+donnees = []
+lock = threading.Lock()
+with lock:
+    donnees.append(&quot;x&quot;)   # gérer le lock partout = risque d'oubli
+
+# ✅ simple et sûr
+file = Queue()
+file.put(&quot;x&quot;)   # thread-safe sans Lock explicite
+
+
+# ✅ Pratique 2 : join() toujours présent pour attendre les threads
+threads = [threading.Thread(target=lambda: None) for _ in range(3)]
+for t in threads: t.start()
+for t in threads: t.join()   # sans join(), le main peut finir avant les threads
+
+
+# ✅ Pratique 3 : asyncio.Semaphore pour limiter les appels API
+async def avec_limite():
+    sem = asyncio.Semaphore(3)   # max 3 appels simultanés
+
+    async def appel(n):
+        async with sem:
+            await asyncio.sleep(0.1)
+            return n
+
+    return await asyncio.gather(*[appel(i) for i in range(10)])
+
+asyncio.run(avec_limite())
+
+
+# ✅ Pratique 4 : daemon=True pour les tâches de monitoring
+import time
+def heartbeat():
+    while True:
+        time.sleep(5)
+        print(&quot;💓 service actif&quot;)
+
+t = threading.Thread(target=heartbeat, daemon=True)
+t.start()
+# Pas besoin de t.join() — s'arrête automatiquement avec le programme
+</code></pre>
+<hr />
+<p><strong>Guide de décision final :</strong></p>
+<pre><code>Ma tâche attend une réponse (réseau, DB, fichier) ?
+    ├── Oui, et j'ai peu de tâches (&lt; 100)
+    │       → Threading  ✅
+    ├── Oui, et j'ai beaucoup de tâches (100+)
+    │       → asyncio  ✅
+    └── Non, c'est du calcul pur (ML, chiffrement, traitement)
+            → multiprocessing  ✅
+
+J'ai des données partagées entre threads ?
+    ├── Accès exclusif requis (une seule opération à la fois)
+    │       → Lock  ✅
+    ├── Limiter le nombre d'accès simultanés
+    │       → Semaphore  ✅
+    └── Passer des données d'un thread à l'autre
+            → Queue  ✅  (recommandé par défaut)
+</code></pre>
+<hr />
+<blockquote>
+<p>✅ <strong>Récapitulatif — les 5 concepts clés</strong></p>
+<p><strong>Thread</strong> : <code>start()</code> + <code>join()</code> · <strong>Race condition</strong> : données partagées sans protection → résultat imprévisible · <strong>Lock</strong> : <code>with lock:</code> protège une section critique · <strong>GIL</strong> : threads OK pour I/O, pas pour CPU · <strong>asyncio</strong> : <code>async/await</code> + <code>gather</code> pour l'I/O concurrent dans un seul thread</p>
+</blockquote>
+<hr />
+<h1 id="partie-ii-les-20-questions-intellientes">Partie II les 20 questions intellientes<a class="headerlink" href="#partie-ii-les-20-questions-intellientes" title="Permanent link">&para;</a></h1>
+<h1 id="1-pourquoi-un-thread-peut-accelerer-une-tache-io-mais-pas-une-tache-cpu">1) Pourquoi un thread peut accélérer une tâche I/O mais pas une tâche CPU ?<a class="headerlink" href="#1-pourquoi-un-thread-peut-accelerer-une-tache-io-mais-pas-une-tache-cpu" title="Permanent link">&para;</a></h1>
+<h2 id="enonce">Énoncé<a class="headerlink" href="#enonce" title="Permanent link">&para;</a></h2>
+<p>Expliquer la différence entre une tâche I/O et une tâche CPU, et montrer pourquoi les threads aident surtout pour I/O.</p>
+<h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Une tâche I/O attend (réseau, disque, base) : pendant l’attente, le CPU peut exécuter autre chose.
+- Une tâche CPU calcule en continu : en CPython, le GIL limite l’exécution simultanée de code Python.
+- Démo : I/O simulée avec sleep (threads efficaces), CPU simulé par calcul (threads peu efficaces).
+&quot;&quot;&quot;
+
+import time
+from threading import Thread
+
+def io_task(n: int):
+    # Simule une attente I/O
+    time.sleep(1)
+    print(f&quot;I/O {n} terminé&quot;)
+
+def cpu_task(n: int):
+    # Simule un calcul CPU
+    total = 0
+    for i in range(3_000_00):
+        total += i
+    print(f&quot;CPU {n} terminé, total={total}&quot;)
+
+def demo_io():
+    debut = time.perf_counter()
+    threads = [Thread(target=io_task, args=(i,)) for i in range(3)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    fin = time.perf_counter()
+    print(&quot;Temps I/O threads:&quot;, round(fin - debut, 2), &quot;s&quot;)
+
+def demo_cpu():
+    debut = time.perf_counter()
+    threads = [Thread(target=cpu_task, args=(i,)) for i in range(3)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    fin = time.perf_counter()
+    print(&quot;Temps CPU threads:&quot;, round(fin - debut, 2), &quot;s&quot;)
+
+demo_io()
+demo_cpu()
+</code></pre>
+<hr />
+<h1 id="2-pourquoi-join-est-obligatoire-pour-mesurer-un-temps-correct">2) Pourquoi join est obligatoire pour mesurer un temps correct ?<a class="headerlink" href="#2-pourquoi-join-est-obligatoire-pour-mesurer-un-temps-correct" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_1">Énoncé<a class="headerlink" href="#enonce_1" title="Permanent link">&para;</a></h2>
+<p>Que se passe-t-il si on mesure le temps sans attendre la fin des threads ?</p>
+<h2 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- start lance le thread, mais le main continue immédiatement.
+- Sans join, la mesure s’arrête avant la fin réelle des traitements.
+- Démo : comparaison mesure avec et sans join.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread
+
+def travail():
+    time.sleep(1)
+    print(&quot;Travail terminé&quot;)
+
+# Sans join
+debut = time.perf_counter()
+t = Thread(target=travail)
+t.start()
+fin = time.perf_counter()
+print(&quot;Mesure sans join:&quot;, round(fin - debut, 4), &quot;s&quot;)
+
+# Avec join
+debut = time.perf_counter()
+t = Thread(target=travail)
+t.start()
+t.join()
+fin = time.perf_counter()
+print(&quot;Mesure avec join:&quot;, round(fin - debut, 4), &quot;s&quot;)
+</code></pre>
+<hr />
+<h1 id="3-race-condition-pourquoi-un-resultat-peut-changer-a-chaque-execution">3) Race condition : pourquoi un résultat peut changer à chaque exécution ?<a class="headerlink" href="#3-race-condition-pourquoi-un-resultat-peut-changer-a-chaque-execution" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_2">Énoncé<a class="headerlink" href="#enonce_2" title="Permanent link">&para;</a></h2>
+<p>Montrer une incrémentation concurrente qui donne un résultat instable.</p>
+<h2 id="solution_2">Solution<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Une opération compteur += 1 n’est pas atomique : lecture, calcul, écriture.
+- Deux threads peuvent lire la même valeur et écraser l’incrément de l’autre.
+- Démo : lancer plusieurs fois pour observer la variabilité.
+&quot;&quot;&quot;
+
+from threading import Thread
+
+def incrementer(compteur: list[int], n: int):
+    for _ in range(n):
+        compteur[0] += 1
+
+for essai in range(3):
+    compteur = [0]
+    t1 = Thread(target=incrementer, args=(compteur, 200_000))
+    t2 = Thread(target=incrementer, args=(compteur, 200_000))
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+    print(&quot;Essai&quot;, essai + 1, &quot;résultat:&quot;, compteur[0], &quot;attendu:&quot;, 400_000)
+</code></pre>
+<hr />
+<h1 id="4-lock-comment-garantir-la-coherence-dune-section-critique">4) Lock : comment garantir la cohérence d’une section critique ?<a class="headerlink" href="#4-lock-comment-garantir-la-coherence-dune-section-critique" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_3">Énoncé<a class="headerlink" href="#enonce_3" title="Permanent link">&para;</a></h2>
+<p>Corriger la question précédente avec un verrou.</p>
+<h2 id="solution_3">Solution<a class="headerlink" href="#solution_3" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Un verrou protège la section critique : un seul thread à la fois.
+- with lock est préférable : acquisition et libération garanties.
+&quot;&quot;&quot;
+
+from threading import Thread, Lock
+
+def incrementer(compteur: list[int], n: int, lock: Lock):
+    for _ in range(n):
+        with lock:
+            compteur[0] += 1
+
+compteur = [0]
+lock = Lock()
+
+t1 = Thread(target=incrementer, args=(compteur, 200_000, lock))
+t2 = Thread(target=incrementer, args=(compteur, 200_000, lock))
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+
+print(&quot;Résultat:&quot;, compteur[0], &quot;attendu:&quot;, 400_000)
+</code></pre>
+<hr />
+<h1 id="5-deadlock-comment-le-provoquer-facilement">5) Deadlock : comment le provoquer facilement ?<a class="headerlink" href="#5-deadlock-comment-le-provoquer-facilement" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_4">Énoncé<a class="headerlink" href="#enonce_4" title="Permanent link">&para;</a></h2>
+<p>Créer un deadlock avec deux verrous acquis dans des ordres opposés.</p>
+<h2 id="solution_4">Solution<a class="headerlink" href="#solution_4" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Un deadlock survient quand :
+  1) T1 détient lockA et attend lockB
+  2) T2 détient lockB et attend lockA
+- Démo : deux threads bloqués.
+- Astuce : exécuter puis interrompre manuellement si blocage.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread, Lock
+
+lock_a = Lock()
+lock_b = Lock()
+
+def tache_1():
+    with lock_a:
+        print(&quot;T1 a lockA&quot;)
+        time.sleep(0.2)
+        print(&quot;T1 attend lockB&quot;)
+        with lock_b:
+            print(&quot;T1 a lockB&quot;)
+
+def tache_2():
+    with lock_b:
+        print(&quot;T2 a lockB&quot;)
+        time.sleep(0.2)
+        print(&quot;T2 attend lockA&quot;)
+        with lock_a:
+            print(&quot;T2 a lockA&quot;)
+
+t1 = Thread(target=tache_1)
+t2 = Thread(target=tache_2)
+
+t1.start()
+t2.start()
+t1.join(timeout=1)
+t2.join(timeout=1)
+
+print(&quot;Si les threads ne terminent pas, deadlock probable.&quot;)
+</code></pre>
+<hr />
+<h1 id="6-comment-eviter-un-deadlock-proprement">6) Comment éviter un deadlock proprement ?<a class="headerlink" href="#6-comment-eviter-un-deadlock-proprement" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_5">Énoncé<a class="headerlink" href="#enonce_5" title="Permanent link">&para;</a></h2>
+<p>Montrer une stratégie simple et robuste.</p>
+<h2 id="solution_5">Solution<a class="headerlink" href="#solution_5" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Stratégie : imposer un ordre global d’acquisition (toujours lockA puis lockB).
+- Même si plusieurs threads, l’ordre unique supprime le cycle d’attente.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread, Lock
+
+lock_a = Lock()
+lock_b = Lock()
+
+def worker(n: int):
+    with lock_a:
+        time.sleep(0.1)
+        with lock_b:
+            print(&quot;Worker&quot;, n, &quot;a acquis lockA puis lockB&quot;)
+
+threads = [Thread(target=worker, args=(i,)) for i in range(3)]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+
+print(&quot;Terminé sans deadlock.&quot;)
+</code></pre>
+<hr />
+<h1 id="7-semaphore-pourquoi-ce-nest-pas-un-lock">7) Semaphore : pourquoi ce n’est pas un Lock ?<a class="headerlink" href="#7-semaphore-pourquoi-ce-nest-pas-un-lock" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_6">Énoncé<a class="headerlink" href="#enonce_6" title="Permanent link">&para;</a></h2>
+<p>Montrer la différence entre accès exclusif et limitation de concurrence.</p>
+<h2 id="solution_6">Solution<a class="headerlink" href="#solution_6" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Lock : 1 seul thread à la fois (exclusif).
+- Semaphore(k) : jusqu’à k threads simultanément.
+- Démo : 2 threads peuvent entrer en même temps, le 3e attend.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread, Semaphore
+
+sem = Semaphore(2)
+
+def requete(n: int):
+    print(&quot;Requête&quot;, n, &quot;attend&quot;)
+    with sem:
+        print(&quot;Requête&quot;, n, &quot;entre&quot;)
+        time.sleep(1)
+        print(&quot;Requête&quot;, n, &quot;sort&quot;)
+
+threads = [Thread(target=requete, args=(i,)) for i in range(1, 5)]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+</code></pre>
+<hr />
+<h1 id="8-rlock-a-quoi-ca-sert-concretement">8) RLock : à quoi ça sert concrètement ?<a class="headerlink" href="#8-rlock-a-quoi-ca-sert-concretement" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_7">Énoncé<a class="headerlink" href="#enonce_7" title="Permanent link">&para;</a></h2>
+<p>Montrer un cas où un Lock simple casse le programme, mais RLock fonctionne.</p>
+<h2 id="solution_7">Solution<a class="headerlink" href="#solution_7" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Un Lock simple ne peut pas être repris par le même thread : blocage.
+- Un RLock permet au même thread de ré-acquérir le verrou plusieurs fois.
+- Démo : fonction qui appelle une autre fonction verrouillée.
+&quot;&quot;&quot;
+
+from threading import RLock
+
+lock = RLock()
+solde = [100]
+
+def crediter(montant: int):
+    with lock:
+        solde[0] += montant
+
+def transferer(montant: int):
+    with lock:
+        # Appel interne qui reprend le même verrou
+        crediter(montant)
+        print(&quot;Solde après transfert:&quot;, solde[0])
+
+transferer(50)
+</code></pre>
+<hr />
+<h1 id="9-condition-pourquoi-wait-doit-etre-dans-une-boucle">9) Condition : pourquoi wait doit être dans une boucle ?<a class="headerlink" href="#9-condition-pourquoi-wait-doit-etre-dans-une-boucle" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_8">Énoncé<a class="headerlink" href="#enonce_8" title="Permanent link">&para;</a></h2>
+<p>Montrer qu’un réveil peut arriver sans que la condition logique soit vraie.</p>
+<h2 id="solution_8">Solution<a class="headerlink" href="#solution_8" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Une Condition coordonne des threads, mais un réveil ne garantit pas l’état attendu.
+- Bonne pratique : attendre dans une boucle while sur une condition métier.
+- Démo : producteur/consommateur sécurisé.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread, Condition
+
+condition = Condition()
+buffer: list[int] = []
+
+def producteur():
+    for x in [10, 20, 30]:
+        time.sleep(0.2)
+        with condition:
+            buffer.append(x)
+            print(&quot;Produit:&quot;, x)
+            condition.notify()
+
+def consommateur():
+    for _ in range(3):
+        with condition:
+            while not buffer:
+                condition.wait()
+            x = buffer.pop(0)
+            print(&quot;Consommé:&quot;, x)
+
+t1 = Thread(target=producteur)
+t2 = Thread(target=consommateur)
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+</code></pre>
+<hr />
+<h1 id="10-queue-pourquoi-cest-souvent-meilleur-que-lock-liste">10) Queue : pourquoi c’est souvent meilleur que Lock + liste ?<a class="headerlink" href="#10-queue-pourquoi-cest-souvent-meilleur-que-lock-liste" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_9">Énoncé<a class="headerlink" href="#enonce_9" title="Permanent link">&para;</a></h2>
+<p>Montrer un producteur/consommateur simple, sans verrou explicite.</p>
+<h2 id="solution_9">Solution<a class="headerlink" href="#solution_9" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Queue est thread-safe : pas besoin de Lock manuel.
+- get bloque jusqu’à disponibilité, task_done signale la fin du traitement.
+- Démo : pipeline simple.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread
+from queue import Queue
+
+q: Queue[int] = Queue()
+
+def producteur():
+    for x in [1, 2, 3]:
+        time.sleep(0.2)
+        q.put(x)
+        print(&quot;Produit:&quot;, x)
+
+def consommateur():
+    for _ in range(3):
+        x = q.get()
+        print(&quot;Consommé:&quot;, x)
+        q.task_done()
+
+t1 = Thread(target=producteur)
+t2 = Thread(target=consommateur)
+t1.start()
+t2.start()
+
+q.join()
+t1.join()
+t2.join()
+
+print(&quot;Pipeline terminé.&quot;)
+</code></pre>
+<hr />
+<h1 id="11-predict-quel-est-lordre-daffichage-des-threads">11) Predict : quel est l’ordre d’affichage des threads ?<a class="headerlink" href="#11-predict-quel-est-lordre-daffichage-des-threads" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_10">Énoncé<a class="headerlink" href="#enonce_10" title="Permanent link">&para;</a></h2>
+<p>Prédire si l’ordre des prints est déterministe.</p>
+<h2 id="solution_10">Solution<a class="headerlink" href="#solution_10" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- L’ordre dépend du scheduler et du timing : non déterministe.
+- Démo : lancer plusieurs fois et observer que l’ordre change.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread
+
+def tache(n: int):
+    time.sleep(0.01 * (3 - n))
+    print(&quot;Thread&quot;, n)
+
+threads = [Thread(target=tache, args=(i,)) for i in [1, 2, 3]]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+
+print(&quot;Relancer pour observer l’ordre.&quot;)
+</code></pre>
+<hr />
+<h1 id="12-daemon-thread-quel-risque-reel-en-production">12) Daemon thread : quel risque réel en production ?<a class="headerlink" href="#12-daemon-thread-quel-risque-reel-en-production" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_11">Énoncé<a class="headerlink" href="#enonce_11" title="Permanent link">&para;</a></h2>
+<p>Montrer qu’un daemon peut être interrompu sans terminer.</p>
+<h2 id="solution_11">Solution<a class="headerlink" href="#solution_11" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Un thread daemon est stoppé quand le main se termine.
+- Risque : logs incomplets, flush non fait, écritures perdues.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread
+
+def journaliser():
+    for i in range(10):
+        time.sleep(0.2)
+        print(&quot;Log&quot;, i)
+
+t = Thread(target=journaliser, daemon=True)
+t.start()
+
+time.sleep(0.6)
+print(&quot;Main termine, daemon peut être coupé avant la fin.&quot;)
+</code></pre>
+<hr />
+<h1 id="13-thread-subclass-pourquoi-preferer-target-dans-thread">13) Thread subclass : pourquoi préférer target dans Thread ?<a class="headerlink" href="#13-thread-subclass-pourquoi-preferer-target-dans-thread" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_12">Énoncé<a class="headerlink" href="#enonce_12" title="Permanent link">&para;</a></h2>
+<p>Comparer deux styles et montrer le style le plus simple à maintenir.</p>
+<h2 id="solution_12">Solution<a class="headerlink" href="#solution_12" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Hériter de Thread est utile si on encapsule état + comportement.
+- Utiliser target est plus simple pour des tâches courtes.
+- Démo : même job avec les deux approches.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread
+
+def job(n: int):
+    time.sleep(0.1)
+    print(&quot;Job target:&quot;, n)
+
+class Worker(Thread):
+    def __init__(self, n: int):
+        super().__init__()
+        self.n = n
+
+    def run(self):
+        time.sleep(0.1)
+        print(&quot;Job subclass:&quot;, self.n)
+
+t1 = Thread(target=job, args=(1,))
+t2 = Worker(2)
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+</code></pre>
+<hr />
+<h1 id="14-asyncio-pourquoi-await-est-obligatoire">14) asyncio : pourquoi await est obligatoire ?<a class="headerlink" href="#14-asyncio-pourquoi-await-est-obligatoire" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_13">Énoncé<a class="headerlink" href="#enonce_13" title="Permanent link">&para;</a></h2>
+<p>Montrer que créer une coroutine sans await ne l’exécute pas.</p>
+<h2 id="solution_13">Solution<a class="headerlink" href="#solution_13" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Une fonction async retourne une coroutine.
+- Sans await (ou asyncio.run / gather), elle ne s’exécute pas.
+&quot;&quot;&quot;
+
+import asyncio
+
+async def f():
+    print(&quot;Début f&quot;)
+    await asyncio.sleep(0.1)
+    print(&quot;Fin f&quot;)
+
+# Création sans exécution
+coro = f()
+print(&quot;Objet coroutine créé:&quot;, coro)
+
+# Exécution réelle
+asyncio.run(f())
+</code></pre>
+<hr />
+<h1 id="15-predict-que-renvoie-gather-si-une-coroutine-echoue">15) Predict : que renvoie gather si une coroutine échoue ?<a class="headerlink" href="#15-predict-que-renvoie-gather-si-une-coroutine-echoue" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_14">Énoncé<a class="headerlink" href="#enonce_14" title="Permanent link">&para;</a></h2>
+<p>Montrer le comportement par défaut et la variante qui récupère les exceptions.</p>
+<h2 id="solution_14">Solution<a class="headerlink" href="#solution_14" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Par défaut, gather propage la première exception.
+- Avec return_exceptions=True, on récupère résultats + exceptions.
+&quot;&quot;&quot;
+
+import asyncio
+
+async def ok():
+    await asyncio.sleep(0.1)
+    return &quot;OK&quot;
+
+async def ko():
+    await asyncio.sleep(0.05)
+    raise ValueError(&quot;Erreur métier&quot;)
+
+async def main():
+    try:
+        res = await asyncio.gather(ok(), ko())
+        print(&quot;Résultats:&quot;, res)
+    except Exception as e:
+        print(&quot;Exception propagée:&quot;, type(e).__name__, str(e))
+
+    res = await asyncio.gather(ok(), ko(), return_exceptions=True)
+    print(&quot;Mode return_exceptions:&quot;, res)
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h1 id="16-bloquer-la-boucle-asyncio-comment-detecter-le-bug">16) Bloquer la boucle asyncio : comment détecter le bug ?<a class="headerlink" href="#16-bloquer-la-boucle-asyncio-comment-detecter-le-bug" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_15">Énoncé<a class="headerlink" href="#enonce_15" title="Permanent link">&para;</a></h2>
+<p>Montrer un code async qui semble correct mais bloque tout.</p>
+<h2 id="solution_15">Solution<a class="headerlink" href="#solution_15" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- time.sleep bloque le thread et donc la boucle event loop.
+- Il faut utiliser asyncio.sleep.
+- Démo : une tâche périodique est gelée si sleep bloquant existe.
+&quot;&quot;&quot;
+
+import asyncio
+import time
+
+async def tick():
+    for i in range(5):
+        await asyncio.sleep(0.1)
+        print(&quot;Tick&quot;, i)
+
+async def mauvais():
+    time.sleep(0.5)
+    print(&quot;Mauvais terminé&quot;)
+
+async def bon():
+    await asyncio.sleep(0.5)
+    print(&quot;Bon terminé&quot;)
+
+async def main():
+    print(&quot;Cas bloquant&quot;)
+    await asyncio.gather(tick(), mauvais())
+
+    print(&quot;Cas non bloquant&quot;)
+    await asyncio.gather(tick(), bon())
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h1 id="17-asyncio-semaphore-comment-limiter-la-concurrence-proprement">17) asyncio Semaphore : comment limiter la concurrence proprement ?<a class="headerlink" href="#17-asyncio-semaphore-comment-limiter-la-concurrence-proprement" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_16">Énoncé<a class="headerlink" href="#enonce_16" title="Permanent link">&para;</a></h2>
+<p>Simuler 10 appels I/O mais en limiter 3 simultanément.</p>
+<h2 id="solution_16">Solution<a class="headerlink" href="#solution_16" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Limiter la concurrence évite de saturer API, DB, réseau.
+- asyncio.Semaphore contrôle le nombre de tâches simultanées.
+&quot;&quot;&quot;
+
+import asyncio
+
+sem = asyncio.Semaphore(3)
+
+async def appel(n: int):
+    async with sem:
+        print(&quot;Start&quot;, n)
+        await asyncio.sleep(0.2)
+        print(&quot;End&quot;, n)
+        return n
+
+async def main():
+    tasks = [appel(i) for i in range(1, 11)]
+    res = await asyncio.gather(*tasks)
+    print(&quot;Total résultats:&quot;, len(res))
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h1 id="18-thread-asyncio-comment-executer-une-fonction-bloquante-sans-geler-la-boucle">18) Thread + asyncio : comment exécuter une fonction bloquante sans geler la boucle ?<a class="headerlink" href="#18-thread-asyncio-comment-executer-une-fonction-bloquante-sans-geler-la-boucle" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_17">Énoncé<a class="headerlink" href="#enonce_17" title="Permanent link">&para;</a></h2>
+<p>Montrer l’utilisation d’un exécuteur pour isoler du code bloquant.</p>
+<h2 id="solution_17">Solution<a class="headerlink" href="#solution_17" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Certaines librairies sont bloquantes (I/O sync).
+- run_in_executor exécute la fonction dans un thread, sans bloquer la boucle.
+&quot;&quot;&quot;
+
+import asyncio
+import time
+
+def bloquant():
+    time.sleep(0.4)
+    return &quot;Résultat bloquant&quot;
+
+async def main():
+    loop = asyncio.get_running_loop()
+    print(&quot;Avant exécuteur&quot;)
+    res = await loop.run_in_executor(None, bloquant)
+    print(&quot;Après exécuteur:&quot;, res)
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h1 id="19-timeout-comment-proteger-un-appel-async-qui-peut-se-bloquer">19) Timeout : comment protéger un appel async qui peut se bloquer ?<a class="headerlink" href="#19-timeout-comment-proteger-un-appel-async-qui-peut-se-bloquer" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_18">Énoncé<a class="headerlink" href="#enonce_18" title="Permanent link">&para;</a></h2>
+<p>Montrer un timeout clair et observable.</p>
+<h2 id="solution_18">Solution<a class="headerlink" href="#solution_18" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- wait_for impose une limite : si dépassée, TimeoutError.
+- Utile pour appels réseau instables.
+&quot;&quot;&quot;
+
+import asyncio
+
+async def lent():
+    await asyncio.sleep(1)
+    return &quot;OK&quot;
+
+async def main():
+    try:
+        res = await asyncio.wait_for(lent(), timeout=0.2)
+        print(res)
+    except asyncio.TimeoutError:
+        print(&quot;Timeout déclenché&quot;)
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h1 id="20-mini-defi-pipeline-e-commerce-ingestion-traitement-sortie">20) Mini défi : pipeline e-commerce (ingestion, traitement, sortie)<a class="headerlink" href="#20-mini-defi-pipeline-e-commerce-ingestion-traitement-sortie" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_19">Énoncé<a class="headerlink" href="#enonce_19" title="Permanent link">&para;</a></h2>
+<p>Construire un mini pipeline : un producteur crée des commandes, un consommateur traite, puis confirme.</p>
+<h2 id="solution_19">Solution<a class="headerlink" href="#solution_19" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Modèle très courant : ingestion → file → workers → ack.
+- Ici : Queue thread-safe + deux workers.
+- Démo : affichage du flux complet.
+&quot;&quot;&quot;
+
+import time
+from threading import Thread
+from queue import Queue
+
+q: Queue[dict] = Queue()
+
+def producteur():
+    commandes = [
+        {&quot;id&quot;: 101, &quot;montant&quot;: 50},
+        {&quot;id&quot;: 102, &quot;montant&quot;: 120},
+        {&quot;id&quot;: 103, &quot;montant&quot;: 30},
+        {&quot;id&quot;: 104, &quot;montant&quot;: 90},
+    ]
+    for c in commandes:
+        time.sleep(0.1)
+        q.put(c)
+        print(&quot;Reçu commande:&quot;, c[&quot;id&quot;])
+    print(&quot;Producteur terminé&quot;)
+
+def worker(n: int):
+    while True:
+        commande = q.get()
+        if commande is None:
+            q.task_done()
+            print(&quot;Worker&quot;, n, &quot;stop&quot;)
+            return
+
+        # Traitement métier simulé
+        time.sleep(0.2)
+        decision = &quot;ACCEPTÉE&quot; if commande[&quot;montant&quot;] &lt;= 100 else &quot;REVUE&quot;
+        print(&quot;Worker&quot;, n, &quot;traite&quot;, commande[&quot;id&quot;], &quot;=&gt;&quot;, decision)
+
+        q.task_done()
+
+t_prod = Thread(target=producteur)
+t_w1 = Thread(target=worker, args=(1,))
+t_w2 = Thread(target=worker, args=(2,))
+
+t_prod.start()
+t_w1.start()
+t_w2.start()
+
+t_prod.join()
+q.join()
+
+# Stop des workers via sentinelles
+q.put(None)
+q.put(None)
+q.join()
+
+t_w1.join()
+t_w2.join()
+
+print(&quot;Pipeline complet.&quot;)
+</code></pre>
+    </div>
+    <div class="page-nav">
+      <a href="04_les_comprehensions.html">◀ Les Compréhensions</a>
+      <a href="08_les_decorateurs_descripteurs.html">Les Décorateurs & Descripteurs ▶</a>
+    </div>
+    <footer>
+  Le Threading & Coroutine — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

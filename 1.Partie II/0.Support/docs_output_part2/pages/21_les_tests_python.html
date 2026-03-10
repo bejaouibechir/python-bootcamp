@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Tests Python — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="">Main Page</a>
+    <a href="#" class="active">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html" class="current"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group collapsed">
+    <div class="sidebar-group-header collapsed" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-chapters">Chapitres</a><span>»</span>Les Tests Python</div>
+    <div class="page-header-band">
+      <h1>Les Tests Python</h1>
+    </div>
+    <div class="content-body">
+<h1 id="pytest-atelier-complet">🧠 Pytest — Atelier Complet<a class="headerlink" href="#pytest-atelier-complet" title="Permanent link">&para;</a></h1>
+<p>Le support est proporiété de <strong>Bechir Bejaoui</strong></p>
+<hr />
+<h1 id="1-pourquoi-tester-son-code">1️⃣ Pourquoi tester son code ?<a class="headerlink" href="#1-pourquoi-tester-son-code" title="Permanent link">&para;</a></h1>
+<p>Les tests permettent de :</p>
+<ul>
+<li>
+<p>Détecter les régressions avant la production</p>
+</li>
+<li>
+<p>Documenter le comportement attendu</p>
+</li>
+<li>
+<p>Refactoriser sans crainte</p>
+</li>
+<li>
+<p>Travailler en équipe sereinement</p>
+</li>
+<li>
+<p>Automatiser la validation continue (CI/CD)</p>
+</li>
+</ul>
+<p>Exemple réel :<br />
+Un calcul de facture, une règle métier RH, un algorithme de scoring…<br />
+Tout code critique doit être couvert par des tests.</p>
+<hr />
+<h1 id="2-installation-et-premier-test">2️⃣ Installation et premier test<a class="headerlink" href="#2-installation-et-premier-test" title="Permanent link">&para;</a></h1>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">pip install pytest
+</code></pre>
+<h2 id="arborescence-de-reference">Arborescence de référence<a class="headerlink" href="#arborescence-de-reference" title="Permanent link">&para;</a></h2>
+<pre><code>projet/
+├── calcul.py
+└── test_calcul.py
+</code></pre>
+<h2 id="exemple-minimal">Exemple minimal<a class="headerlink" href="#exemple-minimal" title="Permanent link">&para;</a></h2>
+<p><strong>calcul.py</strong></p>
+<pre><code class="language-python">def addition(a: float, b: float) -&gt; float:
+    &quot;&quot;&quot;Retourne la somme de deux nombres.&quot;&quot;&quot;
+    return a + b
+</code></pre>
+<p><strong>test_calcul.py</strong></p>
+<pre><code class="language-python">from calcul import addition
+
+def test_addition_entiers():
+    # Arrange
+    a, b = 3, 4
+
+    # Act
+    resultat = addition(a, b)
+
+    # Assert
+    assert resultat == 7
+</code></pre>
+<h2 id="lancer-les-tests">Lancer les tests<a class="headerlink" href="#lancer-les-tests" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">pytest                      # tous les tests
+pytest test_calcul.py       # fichier précis
+pytest -v                   # mode verbeux
+</code></pre>
+<hr />
+<h1 id="3-conventions-de-nommage">3️⃣ Conventions de nommage<a class="headerlink" href="#3-conventions-de-nommage" title="Permanent link">&para;</a></h1>
+<p>pytest découvre automatiquement les tests selon ces règles :</p>
+<ul>
+<li>
+<p>Fichiers commençant par <code>test_</code> ou finissant par <code>_test.py</code></p>
+</li>
+<li>
+<p>Fonctions commençant par <code>test_</code></p>
+</li>
+<li>
+<p>Classes commençant par <code>Test</code> (sans <code>__init__</code>)</p>
+</li>
+</ul>
+<pre><code class="language-python"># ✅ Découvert automatiquement
+def test_addition():
+    ...
+
+class TestCalcul:
+    def test_soustraction(self):
+        ...
+
+# ❌ Ignoré par pytest
+def verifier_addition():
+    ...
+</code></pre>
+<hr />
+<h1 id="4-assert-les-assertions">4️⃣ assert — les assertions<a class="headerlink" href="#4-assert-les-assertions" title="Permanent link">&para;</a></h1>
+<p>pytest réécrit les assertions pour afficher des messages clairs en cas d'échec.</p>
+<pre><code class="language-python">def test_assertions_variees():
+    # Égalité
+    assert 2 + 2 == 4
+
+    # Inégalité
+    assert 10 != 0
+
+    # Appartenance
+    assert &quot;admin&quot; in [&quot;admin&quot;, &quot;user&quot;]
+
+    # Type
+    assert isinstance(3.14, float)
+
+    # Valeur booléenne
+    assert len([1, 2, 3]) &gt; 0
+</code></pre>
+<p>En cas d'échec, pytest affiche :</p>
+<pre><code>AssertionError: assert 5 == 4
+</code></pre>
+<hr />
+<h1 id="5-pytestraises-tester-les-exceptions">5️⃣ pytest.raises — tester les exceptions<a class="headerlink" href="#5-pytestraises-tester-les-exceptions" title="Permanent link">&para;</a></h1>
+<pre><code>projet/
+├── validation.py
+└── test_validation.py
+</code></pre>
+<p><strong>validation.py</strong></p>
+<pre><code class="language-python">def diviser(a: float, b: float) -&gt; float:
+    &quot;&quot;&quot;Divise a par b. Lève ValueError si b est nul.&quot;&quot;&quot;
+    if b == 0:
+        raise ValueError(&quot;Division par zéro interdite&quot;)
+    return a / b
+</code></pre>
+<p><strong>test_validation.py</strong></p>
+<pre><code class="language-python">import pytest
+from validation import diviser
+
+def test_division_normale():
+    assert diviser(10, 2) == 5.0
+
+def test_division_par_zero():
+    # Vérifier qu'une exception est bien levée
+    with pytest.raises(ValueError) as exc_info:
+        diviser(10, 0)
+
+    # Vérifier le message de l'exception
+    assert &quot;zéro&quot; in str(exc_info.value)
+</code></pre>
+<hr />
+<h1 id="6-fixtures-preparer-le-contexte">6️⃣ Fixtures — préparer le contexte<a class="headerlink" href="#6-fixtures-preparer-le-contexte" title="Permanent link">&para;</a></h1>
+<p>Une fixture prépare les données ou ressources nécessaires à un test.</p>
+<pre><code>projet/
+├── panier.py
+└── test_panier.py
+</code></pre>
+<p><strong>panier.py</strong></p>
+<pre><code class="language-python">class Panier:
+    def __init__(self):
+        self.articles = []
+
+    def ajouter(self, nom: str, prix: float):
+        self.articles.append({&quot;nom&quot;: nom, &quot;prix&quot;: prix})
+
+    def total(self) -&gt; float:
+        return sum(a[&quot;prix&quot;] for a in self.articles)
+</code></pre>
+<p><strong>test_panier.py</strong></p>
+<pre><code class="language-python">import pytest
+from panier import Panier
+
+@pytest.fixture
+def panier_rempli():
+    &quot;&quot;&quot;Fixture : panier avec deux articles.&quot;&quot;&quot;
+    p = Panier()
+    p.ajouter(&quot;Clavier&quot;, 49.99)
+    p.ajouter(&quot;Souris&quot;, 29.99)
+    return p
+
+def test_total(panier_rempli):
+    assert panier_rempli.total() == pytest.approx(79.98)
+
+def test_nombre_articles(panier_rempli):
+    assert len(panier_rempli.articles) == 2
+</code></pre>
+<p>La fixture est injectée automatiquement par son nom.</p>
+<hr />
+<h1 id="7-pytestapprox-comparer-des-flottants">7️⃣ pytest.approx — comparer des flottants<a class="headerlink" href="#7-pytestapprox-comparer-des-flottants" title="Permanent link">&para;</a></h1>
+<p>Comparer des flottants directement est dangereux :</p>
+<pre><code class="language-python"># ❌ Peut échouer à cause de la précision flottante
+assert 0.1 + 0.2 == 0.3
+
+# ✅ Correct
+import pytest
+assert 0.1 + 0.2 == pytest.approx(0.3)
+</code></pre>
+<pre><code class="language-python">def test_tva():
+    prix_ht = 100.0
+    tva = 0.20
+    prix_ttc = prix_ht * (1 + tva)
+
+    assert prix_ttc == pytest.approx(120.0)
+</code></pre>
+<hr />
+<h1 id="8-parametrize-tester-plusieurs-cas">8️⃣ Parametrize — tester plusieurs cas<a class="headerlink" href="#8-parametrize-tester-plusieurs-cas" title="Permanent link">&para;</a></h1>
+<p><code>@pytest.mark.parametrize</code> évite la duplication de tests similaires.</p>
+<pre><code>projet/
+├── calcul.py
+└── test_calcul.py
+</code></pre>
+<p><strong>calcul.py</strong></p>
+<pre><code class="language-python">def est_pair(n: int) -&gt; bool:
+    &quot;&quot;&quot;Retourne True si n est pair.&quot;&quot;&quot;
+    return n % 2 == 0
+</code></pre>
+<p><strong>test_calcul.py</strong></p>
+<pre><code class="language-python">import pytest
+from calcul import est_pair
+
+@pytest.mark.parametrize(&quot;nombre, attendu&quot;, [
+    (2,  True),
+    (3,  False),
+    (0,  True),
+    (-4, True),
+    (7,  False),
+])
+def test_est_pair(nombre, attendu):
+    assert est_pair(nombre) == attendu
+</code></pre>
+<p>Un seul test couvre 5 cas — chaque ligne est une exécution indépendante.</p>
+<hr />
+<h1 id="9-conftestpy-fixtures-partagees">9️⃣ conftest.py — fixtures partagées<a class="headerlink" href="#9-conftestpy-fixtures-partagees" title="Permanent link">&para;</a></h1>
+<p><code>conftest.py</code> centralise les fixtures accessibles à tout le projet.</p>
+<pre><code>projet/
+├── conftest.py
+├── test_panier.py
+└── test_commande.py
+</code></pre>
+<p><strong>conftest.py</strong></p>
+<pre><code class="language-python">import pytest
+from panier import Panier
+
+@pytest.fixture
+def panier_vide():
+    &quot;&quot;&quot;Fixture disponible dans tous les fichiers de test.&quot;&quot;&quot;
+    return Panier()
+
+@pytest.fixture
+def panier_rempli():
+    p = Panier()
+    p.ajouter(&quot;Clavier&quot;, 49.99)
+    p.ajouter(&quot;Souris&quot;, 29.99)
+    return p
+</code></pre>
+<p><strong>test_panier.py</strong></p>
+<pre><code class="language-python">def test_panier_vide(panier_vide):
+    assert panier_vide.total() == 0
+
+def test_panier_rempli(panier_rempli):
+    assert len(panier_rempli.articles) == 2
+</code></pre>
+<p>Pas besoin d'importer les fixtures — pytest les injecte automatiquement.</p>
+<hr />
+<h1 id="portee-des-fixtures-scope">🔟 Portée des fixtures — scope<a class="headerlink" href="#portee-des-fixtures-scope" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">import pytest
+
+@pytest.fixture(scope=&quot;function&quot;)   # défaut : recréé à chaque test
+def connexion_legere():
+    return {&quot;host&quot;: &quot;localhost&quot;}
+
+@pytest.fixture(scope=&quot;module&quot;)     # une fois par fichier
+def connexion_module():
+    print(&quot;\n[Connexion ouverte]&quot;)
+    yield {&quot;host&quot;: &quot;db.prod&quot;}
+    print(&quot;\n[Connexion fermée]&quot;)
+
+@pytest.fixture(scope=&quot;session&quot;)    # une fois pour toute la session
+def config_globale():
+    return {&quot;env&quot;: &quot;test&quot;, &quot;debug&quot;: True}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Durée de vie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>function</code></td>
+<td>Recréé pour chaque test (défaut)</td>
+</tr>
+<tr>
+<td><code>class</code></td>
+<td>Partagé dans une classe de tests</td>
+</tr>
+<tr>
+<td><code>module</code></td>
+<td>Partagé dans un fichier</td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td>Partagé sur toute la session</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="11-mocking-isoler-les-dependances">1️⃣1️⃣ Mocking — isoler les dépendances<a class="headerlink" href="#11-mocking-isoler-les-dependances" title="Permanent link">&para;</a></h1>
+<p><code>unittest.mock</code> permet de remplacer des dépendances externes (API, base de données…).</p>
+<pre><code>projet/
+├── service.py
+└── test_service.py
+</code></pre>
+<p><strong>service.py</strong></p>
+<pre><code class="language-python">import requests
+
+def get_statut_serveur(url: str) -&gt; str:
+    &quot;&quot;&quot;Appelle une API et retourne le statut.&quot;&quot;&quot;
+    reponse = requests.get(url)
+    if reponse.status_code == 200:
+        return &quot;operationnel&quot;
+    return &quot;hors service&quot;
+</code></pre>
+<p><strong>test_service.py</strong></p>
+<pre><code class="language-python">from unittest.mock import patch, MagicMock
+from service import get_statut_serveur
+
+def test_serveur_operationnel():
+    # Remplacer requests.get par un faux objet
+    with patch(&quot;service.requests.get&quot;) as mock_get:
+        mock_get.return_value = MagicMock(status_code=200)
+
+        resultat = get_statut_serveur(&quot;http://fakeurl.com&quot;)
+
+        assert resultat == &quot;operationnel&quot;
+        mock_get.assert_called_once_with(&quot;http://fakeurl.com&quot;)
+
+def test_serveur_hors_service():
+    with patch(&quot;service.requests.get&quot;) as mock_get:
+        mock_get.return_value = MagicMock(status_code=500)
+
+        resultat = get_statut_serveur(&quot;http://fakeurl.com&quot;)
+
+        assert resultat == &quot;hors service&quot;
+</code></pre>
+<hr />
+<h1 id="12-marks-categoriser-les-tests">1️⃣2️⃣ Marks — catégoriser les tests<a class="headerlink" href="#12-marks-categoriser-les-tests" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">import pytest
+
+@pytest.mark.smoke
+def test_ping():
+    assert True
+
+@pytest.mark.slow
+def test_traitement_lourd():
+    import time
+    time.sleep(0.1)
+    assert True
+
+@pytest.mark.skip(reason=&quot;Fonctionnalité non implémentée&quot;)
+def test_futur():
+    assert False
+
+@pytest.mark.xfail(reason=&quot;Bug connu #42&quot;)
+def test_comportement_bugge():
+    assert 1 == 2
+</code></pre>
+<pre><code class="language-bash">pytest -m smoke          # uniquement les tests smoke
+pytest -m &quot;not slow&quot;     # exclure les tests lents
+pytest -v --tb=short     # traceback court
+</code></pre>
+<p>Déclarer les marks dans <code>pytest.ini</code> :</p>
+<pre><code class="language-ini">[pytest]
+markers =
+    smoke: tests de fumée rapides
+    slow: tests lents
+</code></pre>
+<hr />
+<h1 id="13-structure-aaa-arrange-act-assert">1️⃣3️⃣ Structure AAA — Arrange / Act / Assert<a class="headerlink" href="#13-structure-aaa-arrange-act-assert" title="Permanent link">&para;</a></h1>
+<p>Le pattern AAA structure chaque test de façon lisible.</p>
+<pre><code class="language-python">from panier import Panier
+
+def test_ajout_article():
+    # Arrange — préparer le contexte
+    panier = Panier()
+
+    # Act — exécuter l'action testée
+    panier.ajouter(&quot;Écran&quot;, 249.99)
+
+    # Assert — vérifier le résultat
+    assert len(panier.articles) == 1
+    assert panier.total() == pytest.approx(249.99)
+</code></pre>
+<p>Règle : <strong>un test = une responsabilité = une assertion principale.</strong></p>
+<hr />
+<h1 id="14-fixture-avec-yield-setup-et-teardown">1️⃣4️⃣ Fixture avec yield — setup et teardown<a class="headerlink" href="#14-fixture-avec-yield-setup-et-teardown" title="Permanent link">&para;</a></h1>
+<p><code>yield</code> sépare la préparation (<code>setup</code>) du nettoyage (<code>teardown</code>).</p>
+<pre><code class="language-python">import pytest
+
+@pytest.fixture
+def fichier_temporaire(tmp_path):
+    &quot;&quot;&quot;Crée un fichier de test, le supprime après.&quot;&quot;&quot;
+    fichier = tmp_path / &quot;data.txt&quot;
+    fichier.write_text(&quot;contenu initial&quot;)
+
+    yield fichier    # le test s'exécute ici
+
+    # Teardown automatique après le test
+    if fichier.exists():
+        fichier.unlink()
+
+def test_lecture_fichier(fichier_temporaire):
+    contenu = fichier_temporaire.read_text()
+    assert contenu == &quot;contenu initial&quot;
+</code></pre>
+<p><code>tmp_path</code> est une fixture native pytest qui crée un dossier temporaire.</p>
+<hr />
+<h1 id="15-tester-une-classe-complete">1️⃣5️⃣ Tester une classe complète<a class="headerlink" href="#15-tester-une-classe-complete" title="Permanent link">&para;</a></h1>
+<pre><code>projet/
+├── compte.py
+└── test_compte.py
+</code></pre>
+<p><strong>compte.py</strong></p>
+<pre><code class="language-python">class CompteBancaire:
+    def __init__(self, titulaire: str, solde: float = 0):
+        self.titulaire = titulaire
+        self.__solde = solde
+
+    def deposer(self, montant: float):
+        if montant &lt;= 0:
+            raise ValueError(&quot;Montant invalide&quot;)
+        self.__solde += montant
+
+    def retirer(self, montant: float):
+        if montant &gt; self.__solde:
+            raise ValueError(&quot;Solde insuffisant&quot;)
+        self.__solde -= montant
+
+    def solde(self) -&gt; float:
+        return self.__solde
+</code></pre>
+<p><strong>test_compte.py</strong></p>
+<pre><code class="language-python">import pytest
+from compte import CompteBancaire
+
+@pytest.fixture
+def compte():
+    return CompteBancaire(&quot;Bechir&quot;, solde=500.0)
+
+def test_depot(compte):
+    compte.deposer(200)
+    assert compte.solde() == 700.0
+
+def test_retrait(compte):
+    compte.retirer(100)
+    assert compte.solde() == 400.0
+
+def test_depot_invalide(compte):
+    with pytest.raises(ValueError, match=&quot;Montant invalide&quot;):
+        compte.deposer(-50)
+
+def test_retrait_insuffisant(compte):
+    with pytest.raises(ValueError, match=&quot;Solde insuffisant&quot;):
+        compte.retirer(1000)
+</code></pre>
+<hr />
+<h1 id="16-coverage-mesurer-la-couverture">1️⃣6️⃣ Coverage — mesurer la couverture<a class="headerlink" href="#16-coverage-mesurer-la-couverture" title="Permanent link">&para;</a></h1>
+<pre><code class="language-bash">pip install pytest-cov
+</code></pre>
+<pre><code class="language-bash">pytest --cov=calcul                   # couverture du module calcul
+pytest --cov=calcul --cov-report=term-missing  # lignes non couvertes
+pytest --cov=. --cov-report=html      # rapport HTML dans htmlcov/
+</code></pre>
+<p>Exemple de rapport terminal :</p>
+<pre><code>Name          Stmts   Miss  Cover
+---------------------------------
+calcul.py        12      2    83%
+panier.py         8      0   100%
+---------------------------------
+TOTAL            20      2    90%
+</code></pre>
+<p>Objectif recommandé en production : <strong>80% minimum</strong>.</p>
+<hr />
+<h1 id="17-organisation-dun-projet-reel">1️⃣7️⃣ Organisation d'un projet réel<a class="headerlink" href="#17-organisation-dun-projet-reel" title="Permanent link">&para;</a></h1>
+<pre><code>projet/
+├── src/
+│   └── stockpro/
+│       ├── __init__.py
+│       ├── calcul.py
+│       └── panier.py
+├── tests/
+│   ├── conftest.py
+│   ├── test_calcul.py
+│   └── test_panier.py
+├── pytest.ini
+└── requirements.txt
+</code></pre>
+<p><strong>pytest.ini</strong></p>
+<pre><code class="language-ini">[pytest]
+testpaths = tests
+addopts = -v --tb=short
+markers =
+    smoke: tests rapides de vérification
+    integration: tests d'intégration
+</code></pre>
+<p><strong>requirements.txt</strong></p>
+<pre><code>pytest
+pytest-cov
+</code></pre>
+<hr />
+<h1 id="18-bonnes-pratiques">1️⃣8️⃣ Bonnes pratiques<a class="headerlink" href="#18-bonnes-pratiques" title="Permanent link">&para;</a></h1>
+<p>✔ Un test = une responsabilité unique<br />
+✔ Nommer les tests de façon explicite : <code>test_retrait_solde_insuffisant</code><br />
+✔ Utiliser des fixtures plutôt que répéter le setup<br />
+✔ Centraliser les fixtures partagées dans <code>conftest.py</code><br />
+✔ Tester les cas nominaux ET les cas d'erreur<br />
+✔ Ne jamais tester l'implémentation — tester le comportement<br />
+✔ Viser 80% de couverture minimum<br />
+✔ Exécuter les tests avant chaque commit</p>
+<hr />
+<h1 id="19-pytest-en-cicd">1️⃣9️⃣ pytest en CI/CD<a class="headerlink" href="#19-pytest-en-cicd" title="Permanent link">&para;</a></h1>
+<pre><code class="language-yaml"># .github/workflows/tests.yml
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: &quot;3.11&quot;
+      - run: pip install -r requirements.txt
+      - run: pytest --cov=src --cov-report=term-missing
+</code></pre>
+<p>Les tests s'exécutent automatiquement à chaque push.</p>
+<hr />
+<h1 id="20-synthese">2️⃣0️⃣ Synthèse<a class="headerlink" href="#20-synthese" title="Permanent link">&para;</a></h1>
+<ul>
+<li>
+<p><code>pytest</code> découvre automatiquement les fichiers <code>test_*.py</code></p>
+</li>
+<li>
+<p><code>assert</code> est réécrit par pytest pour des messages clairs</p>
+</li>
+<li>
+<p><code>pytest.raises</code> vérifie qu'une exception est bien levée</p>
+</li>
+<li>
+<p><code>@pytest.fixture</code> prépare et nettoie le contexte de test</p>
+</li>
+<li>
+<p><code>conftest.py</code> centralise les fixtures partagées</p>
+</li>
+<li>
+<p><code>@pytest.mark.parametrize</code> couvre plusieurs cas en un test</p>
+</li>
+<li>
+<p><code>unittest.mock.patch</code> isole les dépendances externes</p>
+</li>
+<li>
+<p><code>pytest --cov</code> mesure la couverture du code</p>
+</li>
+</ul>
+<hr />
+<h2 id="questions-entretiens">Questions entretiens<a class="headerlink" href="#questions-entretiens" title="Permanent link">&para;</a></h2>
+<p>Voici <strong>20 questions niveau intermédiaire</strong> sous forme <strong>Énoncé + Solution</strong>, avec à chaque fois :</p>
+<ul>
+<li>
+<p>une <strong>explication en haut du script</strong></p>
+</li>
+<li>
+<p>un <strong>enchaînement clair</strong> (démo → affichage → conclusion)</p>
+</li>
+<li>
+<p>du <strong>code commenté</strong></p>
+</li>
+</ul>
+<hr />
+<h1 id="1-pourquoi-assert-a-b-dans-pytest-est-plus-puissant-quen-python-pur">1) Pourquoi <code>assert a == b</code> dans pytest est plus puissant qu'en Python pur ?<a class="headerlink" href="#1-pourquoi-assert-a-b-dans-pytest-est-plus-puissant-quen-python-pur" title="Permanent link">&para;</a></h1>
+<h2 id="enonce">Énoncé<a class="headerlink" href="#enonce" title="Permanent link">&para;</a></h2>
+<p>Que se passe-t-il quand un assert échoue dans pytest, et pourquoi c'est différent du comportement Python standard ?</p>
+<h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Python standard: assert lève AssertionError avec peu d'information.
+- pytest réécrit (introspect) l'assert pour afficher les valeurs réelles.
+- C'est le mécanisme d'assertion rewriting de pytest.
+&quot;&quot;&quot;
+
+# test_demo.py
+def addition(a, b):
+    return a + b
+
+def test_echec_informatif():
+    resultat = addition(2, 3)
+    attendu  = 10
+
+    # En cas d'échec, pytest affiche :
+    # AssertionError: assert 5 == 10
+    #  +  where 5 = addition(2, 3)
+    assert resultat == attendu
+</code></pre>
+<hr />
+<h1 id="2-quelle-difference-entre-une-fixture-scopefunction-et-scopemodule">2) Quelle différence entre une fixture <code>scope="function"</code> et <code>scope="module"</code> ?<a class="headerlink" href="#2-quelle-difference-entre-une-fixture-scopefunction-et-scopemodule" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_1">Énoncé<a class="headerlink" href="#enonce_1" title="Permanent link">&para;</a></h2>
+<p>Pourquoi le scope d'une fixture impacte les performances et l'isolation des tests ?</p>
+<h2 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- scope=&quot;function&quot; : fixture recréée pour chaque test → isolation maximale.
+- scope=&quot;module&quot;   : fixture créée une fois pour tous les tests du fichier.
+- Utiliser module/session pour les ressources coûteuses (connexion DB, serveur).
+&quot;&quot;&quot;
+
+import pytest
+
+@pytest.fixture(scope=&quot;function&quot;)
+def panier_isole():
+    # Recréé à chaque test → aucune pollution entre tests
+    from panier import Panier
+    return Panier()
+
+@pytest.fixture(scope=&quot;module&quot;)
+def connexion_db():
+    # Créée une seule fois pour le fichier → plus rapide
+    print(&quot;\n[DB connectée]&quot;)
+    yield {&quot;host&quot;: &quot;localhost&quot;, &quot;db&quot;: &quot;test&quot;}
+    print(&quot;\n[DB déconnectée]&quot;)
+
+def test_panier_vide(panier_isole):
+    assert panier_isole.total() == 0
+
+def test_panier_apres(panier_isole):
+    # Nouveau panier — pas de pollution du test précédent
+    assert len(panier_isole.articles) == 0
+</code></pre>
+<hr />
+<h1 id="3-comment-tester-quune-exception-contient-un-message-precis">3) Comment tester qu'une exception contient un message précis ?<a class="headerlink" href="#3-comment-tester-quune-exception-contient-un-message-precis" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_2">Énoncé<a class="headerlink" href="#enonce_2" title="Permanent link">&para;</a></h2>
+<p><code>pytest.raises</code> capture l'exception, mais comment vérifier le message exactement ?</p>
+<h2 id="solution_2">Solution<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- pytest.raises() retourne un ExceptionInfo.
+- exc_info.value contient l'exception elle-même.
+- match= permet une vérification par expression régulière directement.
+&quot;&quot;&quot;
+
+import pytest
+
+def retirer(solde, montant):
+    if montant &gt; solde:
+        raise ValueError(f&quot;Solde insuffisant : {solde} disponible&quot;)
+    return solde - montant
+
+def test_message_exception_via_match():
+    # match= vérifie le message avec une regex
+    with pytest.raises(ValueError, match=&quot;Solde insuffisant&quot;):
+        retirer(100, 500)
+
+def test_message_exception_via_value():
+    with pytest.raises(ValueError) as exc_info:
+        retirer(100, 500)
+
+    # Accès complet au message
+    assert &quot;100&quot; in str(exc_info.value)
+</code></pre>
+<hr />
+<h1 id="4-pourquoi-ne-pas-mettre-de-logique-dans-une-fixture">4) Pourquoi ne pas mettre de logique dans une fixture ?<a class="headerlink" href="#4-pourquoi-ne-pas-mettre-de-logique-dans-une-fixture" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_3">Énoncé<a class="headerlink" href="#enonce_3" title="Permanent link">&para;</a></h2>
+<p>Quel problème survient quand une fixture contient trop de logique métier ?</p>
+<h2 id="solution_3">Solution<a class="headerlink" href="#solution_3" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Une fixture doit préparer un contexte, pas tester une logique.
+- Si la fixture échoue, le test est marqué ERROR, pas FAILED.
+- La logique dans la fixture rend les tests difficiles à débugger.
+&quot;&quot;&quot;
+
+import pytest
+from panier import Panier
+
+# ❌ Mauvaise pratique : logique dans la fixture
+@pytest.fixture
+def panier_avec_remise():
+    p = Panier()
+    p.ajouter(&quot;Clavier&quot;, 100.0)
+    total = p.total()
+    remise = total * 0.10   # logique métier ici → à éviter
+    return p, remise
+
+# ✅ Bonne pratique : fixture simple, logique dans le test
+@pytest.fixture
+def panier_simple():
+    p = Panier()
+    p.ajouter(&quot;Clavier&quot;, 100.0)
+    return p
+
+def test_remise(panier_simple):
+    # La logique métier est dans le test, pas dans la fixture
+    remise = panier_simple.total() * 0.10
+    assert remise == pytest.approx(10.0)
+</code></pre>
+<hr />
+<h1 id="5-comment-tester-plusieurs-cas-sans-dupliquer-le-code">5) Comment tester plusieurs cas sans dupliquer le code ?<a class="headerlink" href="#5-comment-tester-plusieurs-cas-sans-dupliquer-le-code" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_4">Énoncé<a class="headerlink" href="#enonce_4" title="Permanent link">&para;</a></h2>
+<p>Comment <code>parametrize</code> évite la répétition tout en gardant chaque cas indépendant ?</p>
+<h2 id="solution_4">Solution<a class="headerlink" href="#solution_4" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- @pytest.mark.parametrize génère un test par ligne de paramètres.
+- Chaque cas est indépendant : un échec n'affecte pas les autres.
+- L'ID affiché est généré automatiquement ou peut être personnalisé.
+&quot;&quot;&quot;
+
+import pytest
+
+def calculer_ttc(prix_ht: float, taux: float = 0.20) -&gt; float:
+    return round(prix_ht * (1 + taux), 2)
+
+@pytest.mark.parametrize(&quot;prix_ht, taux, attendu&quot;, [
+    (100.0, 0.20, 120.0),
+    (50.0,  0.10, 55.0),
+    (0.0,   0.20, 0.0),
+    (200.0, 0.00, 200.0),
+], ids=[&quot;tva_normale&quot;, &quot;tva_reduite&quot;, &quot;prix_nul&quot;, &quot;sans_tva&quot;])
+def test_calcul_ttc(prix_ht, taux, attendu):
+    assert calculer_ttc(prix_ht, taux) == pytest.approx(attendu)
+</code></pre>
+<hr />
+<h1 id="6-pourquoi-patch-doit-cibler-le-bon-emplacement">6) Pourquoi <code>patch</code> doit cibler le bon emplacement ?<a class="headerlink" href="#6-pourquoi-patch-doit-cibler-le-bon-emplacement" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_5">Énoncé<a class="headerlink" href="#enonce_5" title="Permanent link">&para;</a></h2>
+<p>Pourquoi <code>patch("requests.get")</code> peut ne pas fonctionner alors que <code>patch("service.requests.get")</code> fonctionne ?</p>
+<h2 id="solution_5">Solution<a class="headerlink" href="#solution_5" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- patch remplace l'objet là où il est utilisé, pas là où il est défini.
+- Si service.py importe requests, il faut patcher service.requests.get.
+- Patcher requests.get directement ne touche pas la référence dans service.py.
+&quot;&quot;&quot;
+
+import pytest
+from unittest.mock import patch, MagicMock
+
+# service.py contient : import requests / requests.get(url)
+
+def test_patch_correct():
+    # ✅ Patch au bon endroit : là où requests est utilisé
+    with patch(&quot;service.requests.get&quot;) as mock_get:
+        mock_get.return_value = MagicMock(status_code=200)
+        from service import get_statut_serveur
+        assert get_statut_serveur(&quot;http://test.com&quot;) == &quot;operationnel&quot;
+
+def test_patch_incorrect():
+    # ❌ Patch au mauvais endroit : n'affecte pas service.py
+    with patch(&quot;requests.get&quot;) as mock_get:
+        mock_get.return_value = MagicMock(status_code=200)
+        # service.py utilise sa propre référence à requests
+        # ce patch peut ne pas fonctionner selon l'ordre d'import
+        pass
+</code></pre>
+<hr />
+<h1 id="7-que-verifie-mockassert_called_once_with">7) Que vérifie <code>mock.assert_called_once_with()</code> ?<a class="headerlink" href="#7-que-verifie-mockassert_called_once_with" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_6">Énoncé<a class="headerlink" href="#enonce_6" title="Permanent link">&para;</a></h2>
+<p>Comment s'assurer qu'une dépendance mockée a été appelée exactement comme prévu ?</p>
+<h2 id="solution_6">Solution<a class="headerlink" href="#solution_6" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- assert_called_once_with() vérifie que le mock a été appelé UNE SEULE fois
+  avec les arguments exacts.
+- assert_called_with() vérifie uniquement le dernier appel.
+- call_count donne le nombre total d'appels.
+&quot;&quot;&quot;
+
+from unittest.mock import patch, MagicMock
+from service import get_statut_serveur
+
+def test_appel_api_verifie():
+    with patch(&quot;service.requests.get&quot;) as mock_get:
+        mock_get.return_value = MagicMock(status_code=200)
+
+        url = &quot;http://api.example.com/health&quot;
+        get_statut_serveur(url)
+
+        # Vérifier que requests.get a été appelé une fois avec la bonne URL
+        mock_get.assert_called_once_with(url)
+
+        # Vérifier le nombre d'appels
+        assert mock_get.call_count == 1
+</code></pre>
+<hr />
+<h1 id="8-difference-entre-tmp_path-et-monkeypatch">8) Différence entre <code>tmp_path</code> et <code>monkeypatch</code> ?<a class="headerlink" href="#8-difference-entre-tmp_path-et-monkeypatch" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_7">Énoncé<a class="headerlink" href="#enonce_7" title="Permanent link">&para;</a></h2>
+<p>Quand utiliser la fixture <code>tmp_path</code> et quand utiliser <code>monkeypatch</code> ?</p>
+<h2 id="solution_7">Solution<a class="headerlink" href="#solution_7" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- tmp_path : fixture native pytest pour créer des fichiers/dossiers temporaires.
+  Nettoyage automatique après le test.
+- monkeypatch : modifie temporairement des attributs, variables d'environnement,
+  ou fonctions. Restauration automatique après le test.
+&quot;&quot;&quot;
+
+import os
+
+def test_fichier_temporaire(tmp_path):
+    # tmp_path est un dossier unique par test
+    fichier = tmp_path / &quot;rapport.txt&quot;
+    fichier.write_text(&quot;données de test&quot;)
+
+    assert fichier.exists()
+    assert fichier.read_text() == &quot;données de test&quot;
+    # Supprimé automatiquement après le test
+
+def lire_config():
+    return os.getenv(&quot;APP_ENV&quot;, &quot;production&quot;)
+
+def test_variable_environnement(monkeypatch):
+    # Modifier temporairement une variable d'environnement
+    monkeypatch.setenv(&quot;APP_ENV&quot;, &quot;test&quot;)
+
+    assert lire_config() == &quot;test&quot;
+    # APP_ENV est restauré à sa valeur d'origine après le test
+</code></pre>
+<hr />
+<h1 id="9-comment-tester-une-methode-privee">9) Comment tester une méthode privée ?<a class="headerlink" href="#9-comment-tester-une-methode-privee" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_8">Énoncé<a class="headerlink" href="#enonce_8" title="Permanent link">&para;</a></h2>
+<p>Faut-il tester les méthodes privées directement ? Quelle est la bonne approche ?</p>
+<h2 id="solution_8">Solution<a class="headerlink" href="#solution_8" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Les méthodes privées sont un détail d'implémentation.
+- Tester via l'interface publique est la bonne pratique.
+- Si une méthode privée est trop complexe à tester indirectement,
+  c'est souvent le signe qu'elle devrait être extraite dans une classe séparée.
+&quot;&quot;&quot;
+
+class CalculateurFacture:
+    def __calculer_remise(self, montant: float, taux: float) -&gt; float:
+        # Logique privée
+        return montant * taux
+
+    def total_apres_remise(self, montant: float, taux: float) -&gt; float:
+        remise = self.__calculer_remise(montant, taux)
+        return montant - remise
+
+# ✅ Tester via l'interface publique
+def test_total_apres_remise():
+    calc = CalculateurFacture()
+    # On teste le comportement observable, pas l'implémentation
+    assert calc.total_apres_remise(100.0, 0.10) == pytest.approx(90.0)
+    assert calc.total_apres_remise(200.0, 0.20) == pytest.approx(160.0)
+</code></pre>
+<hr />
+<h1 id="10-pourquoi-xfail-est-preferable-a-skip-pour-un-bug-connu">10) Pourquoi <code>xfail</code> est préférable à <code>skip</code> pour un bug connu ?<a class="headerlink" href="#10-pourquoi-xfail-est-preferable-a-skip-pour-un-bug-connu" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_9">Énoncé<a class="headerlink" href="#enonce_9" title="Permanent link">&para;</a></h2>
+<p>Quelle différence entre <code>skip</code> et <code>xfail</code> dans la gestion des tests problématiques ?</p>
+<h2 id="solution_9">Solution<a class="headerlink" href="#solution_9" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- skip : le test ne s'exécute pas du tout → masque le problème.
+- xfail : le test s'exécute et on attend un échec → documente le bug.
+- Si un test xfail passe de façon inattendue → XPASS → signal important.
+&quot;&quot;&quot;
+
+import pytest
+
+@pytest.mark.skip(reason=&quot;Pas encore implémenté&quot;)
+def test_fonctionnalite_future():
+    # Ne s'exécute jamais → on ne sait pas si ça marche
+    assert False
+
+@pytest.mark.xfail(reason=&quot;Bug connu #42 — division retourne None&quot;)
+def test_bug_connu():
+    # S'exécute → documente que le bug existe
+    # Si le bug est corrigé → XPASS → alerte l'équipe
+    from calcul import diviser
+    assert diviser(10, 2) == 5
+</code></pre>
+<hr />
+<h1 id="11-comment-tester-du-code-asynchrone">11) Comment tester du code asynchrone ?<a class="headerlink" href="#11-comment-tester-du-code-asynchrone" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_10">Énoncé<a class="headerlink" href="#enonce_10" title="Permanent link">&para;</a></h2>
+<p>Comment pytest gère-t-il les fonctions <code>async</code> ?</p>
+<h2 id="solution_10">Solution<a class="headerlink" href="#solution_10" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- pytest ne gère pas nativement l'async.
+- pytest-asyncio ajoute ce support.
+- Décorer le test avec @pytest.mark.asyncio.
+&quot;&quot;&quot;
+
+# pip install pytest-asyncio
+
+import pytest
+import asyncio
+
+async def fetch_donnees(url: str) -&gt; dict:
+    &quot;&quot;&quot;Simule une requête asynchrone.&quot;&quot;&quot;
+    await asyncio.sleep(0.01)
+    return {&quot;url&quot;: url, &quot;statut&quot;: &quot;ok&quot;}
+
+@pytest.mark.asyncio
+async def test_fetch_donnees():
+    resultat = await fetch_donnees(&quot;http://api.test.com&quot;)
+
+    assert resultat[&quot;statut&quot;] == &quot;ok&quot;
+    assert &quot;url&quot; in resultat
+</code></pre>
+<hr />
+<h1 id="12-pourquoi-un-test-lent-peut-masquer-un-probleme-de-design">12) Pourquoi un test lent peut masquer un problème de design ?<a class="headerlink" href="#12-pourquoi-un-test-lent-peut-masquer-un-probleme-de-design" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_11">Énoncé<a class="headerlink" href="#enonce_11" title="Permanent link">&para;</a></h2>
+<p>Un test qui prend plusieurs secondes est souvent le symptôme d'un problème architectural.</p>
+<h2 id="solution_11">Solution<a class="headerlink" href="#solution_11" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Un test lent indique souvent une dépendance réelle (base de données, réseau, fichier).
+- La solution : isoler via mock ou fixture légère.
+- Règle : un test unitaire doit s'exécuter en moins de 100ms.
+&quot;&quot;&quot;
+
+import pytest
+from unittest.mock import patch, MagicMock
+
+# ❌ Test lent : appel réseau réel
+def test_api_lent():
+    import requests
+    # response = requests.get(&quot;http://api.externe.com&quot;)  # 2-5 secondes
+    pass
+
+# ✅ Test rapide : dépendance mockée
+def test_api_rapide():
+    with patch(&quot;service.requests.get&quot;) as mock_get:
+        mock_get.return_value = MagicMock(status_code=200)
+        from service import get_statut_serveur
+
+        resultat = get_statut_serveur(&quot;http://api.externe.com&quot;)
+
+        # Exécution en microsecondes
+        assert resultat == &quot;operationnel&quot;
+</code></pre>
+<hr />
+<h1 id="13-comment-tester-les-interactions-entre-objets">13) Comment tester les interactions entre objets ?<a class="headerlink" href="#13-comment-tester-les-interactions-entre-objets" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_12">Énoncé<a class="headerlink" href="#enonce_12" title="Permanent link">&para;</a></h2>
+<p>Comment vérifier qu'un objet appelle correctement ses collaborateurs ?</p>
+<h2 id="solution_12">Solution<a class="headerlink" href="#solution_12" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Un test d'interaction vérifie les appels entre objets, pas seulement le résultat.
+- MagicMock simule un collaborateur et enregistre tous les appels.
+&quot;&quot;&quot;
+
+from unittest.mock import MagicMock
+
+class ServiceNotification:
+    def envoyer(self, message: str, destinataire: str):
+        pass  # Envoie un email réel
+
+class ServiceCommande:
+    def __init__(self, notifier: ServiceNotification):
+        self.notifier = notifier
+
+    def passer_commande(self, produit: str, client: str):
+        # Logique métier
+        confirmation = f&quot;Commande {produit} confirmée&quot;
+        # Notifier le client
+        self.notifier.envoyer(confirmation, client)
+        return confirmation
+
+def test_notification_envoyee():
+    # Arrange
+    mock_notif = MagicMock(spec=ServiceNotification)
+    service = ServiceCommande(notifier=mock_notif)
+
+    # Act
+    service.passer_commande(&quot;Clavier&quot;, &quot;bechir@example.com&quot;)
+
+    # Assert — vérifier que la notification a bien été envoyée
+    mock_notif.envoyer.assert_called_once_with(
+        &quot;Commande Clavier confirmée&quot;,
+        &quot;bechir@example.com&quot;
+    )
+</code></pre>
+<hr />
+<h1 id="14-pourquoi-conftestpy-est-preferable-aux-imports-de-fixtures">14) Pourquoi <code>conftest.py</code> est préférable aux imports de fixtures ?<a class="headerlink" href="#14-pourquoi-conftestpy-est-preferable-aux-imports-de-fixtures" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_13">Énoncé<a class="headerlink" href="#enonce_13" title="Permanent link">&para;</a></h2>
+<p>Peut-on importer une fixture depuis un autre fichier ? Pourquoi <code>conftest.py</code> est recommandé ?</p>
+<h2 id="solution_13">Solution<a class="headerlink" href="#solution_13" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- pytest ne permet pas d'importer des fixtures comme des fonctions ordinaires.
+- conftest.py est automatiquement découvert par pytest dans le dossier et ses parents.
+- C'est le seul mécanisme officiel pour partager des fixtures entre fichiers.
+&quot;&quot;&quot;
+
+# conftest.py — à la racine du dossier tests/
+import pytest
+from compte import CompteBancaire
+
+@pytest.fixture
+def compte_test():
+    &quot;&quot;&quot;Disponible dans tous les fichiers du dossier tests/ et sous-dossiers.&quot;&quot;&quot;
+    return CompteBancaire(&quot;Bechir&quot;, solde=1000.0)
+
+# test_compte.py — utilise la fixture sans l'importer
+def test_solde_initial(compte_test):
+    assert compte_test.solde() == 1000.0
+
+# test_operations.py — même fixture disponible
+def test_depot(compte_test):
+    compte_test.deposer(500)
+    assert compte_test.solde() == 1500.0
+</code></pre>
+<hr />
+<h1 id="15-comment-mesurer-la-couverture-dun-module-precis">15) Comment mesurer la couverture d'un module précis ?<a class="headerlink" href="#15-comment-mesurer-la-couverture-dun-module-precis" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_14">Énoncé<a class="headerlink" href="#enonce_14" title="Permanent link">&para;</a></h2>
+<p>Comment cibler la couverture sur votre code source et ignorer les dépendances ?</p>
+<h2 id="solution_14">Solution<a class="headerlink" href="#solution_14" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- --cov=src mesure uniquement le dossier src/.
+- --cov-report=term-missing affiche les numéros de lignes non couvertes.
+- .coveragerc configure les exclusions (fichiers de config, migrations...).
+&quot;&quot;&quot;
+
+# Commandes utiles
+# pytest --cov=src --cov-report=term-missing
+# pytest --cov=src --cov-report=html       → rapport HTML dans htmlcov/
+# pytest --cov=src --cov-fail-under=80     → échec si couverture &lt; 80%
+
+# .coveragerc
+&quot;&quot;&quot;
+[run]
+source = src
+omit =
+    */migrations/*
+    */config.py
+    */__init__.py
+
+[report]
+show_missing = True
+fail_under = 80
+&quot;&quot;&quot;
+
+# Exemple de sortie terminal
+&quot;&quot;&quot;
+Name                Stmts   Miss  Cover   Missing
+-------------------------------------------------
+src/calcul.py          15      2    87%   24, 31
+src/panier.py           8      0   100%
+src/compte.py          20      3    85%   45-47
+-------------------------------------------------
+TOTAL                  43      5    88%
+&quot;&quot;&quot;
+</code></pre>
+<hr />
+<h1 id="16-difference-entre-test-unitaire-test-dintegration-et-test-end-to-end">16) Différence entre test unitaire, test d'intégration et test end-to-end ?<a class="headerlink" href="#16-difference-entre-test-unitaire-test-dintegration-et-test-end-to-end" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_15">Énoncé<a class="headerlink" href="#enonce_15" title="Permanent link">&para;</a></h2>
+<p>Comment organiser et distinguer les différents niveaux de tests dans un projet ?</p>
+<h2 id="solution_15">Solution<a class="headerlink" href="#solution_15" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Unitaire    : teste une fonction/classe isolée (mock des dépendances).
+- Intégration : teste plusieurs composants ensemble (base de données réelle).
+- End-to-end  : teste le flux complet (interface + API + base de données).
+&quot;&quot;&quot;
+
+import pytest
+
+# ── Test unitaire — isolé, rapide ────────────────────────────────────────
+def test_calcul_ttc_unitaire():
+    from calcul import calculer_ttc
+    # Aucune dépendance externe — sous la milliseconde
+    assert calculer_ttc(100.0, 0.20) == pytest.approx(120.0)
+
+# ── Test d'intégration — composants réels ────────────────────────────────
+@pytest.mark.integration
+def test_panier_avec_compte(panier_rempli, compte_test):
+    # Deux composants réels interagissent
+    montant = panier_rempli.total()
+    compte_test.retirer(montant)
+    assert compte_test.solde() &lt; 1000.0
+
+# ── Organisation recommandée ─────────────────────────────────────────────
+&quot;&quot;&quot;
+tests/
+├── unit/
+│   ├── test_calcul.py
+│   └── test_panier.py
+├── integration/
+│   └── test_panier_compte.py
+└── e2e/
+    └── test_flux_achat.py
+&quot;&quot;&quot;
+</code></pre>
+<hr />
+<h1 id="17-pourquoi-tester-les-cas-limites-edge-cases">17) Pourquoi tester les cas limites (edge cases) ?<a class="headerlink" href="#17-pourquoi-tester-les-cas-limites-edge-cases" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_16">Énoncé<a class="headerlink" href="#enonce_16" title="Permanent link">&para;</a></h2>
+<p>Quels cas limites tester systématiquement ?</p>
+<h2 id="solution_16">Solution<a class="headerlink" href="#solution_16" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Les bugs se cachent aux frontières : 0, négatif, liste vide, None, chaîne vide.
+- Les cas nominaux seuls ne suffisent pas à garantir la robustesse.
+- Chaque cas limite doit avoir son test dédié.
+&quot;&quot;&quot;
+
+import pytest
+
+def calculer_moyenne(notes: list) -&gt; float:
+    if not notes:
+        raise ValueError(&quot;Liste vide&quot;)
+    return sum(notes) / len(notes)
+
+# Cas nominal
+def test_moyenne_normale():
+    assert calculer_moyenne([10, 15, 20]) == pytest.approx(15.0)
+
+# Cas limite : un seul élément
+def test_moyenne_un_element():
+    assert calculer_moyenne([12]) == pytest.approx(12.0)
+
+# Cas limite : valeurs nulles
+def test_moyenne_zeros():
+    assert calculer_moyenne([0, 0, 0]) == pytest.approx(0.0)
+
+# Cas limite : liste vide
+def test_moyenne_liste_vide():
+    with pytest.raises(ValueError, match=&quot;Liste vide&quot;):
+        calculer_moyenne([])
+
+# Cas limite : valeurs négatives
+def test_moyenne_negatifs():
+    assert calculer_moyenne([-5, 5]) == pytest.approx(0.0)
+</code></pre>
+<hr />
+<h1 id="18-comment-simuler-une-exception-dans-un-mock">18) Comment simuler une exception dans un mock ?<a class="headerlink" href="#18-comment-simuler-une-exception-dans-un-mock" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_17">Énoncé<a class="headerlink" href="#enonce_17" title="Permanent link">&para;</a></h2>
+<p>Comment tester le comportement du code quand une dépendance lève une exception ?</p>
+<h2 id="solution_17">Solution<a class="headerlink" href="#solution_17" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- side_effect permet de définir l'exception levée par un mock.
+- Permet de tester les branches d'erreur sans provoquer de vraie panne.
+&quot;&quot;&quot;
+
+import pytest
+from unittest.mock import patch, MagicMock
+from service import get_statut_serveur
+
+def test_timeout_reseau():
+    import requests
+
+    with patch(&quot;service.requests.get&quot;) as mock_get:
+        # Simuler un timeout réseau
+        mock_get.side_effect = requests.exceptions.Timeout(&quot;Délai dépassé&quot;)
+
+        # Le code doit gérer cette exception
+        with pytest.raises(requests.exceptions.Timeout):
+            get_statut_serveur(&quot;http://api.lente.com&quot;)
+
+def test_erreur_connexion():
+    import requests
+
+    with patch(&quot;service.requests.get&quot;) as mock_get:
+        mock_get.side_effect = requests.exceptions.ConnectionError(&quot;Hôte injoignable&quot;)
+
+        with pytest.raises(requests.exceptions.ConnectionError):
+            get_statut_serveur(&quot;http://api.hors-ligne.com&quot;)
+</code></pre>
+<hr />
+<h1 id="19-pourquoi-eviter-les-dependances-entre-tests">19) Pourquoi éviter les dépendances entre tests ?<a class="headerlink" href="#19-pourquoi-eviter-les-dependances-entre-tests" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_18">Énoncé<a class="headerlink" href="#enonce_18" title="Permanent link">&para;</a></h2>
+<p>Quel problème survient quand des tests s'exécutent dans un ordre précis pour fonctionner ?</p>
+<h2 id="solution_18">Solution<a class="headerlink" href="#solution_18" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Les tests doivent être indépendants et idempotents.
+- Un test qui dépend de l'état laissé par un test précédent est fragile.
+- pytest peut exécuter les tests dans n'importe quel ordre (-p no:randomly).
+- Solution : chaque test repart d'un état propre via les fixtures.
+&quot;&quot;&quot;
+
+import pytest
+from panier import Panier
+
+# ❌ Tests couplés — dangereux
+panier_global = Panier()  # État partagé entre tests
+
+def test_ajouter_article_mauvais():
+    panier_global.ajouter(&quot;Clavier&quot;, 49.99)
+    assert len(panier_global.articles) == 1
+
+def test_total_mauvais():
+    # Dépend du test précédent pour avoir un article
+    assert panier_global.total() &gt; 0
+
+# ✅ Tests indépendants — robustes
+@pytest.fixture
+def panier():
+    return Panier()  # Nouvel objet pour chaque test
+
+def test_ajouter_article_correct(panier):
+    panier.ajouter(&quot;Clavier&quot;, 49.99)
+    assert len(panier.articles) == 1
+
+def test_total_correct(panier):
+    panier.ajouter(&quot;Souris&quot;, 29.99)
+    assert panier.total() == pytest.approx(29.99)
+</code></pre>
+<hr />
+<h1 id="20-construire-une-suite-de-tests-complete-cas-reel">20) Construire une suite de tests complète — cas réel<a class="headerlink" href="#20-construire-une-suite-de-tests-complete-cas-reel" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_19">Énoncé<a class="headerlink" href="#enonce_19" title="Permanent link">&para;</a></h2>
+<p>Proposer une suite de tests robuste pour un module métier complet.</p>
+<h2 id="solution_19">Solution<a class="headerlink" href="#solution_19" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Couvrir : cas nominal, cas limites, exceptions, interactions.
+- Utiliser fixtures, parametrize, raises, approx.
+- Viser un test lisible sans commentaires supplémentaires.
+&quot;&quot;&quot;
+
+import pytest
+from compte import CompteBancaire
+
+# ── Fixtures ──────────────────────────────────────────────────────────────
+@pytest.fixture
+def compte_vide():
+    return CompteBancaire(&quot;Alice&quot;, solde=0.0)
+
+@pytest.fixture
+def compte_approvisionne():
+    return CompteBancaire(&quot;Bechir&quot;, solde=1000.0)
+
+# ── Cas nominaux ──────────────────────────────────────────────────────────
+def test_solde_initial(compte_approvisionne):
+    assert compte_approvisionne.solde() == pytest.approx(1000.0)
+
+def test_depot_augmente_solde(compte_approvisionne):
+    compte_approvisionne.deposer(500.0)
+    assert compte_approvisionne.solde() == pytest.approx(1500.0)
+
+def test_retrait_diminue_solde(compte_approvisionne):
+    compte_approvisionne.retirer(200.0)
+    assert compte_approvisionne.solde() == pytest.approx(800.0)
+
+# ── Cas limites ───────────────────────────────────────────────────────────
+def test_retrait_total(compte_approvisionne):
+    compte_approvisionne.retirer(1000.0)
+    assert compte_approvisionne.solde() == pytest.approx(0.0)
+
+def test_depot_sur_compte_vide(compte_vide):
+    compte_vide.deposer(100.0)
+    assert compte_vide.solde() == pytest.approx(100.0)
+
+# ── Exceptions ────────────────────────────────────────────────────────────
+def test_depot_montant_invalide(compte_vide):
+    with pytest.raises(ValueError, match=&quot;Montant invalide&quot;):
+        compte_vide.deposer(0)
+
+def test_retrait_solde_insuffisant(compte_approvisionne):
+    with pytest.raises(ValueError, match=&quot;Solde insuffisant&quot;):
+        compte_approvisionne.retirer(9999.0)
+
+# ── Parametrize ───────────────────────────────────────────────────────────
+@pytest.mark.parametrize(&quot;depot, retrait, solde_final&quot;, [
+    (500.0, 200.0, 1300.0),
+    (100.0, 100.0, 1000.0),
+    (0.01,  0.01,  1000.0),
+])
+def test_sequence_operations(compte_approvisionne, depot, retrait, solde_final):
+    compte_approvisionne.deposer(depot)
+    compte_approvisionne.retirer(retrait)
+    assert compte_approvisionne.solde() == pytest.approx(solde_final)
+</code></pre>
+    </div>
+    <div class="page-nav">
+      <a href="18_acquisition_bd.html">◀ Acquisition — Les Bases de Données</a>
+      <span class="placeholder"></span>
+    </div>
+    <footer>
+  Les Tests Python — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

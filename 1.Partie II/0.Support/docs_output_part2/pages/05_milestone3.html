@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milestone 3 — Optimisation des filtres et rapports — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="active">Main Page</a>
+    <a href="#" class="">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html" class="current"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-milestones">Milestones</a><span>»</span>Milestone 3 — Optimisation des filtres et rapports</div>
+    <div class="page-header-band">
+      <h1><span class="milestone-badge">🏁 Milestone 3</span>Milestone 3 — Optimisation des filtres et rapports</h1>
+    </div>
+    <div class="content-body">
+<h1 id="milestone-3-optimisation-des-filtres-et-rapports">🎯 <a href="05_milestone3.html">Milestone 3</a> — Optimisation des filtres et rapports<a class="headerlink" href="#milestone-3-optimisation-des-filtres-et-rapports" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Sprint V3 · Al Qalam Stock Manager</strong><br />
+Thème : compréhensions · générateurs · tableau de bord · filtres temps réel</p>
+</blockquote>
+<hr />
+<h2 id="objectif">Objectif<a class="headerlink" href="#objectif" title="Permanent link">&para;</a></h2>
+<p>Remplacer toutes les boucles <code>for</code> + <code>append</code> par des <strong>compréhensions Python</strong> (list, dict, set) et des <strong>générateurs</strong> (<code>yield</code>), et ajouter un onglet "Tableau de bord" avec KPIs, statistiques par catégorie, top 5 produits, et une recherche temps réel.</p>
+<hr />
+<h2 id="ce-qui-change-par-rapport-a-v2">Ce qui change par rapport à V2<a class="headerlink" href="#ce-qui-change-par-rapport-a-v2" title="Permanent link">&para;</a></h2>
+<pre><code>alqalamv3/
+├── services/
+│   └── stock_service.py   ← + par_categorie() top_valeur() rechercher()
+│                              stats_categories() flux_export()
+└── ui/frames/
+    ├── stock_frame.py     ← + barre recherche + filtre catégorie + compteur
+    └── rapport_frame.py   ← NOUVEAU : KPIs + stats par catégorie + top 5
+</code></pre>
+<hr />
+<h2 id="concepts-mis-en-uvre">Concepts mis en œuvre<a class="headerlink" href="#concepts-mis-en-uvre" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Syntaxe</th>
+<th>Remplace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>List comprehension</strong></td>
+<td><code>[x for x in iterable if condition]</code></td>
+<td><code>for</code> + <code>append()</code></td>
+</tr>
+<tr>
+<td><strong>Dict comprehension</strong></td>
+<td><code>{k: v for k, v in ...}</code></td>
+<td><code>for</code> + <code>dict[k] = v</code></td>
+</tr>
+<tr>
+<td><strong>Set comprehension</strong></td>
+<td><code>{expr for x in iterable}</code></td>
+<td><code>for</code> + <code>set.add()</code></td>
+</tr>
+<tr>
+<td><strong>Générateur</strong></td>
+<td><code>(expr for x in ...)</code> ou <code>yield</code></td>
+<td>Liste intermédiaire en mémoire</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="guide-de-realisation-etape-par-etape">Guide de réalisation étape par étape<a class="headerlink" href="#guide-de-realisation-etape-par-etape" title="Permanent link">&para;</a></h2>
+<h3 id="etape-1-list-comprehension-filtres-10-min">Étape 1 — List comprehension : filtres (10 min)<a class="headerlink" href="#etape-1-list-comprehension-filtres-10-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># services/stock_service.py  — V1/V2
+
+# ❌ Avant (boucle explicite)
+def produits_en_alerte(self) -&gt; list:
+    alertes = []
+    for p in self._produits.values():
+        if p.est_en_alerte():
+            alertes.append(p)
+    return alertes
+
+# ✅ Après (list comprehension)
+def produits_en_alerte(self) -&gt; list:
+    return [p for p in self._produits.values() if p.est_en_alerte()]
+</code></pre>
+<pre><code class="language-python"># Filtre multi-champs : ref, nom OU catégorie contiennent le texte
+def rechercher(self, texte: str) -&gt; list:
+    &quot;&quot;&quot;
+    [V3] List comprehension avec condition composée.
+    Un seul parcours, pas de liste intermédiaire.
+    &quot;&quot;&quot;
+    t = texte.lower().strip()
+    if not t:
+        return list(self._produits.values())   # tout retourner si vide
+    return [
+        p for p in self._produits.values()
+        if t in p.ref.lower()
+        or t in p.nom.lower()
+        or t in p.categorie.lower()
+    ]
+</code></pre>
+<hr />
+<h3 id="etape-2-dict-et-set-comprehension-groupement-15-min">Étape 2 — Dict et Set comprehension : groupement (15 min)<a class="headerlink" href="#etape-2-dict-et-set-comprehension-groupement-15-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">def par_categorie(self) -&gt; dict:
+    &quot;&quot;&quot;
+    Regroupe les produits par catégorie.
+    [V3] Deux comprehensions imbriquées en deux lignes.
+    &quot;&quot;&quot;
+    # Set comprehension : toutes les catégories uniques (sans doublon)
+    categories = {p.categorie for p in self._produits.values()}
+
+    # Dict comprehension : { catégorie → [liste de produits] }
+    return {
+        cat: [p for p in self._produits.values() if p.categorie == cat]
+        for cat in sorted(categories)
+    }
+</code></pre>
+<pre><code class="language-python"># Démonstration
+stock = StockService()
+par_cat = stock.par_categorie()
+
+for categorie, produits in par_cat.items():
+    print(f&quot;\n{categorie} ({len(produits)} produits) :&quot;)
+    for p in produits:
+        print(f&quot;  {p}&quot;)
+
+# Sortie :
+# Coupe (1 produits) :
+#   [CIS-001] Ciseaux 17cm — Qté: 25 / Seuil: 5 ✅ OK
+# Écriture (4 produits) :
+#   [CRAY-001] Crayon HB — Qté: 150 ...
+#   ...
+</code></pre>
+<hr />
+<h3 id="etape-3-dict-comprehension-avec-generateur-statistiques-15-min">Étape 3 — Dict comprehension avec générateur : statistiques (15 min)<a class="headerlink" href="#etape-3-dict-comprehension-avec-generateur-statistiques-15-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">def stats_categories(self) -&gt; dict:
+    &quot;&quot;&quot;
+    Statistiques agrégées par catégorie.
+    [V3] Dict comprehension imbriqué + expression génératrice dans sum().
+
+    Retourne : { cat → { nb_produits, valeur_totale, nb_alertes } }
+    &quot;&quot;&quot;
+    return {
+        cat: {
+            &quot;nb_produits&quot;  : len(prods),
+            # Générateur dans sum() : pas de liste intermédiaire
+            &quot;valeur_totale&quot;: sum(p.valeur_stock() for p in prods),
+            &quot;nb_alertes&quot;   : sum(1 for p in prods if p.est_en_alerte()),
+        }
+        for cat, prods in self.par_categorie().items()
+    }
+</code></pre>
+<p><strong>Différence list vs générateur dans <code>sum()</code> :</strong></p>
+<pre><code class="language-python">produits = [p1, p2, p3, ...]  # 10 000 produits
+
+# ❌ List comprehension : crée une liste de 10 000 floats EN MÉMOIRE
+total = sum([p.valeur_stock() for p in produits])
+
+# ✅ Expression génératrice : calcule valeur par valeur, sans liste
+total = sum(p.valeur_stock() for p in produits)
+#            ↑ pas de crochets → générateur, pas une liste
+</code></pre>
+<hr />
+<h3 id="etape-4-generateur-avec-yield-export-csv-10-min">Étape 4 — Générateur avec yield : export CSV (10 min)<a class="headerlink" href="#etape-4-generateur-avec-yield-export-csv-10-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">def flux_export(self):
+    &quot;&quot;&quot;
+    Générateur de lignes CSV.
+    [V3] yield : produit les données une par une sans tout charger en mémoire.
+
+    Usage : for ligne in stock.flux_export(): csv_writer.writerow(ligne)
+    &quot;&quot;&quot;
+    # Ligne d'en-tête
+    yield [&quot;ref&quot;, &quot;nom&quot;, &quot;categorie&quot;, &quot;prix_achat&quot;, &quot;prix_vente&quot;, &quot;qte&quot;, &quot;seuil_min&quot;]
+
+    # Une ligne par produit, dans l'ordre alphabétique (utilise __lt__ de V2)
+    for p in sorted(self._produits.values()):
+        yield [p.ref, p.nom, p.categorie,
+               p.prix_achat, p.prix_vente, p.qte, p.seuil_min]
+</code></pre>
+<p><strong>Pourquoi <code>yield</code> au lieu de <code>return liste</code> ?</strong></p>
+<pre><code class="language-python"># ❌ Sans générateur : charge TOUT en mémoire avant de commencer à écrire
+def exporter(self) -&gt; list:
+    lignes = [en_tete]
+    for p in self._produits.values():
+        lignes.append([p.ref, p.nom, ...])
+    return lignes   # 10 000 produits → liste de 10 000 éléments en RAM
+
+# ✅ Avec générateur : une ligne calculée, une ligne écrite, mémoire constante
+for ligne in stock.flux_export():
+    writer.writerow(ligne)   # calcule et écrit une ligne à la fois
+</code></pre>
+<hr />
+<h3 id="etape-5-recherche-temps-reel-dans-lui-15-min">Étape 5 — Recherche temps réel dans l'UI (15 min)<a class="headerlink" href="#etape-5-recherche-temps-reel-dans-lui-15-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># ui/frames/stock_frame.py  — ajouts V3
+
+class StockFrame(ctk.CTkFrame):
+    def _construire_filtres(self):
+        # Champ de recherche texte
+        self._var_recherche = ctk.StringVar()
+        self._champ_recherche = ctk.CTkEntry(
+            self, textvariable=self._var_recherche,
+            placeholder_text=&quot;🔍 Rechercher (réf, nom, catégorie)…&quot;
+        )
+        self._champ_recherche.pack(fill=&quot;x&quot;, padx=10, pady=5)
+        # Déclenche la recherche à chaque frappe
+        self._champ_recherche.bind(&quot;&lt;KeyRelease&gt;&quot;, lambda e: self.rafraichir())
+
+        # Filtre catégorie (menu déroulant)
+        self._var_categorie = ctk.StringVar(value=&quot;Toutes&quot;)
+        self._menu_cat = ctk.CTkOptionMenu(
+            self, variable=self._var_categorie,
+            command=lambda _: self.rafraichir()
+        )
+        self._menu_cat.pack()
+
+    def rafraichir(self):
+        texte = self._var_recherche.get()
+        cat   = self._var_categorie.get()
+
+        # Appliquer les filtres (list comprehensions dans stock_service)
+        produits = self._stock.rechercher(texte)
+        if cat != &quot;Toutes&quot;:
+            produits = [p for p in produits if p.categorie == cat]
+
+        # Mettre à jour le compteur
+        self._lbl_compteur.configure(text=f&quot;{len(produits)} produit(s) affiché(s)&quot;)
+
+        # Remplir le tableau
+        for item in self._arbre.get_children():
+            self._arbre.delete(item)
+        for p in produits:
+            self._arbre.insert(&quot;&quot;, &quot;end&quot;, iid=p.ref, values=(...))
+</code></pre>
+<hr />
+<h3 id="etape-6-tableau-de-bord-20-min">Étape 6 — Tableau de bord (20 min)<a class="headerlink" href="#etape-6-tableau-de-bord-20-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># ui/frames/rapport_frame.py  — NOUVEAU V3
+
+class RapportFrame(ctk.CTkFrame):
+    &quot;&quot;&quot;Onglet tableau de bord : KPIs + stats catégories + top 5.&quot;&quot;&quot;
+
+    def __init__(self, parent, stock_service):
+        super().__init__(parent)
+        self._stock = stock_service
+        self._construire_kpis()
+        self._construire_stats_categories()
+        self._construire_top5()
+        self.rafraichir()
+
+    def _construire_kpis(self):
+        &quot;&quot;&quot;3 cartes : nb produits · valeur totale · nb alertes.&quot;&quot;&quot;
+        frame = ctk.CTkFrame(self)
+        frame.pack(fill=&quot;x&quot;, padx=10, pady=10)
+
+        self._kpi_produits = self._carte_kpi(frame, &quot;Produits&quot;, &quot;—&quot;)
+        self._kpi_valeur   = self._carte_kpi(frame, &quot;Valeur stock&quot;, &quot;—&quot;)
+        self._kpi_alertes  = self._carte_kpi(frame, &quot;Alertes&quot;, &quot;—&quot;)
+
+    def rafraichir(self):
+        # Met à jour les KPIs avec les vraies données
+        self._kpi_produits.configure(text=str(self._stock.nb_produits()))
+        self._kpi_valeur.configure(
+            text=f&quot;{self._stock.valeur_totale_stock():.2f} TND&quot;
+        )
+        self._kpi_alertes.configure(text=str(self._stock.nb_alertes()))
+
+        # Stats par catégorie (dict comprehension)
+        stats = self._stock.stats_categories()
+        # ... affichage dans un tableau ...
+
+        # Top 5 (sorted + slicing)
+        top5 = self._stock.top_valeur(5)
+        medailles = [&quot;🥇&quot;, &quot;🥈&quot;, &quot;🥉&quot;, &quot;4.&quot;, &quot;5.&quot;]
+        for i, p in enumerate(top5):
+            # ... afficher medailles[i], p.nom, p.valeur_stock() ...
+</code></pre>
+<hr />
+<h2 id="recapitulatif-des-comprehensions-utilisees">Récapitulatif des comprehensions utilisées<a class="headerlink" href="#recapitulatif-des-comprehensions-utilisees" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python"># 1. LIST — filtrer
+alertes = [p for p in stock if p.est_en_alerte()]
+
+# 2. LIST — filtrer multi-conditions
+resultats = [p for p in stock
+             if texte in p.ref.lower() or texte in p.nom.lower()]
+
+# 3. SET — valeurs uniques
+categories = {p.categorie for p in stock}
+
+# 4. DICT — grouper
+par_cat = {cat: [p for p in stock if p.categorie == cat]
+           for cat in categories}
+
+# 5. DICT imbriqué — agréger
+stats = {cat: {&quot;nb&quot;: len(ps), &quot;valeur&quot;: sum(p.valeur_stock() for p in ps)}
+         for cat, ps in par_cat.items()}
+
+# 6. GENERATOR — export mémoire-efficace
+for ligne in (p.to_dict() for p in sorted(stock)):
+    writer.writerow(ligne)
+</code></pre>
+<hr />
+<h2 id="criteres-de-validation">Critères de validation<a class="headerlink" href="#criteres-de-validation" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Taper "cray" dans la recherche filtre instantanément le tableau sur les crayons</li>
+<li>[ ] Sélectionner "Écriture" dans le menu ne montre que les produits d'écriture</li>
+<li>[ ] Les deux filtres combinés fonctionnent ensemble</li>
+<li>[ ] Le compteur "N produit(s) affiché(s)" se met à jour à chaque frappe</li>
+<li>[ ] L'onglet "Tableau de bord" affiche les 3 KPIs corrects</li>
+<li>[ ] Le tableau de stats affiche nb produits, valeur et alertes par catégorie</li>
+<li>[ ] Le top 5 affiche les 5 produits de plus grande valeur avec médailles</li>
+<li>[ ] Après une entrée/sortie de stock, le tableau de bord se met à jour</li>
+</ul>
+<hr />
+<h2 id="pour-aller-plus-loin">Pour aller plus loin<a class="headerlink" href="#pour-aller-plus-loin" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Utiliser <code>itertools.groupby()</code> comme alternative aux dict comprehensions</li>
+<li>Ajouter un graphique à barres des valeurs par catégorie (avec <code>tkinter.Canvas</code>)</li>
+<li>Exporter le rapport complet en TXT via <code>flux_export()</code> + <code>open()</code></li>
+</ul>
+<hr />
+<p><em>Al Qalam Stock Manager — Formation Python Partie II — Sprint V3</em></p>
+    </div>
+    <div class="page-nav">
+      <a href="03_milestone2.html">◀ Milestone 2 — Enrichissement du modèle</a>
+      <a href="07_milestone4.html">Milestone 4 — Surveillance des ruptures ▶</a>
+    </div>
+    <footer>
+  Milestone 3 — Optimisation des filtres et rapports — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milestone 4 — Surveillance des ruptures — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="active">Main Page</a>
+    <a href="#" class="">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html" class="current"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-milestones">Milestones</a><span>»</span>Milestone 4 — Surveillance des ruptures</div>
+    <div class="page-header-band">
+      <h1><span class="milestone-badge">🏁 Milestone 4</span>Milestone 4 — Surveillance des ruptures</h1>
+    </div>
+    <div class="content-body">
+<h1 id="milestone-4-surveillance-des-ruptures-en-arriere-plan">🎯 <a href="07_milestone4.html">Milestone 4</a> — Surveillance des ruptures en arrière-plan<a class="headerlink" href="#milestone-4-surveillance-des-ruptures-en-arriere-plan" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Sprint V4 · Al Qalam Stock Manager</strong><br />
+Thème : <code>threading</code> · <code>queue</code> · <code>Event</code> · <code>Lock</code> · thread daemon</p>
+</blockquote>
+<hr />
+<h2 id="objectif">Objectif<a class="headerlink" href="#objectif" title="Permanent link">&para;</a></h2>
+<p>Ajouter un <strong>thread de surveillance</strong> qui vérifie automatiquement les ruptures de stock toutes les N secondes, <strong>sans bloquer l'interface graphique</strong>, et affiche les alertes en temps réel dans un nouvel onglet.</p>
+<hr />
+<h2 id="ce-que-vous-allez-construire">Ce que vous allez construire<a class="headerlink" href="#ce-que-vous-allez-construire" title="Permanent link">&para;</a></h2>
+<pre><code>alqalamv4/
+├── services/
+│   ├── stock_service.py         ← + threading.Lock sur les accès _produits
+│   └── surveillance_service.py  ← NOUVEAU : thread daemon + Queue + Event
+└── ui/
+    ├── app.py                   ← + onglet &quot;🔔 Alertes&quot;, start/stop thread
+    └── frames/
+        └── alertes_frame.py     ← NOUVEAU : polling Queue via after()
+</code></pre>
+<hr />
+<h2 id="concepts-threading-mis-en-uvre">Concepts threading mis en œuvre<a class="headerlink" href="#concepts-threading-mis-en-uvre" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Classe / méthode</th>
+<th>Rôle dans le projet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thread daemon</strong></td>
+<td><code>threading.Thread(daemon=True)</code></td>
+<td>S'arrête automatiquement avec l'app</td>
+</tr>
+<tr>
+<td><strong>Arrêt propre</strong></td>
+<td><code>threading.Event</code> · <code>.set()</code> · <code>.wait(t)</code></td>
+<td>Signal d'arrêt sans <code>time.sleep</code></td>
+</tr>
+<tr>
+<td><strong>Exclusion mutuelle</strong></td>
+<td><code>threading.Lock</code> · <code>with self._lock:</code></td>
+<td>Protège <code>_produits</code> contre les race conditions</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td><code>queue.Queue</code> · <code>.put()</code> · <code>.get_nowait()</code></td>
+<td>Thread → UI sans bloquer</td>
+</tr>
+<tr>
+<td><strong>Polling UI-safe</strong></td>
+<td><code>widget.after(500, callback)</code></td>
+<td>Seul le thread principal modifie les widgets</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="les-regles-dor-du-threading-tkinter">Les règles d'or du threading Tkinter<a class="headerlink" href="#les-regles-dor-du-threading-tkinter" title="Permanent link">&para;</a></h2>
+<pre><code>Thread de surveillance              Thread principal (Tkinter)
+        │                                     │
+        │  queue.Queue.put(alerte)             │
+        │ ─────────────────────────────────►  │
+        │                                     │  widget.after(500, poll)
+        │                                     │  ┌─ queue.get_nowait() ─┐
+        │                                     │  │  tree.insert(...)    │  ← OK ✅
+        │                                     │  └──────────────────────┘
+        │
+        │  label.configure(text=&quot;...&quot;)        ← INTERDIT ❌
+</code></pre>
+<p><strong>Règle 1</strong> : Ne jamais modifier un widget depuis un thread secondaire.<br />
+<strong>Règle 2</strong> : Utiliser <code>queue.Queue</code> pour passer les données au thread principal.<br />
+<strong>Règle 3</strong> : Utiliser <code>after()</code> côté UI pour lire la queue sans bloquer.</p>
+<hr />
+<h2 id="guide-de-realisation-etape-par-etape">Guide de réalisation étape par étape<a class="headerlink" href="#guide-de-realisation-etape-par-etape" title="Permanent link">&para;</a></h2>
+<h3 id="etape-1-proteger-stockservice-avec-un-lock-15-min">Étape 1 — Protéger StockService avec un Lock (15 min)<a class="headerlink" href="#etape-1-proteger-stockservice-avec-un-lock-15-min" title="Permanent link">&para;</a></h3>
+<p>Dans <code>services/stock_service.py</code>, ajoutez un <code>threading.Lock</code> dans <code>__init__</code> et protégez toutes les méthodes qui lisent ou écrivent <code>_produits</code>.</p>
+<p><strong>Piège à éviter</strong> : Si <code>methode_A()</code> acquiert le Lock et appelle <code>methode_B()</code> qui acquiert aussi le Lock → <strong>deadlock</strong> !</p>
+<pre><code class="language-python"># ❌ DEADLOCK : Lock non réentrant
+def entree_stock(self, ref, qte, note=&quot;&quot;):
+    with self._lock:
+        produit = self.get_produit(ref)   # get_produit() essaie d'acquérir _lock → bloqué !
+        produit.qte += qte
+
+# ✅ CORRECT : accès direct sans appel imbriqué
+def entree_stock(self, ref, qte, note=&quot;&quot;):
+    with self._lock:
+        if ref not in self._produits:
+            raise KeyError(f&quot;Produit '{ref}' introuvable.&quot;)
+        produit = self._produits[ref]     # accès direct, pas d'appel à get_produit()
+        produit.qte += qte
+</code></pre>
+<hr />
+<h3 id="etape-2-creer-surveillanceservice-20-min">Étape 2 — Créer SurveillanceService (20 min)<a class="headerlink" href="#etape-2-creer-surveillanceservice-20-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># services/surveillance_service.py
+import threading, queue
+from datetime import datetime
+
+class SurveillanceService:
+    def __init__(self, stock_service, intervalle=30):
+        self._stock      = stock_service
+        self._intervalle = max(5, int(intervalle))
+        self._stop_event = threading.Event()   # signal d'arrêt
+        self._lock       = threading.Lock()    # protège _historique
+        self._file       = queue.Queue()       # canal vers l'UI
+        self._historique = []
+        self._thread     = None
+
+    def demarrer(self):
+        self._stop_event.clear()
+        self._thread = threading.Thread(
+            target=self._boucle,
+            name=&quot;SurveillanceStock&quot;,
+            daemon=True,           # s'arrête avec l'application
+        )
+        self._thread.start()
+
+    def arreter(self):
+        self._stop_event.set()     # réveille le .wait() dans la boucle
+        if self._thread and self._thread.is_alive():
+            self._thread.join(timeout=5)
+
+    def _boucle(self):
+        while not self._stop_event.is_set():
+            self._verifier()
+            self._stop_event.wait(timeout=self._intervalle)  # libère le CPU
+
+    def _verifier(self):
+        with self._lock:
+            produits = self._stock.produits_en_alerte()
+        if produits:
+            alerte = {&quot;timestamp&quot;: datetime.now().isoformat(), &quot;produits&quot;: produits}
+            self._file.put(alerte)              # thread-safe
+            with self._lock:
+                self._historique.append(alerte)
+
+    def lire_alertes(self):
+        &quot;&quot;&quot;Vide la queue — appelé depuis l'UI via after().&quot;&quot;&quot;
+        resultats = []
+        try:
+            while True:
+                resultats.append(self._file.get_nowait())
+        except queue.Empty:
+            pass
+        return resultats
+
+    @property
+    def est_actif(self):
+        return self._thread is not None and self._thread.is_alive()
+</code></pre>
+<hr />
+<h3 id="etape-3-creer-alertesframe-20-min">Étape 3 — Créer AlertesFrame (20 min)<a class="headerlink" href="#etape-3-creer-alertesframe-20-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># ui/frames/alertes_frame.py
+import customtkinter as ctk
+from tkinter import ttk
+
+class AlertesFrame(ctk.CTkFrame):
+    def __init__(self, parent, surveillance_service, **kwargs):
+        super().__init__(parent, **kwargs)
+        self._svc = surveillance_service
+        self._id_poll = None
+        self._construire_ui()
+        self._demarrer_polling()
+
+    def _demarrer_polling(self):
+        # after() = planification sur le thread principal → UI-safe
+        self._id_poll = self.after(500, self._poll)
+
+    def _poll(self):
+        alertes = self._svc.lire_alertes()      # lecture non-bloquante
+        for a in alertes:
+            self._inserer(a)                    # modification widget OK ici
+        self._id_poll = self.after(500, self._poll)   # replanifier
+
+    def _inserer(self, alerte):
+        # ... ajouter une ligne dans le Treeview ...
+        pass
+
+    def arreter_polling(self):
+        &quot;&quot;&quot;Appelé à la fermeture — évite un after() orphelin.&quot;&quot;&quot;
+        if self._id_poll:
+            self.after_cancel(self._id_poll)
+</code></pre>
+<hr />
+<h3 id="etape-4-brancher-dans-apppy-10-min">Étape 4 — Brancher dans app.py (10 min)<a class="headerlink" href="#etape-4-brancher-dans-apppy-10-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># Dans AlQalamApp.__init__
+self.surveillance = SurveillanceService(self.stock, intervalle=20)
+# ...construire onglets incluant AlertesFrame...
+self.after(100, self._demarrer_surveillance)   # après que mainloop soit active
+
+def _demarrer_surveillance(self):
+    self.surveillance.demarrer()
+
+def _quitter(self):
+    if messagebox.askyesno(&quot;Quitter&quot;, &quot;Voulez-vous quitter ?&quot;):
+        self.alertes_frame.arreter_polling()   # 1. stoppe after()
+        self.surveillance.arreter()            # 2. signal + join()
+        self.destroy()                         # 3. ferme la fenêtre
+</code></pre>
+<hr />
+<h2 id="criteres-de-validation">Critères de validation<a class="headerlink" href="#criteres-de-validation" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] L'application démarre sans erreur et affiche 3 onglets</li>
+<li>[ ] L'onglet "🔔 Alertes" affiche le statut <code>🟢 Thread actif</code></li>
+<li>[ ] Les 4 produits en rupture apparaissent dans "Alertes actives" dès l'ouverture</li>
+<li>[ ] Après une vérification automatique (≤ 20 s), une ligne s'ajoute dans l'historique</li>
+<li>[ ] "▶ Vérifier maintenant" déclenche immédiatement une vérification</li>
+<li>[ ] Une sortie stock qui crée une rupture est visible dans l'onglet Alertes</li>
+<li>[ ] La fermeture de l'app est propre (pas de thread zombie)</li>
+</ul>
+<hr />
+<h2 id="pour-aller-plus-loin">Pour aller plus loin<a class="headerlink" href="#pour-aller-plus-loin" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ajouter un <strong>son d'alerte</strong> via <code>winsound</code> (Windows) ou <code>playsound</code></li>
+<li>Permettre de <strong>régler l'intervalle</strong> avec un slider directement dans l'UI</li>
+<li>Utiliser <code>threading.Timer</code> à la place de <code>Event.wait()</code> pour la planification</li>
+<li>Expérimenter avec <code>concurrent.futures.ThreadPoolExecutor</code> pour des vérifications parallèles</li>
+</ul>
+<hr />
+<p><em>Al Qalam Stock Manager — Formation Python Partie II — Sprint V4</em></p>
+    </div>
+    <div class="page-nav">
+      <a href="05_milestone3.html">◀ Milestone 3 — Optimisation des filtres et rapports</a>
+      <a href="09_milestone5.html">Milestone 5 — Traçabilité et sécurisation ▶</a>
+    </div>
+    <footer>
+  Milestone 4 — Surveillance des ruptures — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

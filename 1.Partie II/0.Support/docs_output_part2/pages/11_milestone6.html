@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milestone 6 — Registre automatique des types — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="active">Main Page</a>
+    <a href="#" class="">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html" class="current"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-milestones">Milestones</a><span>»</span>Milestone 6 — Registre automatique des types</div>
+    <div class="page-header-band">
+      <h1><span class="milestone-badge">🏁 Milestone 6</span>Milestone 6 — Registre automatique des types</h1>
+    </div>
+    <div class="content-body">
+<h1 id="milestone-6-registre-automatique-des-types-singleton">🎯 <a href="11_milestone6.html">Milestone 6</a> — Registre automatique des types &amp; Singleton<a class="headerlink" href="#milestone-6-registre-automatique-des-types-singleton" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Sprint V6 · Al Qalam Stock Manager</strong><br />
+Thème : <code>métaclasses</code> · <code>type</code> · <code>SingletonMeta</code> · <code>RegistreMouvementMeta</code> · factory pattern</p>
+</blockquote>
+<hr />
+<h2 id="objectif">Objectif<a class="headerlink" href="#objectif" title="Permanent link">&para;</a></h2>
+<p>Introduire les <strong>métaclasses</strong> pour résoudre deux problèmes réels de l'application :</p>
+<ol>
+<li><strong>Singleton</strong> : garantir qu'il n'existe qu'<strong>une seule instance</strong> de <code>StockService</code> dans toute l'application, quelle que soit l'endroit où on appelle <code>StockService()</code>.</li>
+<li><strong>Registre automatique</strong> : faire en sorte que toute nouvelle sous-classe de <code>Mouvement</code> s'<strong>enregistre d'elle-même</strong> dans un registre sans aucune ligne de code supplémentaire — la métaclasse intercepte la définition de la classe.</li>
+</ol>
+<hr />
+<h2 id="ce-que-vous-allez-construire">Ce que vous allez construire<a class="headerlink" href="#ce-que-vous-allez-construire" title="Permanent link">&para;</a></h2>
+<pre><code>alqalamv6/
+├── metaclasses/               ← NOUVEAU package
+│   ├── singleton.py           ← SingletonMeta : surcharge __call__
+│   └── registre.py            ← RegistreMouvementMeta : surcharge __init__
+├── models/
+│   ├── mouvement.py           ← utilise RegistreMouvementMeta + fabriquer()
+│   └── types_mouvement.py     ← NOUVEAU : 4 sous-classes auto-enregistrées
+└── services/
+    └── stock_service.py       ← class StockService(metaclass=SingletonMeta)
+                                  + ajustement_stock() + retour_stock()
+ui/
+└── frames/
+    └── registre_frame.py      ← NOUVEAU : onglet &quot;🗂 Registre&quot; + démo Singleton
+</code></pre>
+<hr />
+<h2 id="concepts-mis-en-uvre">Concepts mis en œuvre<a class="headerlink" href="#concepts-mis-en-uvre" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Fichier</th>
+<th>Ce que ça illustre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code> est une métaclasse</td>
+<td>— (théorie)</td>
+<td><code>type(Produit)</code> → <code>type</code> · <code>type(type)</code> → <code>type</code></td>
+</tr>
+<tr>
+<td><code>class Meta(type)</code></td>
+<td>singleton.py</td>
+<td>Créer sa propre métaclasse en héritant de <code>type</code></td>
+</tr>
+<tr>
+<td><code>__call__</code> de métaclasse</td>
+<td>singleton.py</td>
+<td>Intercepte <code>StockService()</code> avant la création</td>
+</tr>
+<tr>
+<td>Double-check locking</td>
+<td>singleton.py</td>
+<td>Singleton thread-safe avec <code>threading.Lock</code></td>
+</tr>
+<tr>
+<td><code>__init__</code> de métaclasse</td>
+<td>registre.py</td>
+<td>Intercepte la <strong>définition</strong> d'une classe</td>
+</tr>
+<tr>
+<td>Auto-enregistrement</td>
+<td>types_mouvement.py</td>
+<td><code>TYPE_MVT = "entree"</code> → registre sans code explicite</td>
+</tr>
+<tr>
+<td>Factory via registre</td>
+<td>mouvement.py</td>
+<td><code>Mouvement.fabriquer(type_mvt, ...)</code> → bonne sous-classe</td>
+</tr>
+<tr>
+<td><code>type(cls)</code> depuis une méthode</td>
+<td>mouvement.py</td>
+<td>Accède à la métaclasse depuis la méthode de classe</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="la-hierarchie-des-metaclasses">La hiérarchie des métaclasses<a class="headerlink" href="#la-hierarchie-des-metaclasses" title="Permanent link">&para;</a></h2>
+<pre><code>Objet ordinaire    →  instance de  →  Classe            →  instance de  →  Métaclasse
+─────────────────────────────────────────────────────────────────────────────────────
+stock (instance)   →  instance de  →  StockService      →  instance de  →  SingletonMeta
+p    (Produit)     →  instance de  →  Produit           →  instance de  →  type
+EntreeMouvement()  →  instance de  →  EntreeMouvement   →  instance de  →  RegistreMouvementMeta
+</code></pre>
+<pre><code class="language-python">from services.stock_service import StockService
+from models.mouvement import Mouvement
+
+print(type(StockService))     # &lt;class 'metaclasses.singleton.SingletonMeta'&gt;
+print(type(Mouvement))        # &lt;class 'metaclasses.registre.RegistreMouvementMeta'&gt;
+print(type(int))              # &lt;class 'type'&gt;
+</code></pre>
+<hr />
+<h2 id="guide-de-realisation-etape-par-etape">Guide de réalisation étape par étape<a class="headerlink" href="#guide-de-realisation-etape-par-etape" title="Permanent link">&para;</a></h2>
+<h3 id="etape-1-creer-singletonmeta-20-min">Étape 1 — Créer SingletonMeta (20 min)<a class="headerlink" href="#etape-1-creer-singletonmeta-20-min" title="Permanent link">&para;</a></h3>
+<p>Une métaclasse surcharge les méthodes de <code>type</code>. Pour le Singleton, on surcharge <code>__call__</code> car c'est lui qui est invoqué à chaque <code>StockService()</code>.</p>
+<pre><code class="language-python"># metaclasses/singleton.py
+import threading
+
+class SingletonMeta(type):
+    &quot;&quot;&quot;
+    Métaclasse Singleton : garantit une seule instance par classe.
+
+    Normalement : StockService() appelle type.__call__(StockService)
+                    → __new__()  → __init__()  → retourne une nouvelle instance
+
+    Avec SingletonMeta : __call__() vérifie d'abord le registre.
+    Si l'instance existe déjà → la retourner directement, sans __new__/__init__.
+    &quot;&quot;&quot;
+    _instances = {}          # registre : {classe → instance unique}
+    _lock = threading.Lock() # protège la création multi-thread
+
+    def __call__(cls, *args, **kwargs):
+        # Vérification rapide SANS lock (chemin nominal)
+        if cls not in SingletonMeta._instances:
+            with SingletonMeta._lock:
+                # Vérification à nouveau AVEC lock (évite race condition)
+                if cls not in SingletonMeta._instances:
+                    # super().__call__() → chemin normal : __new__ + __init__
+                    instance = super().__call__(*args, **kwargs)
+                    SingletonMeta._instances[cls] = instance
+        return SingletonMeta._instances[cls]
+</code></pre>
+<p>Application sur <code>StockService</code> :</p>
+<pre><code class="language-python"># services/stock_service.py
+from metaclasses.singleton import SingletonMeta
+
+class StockService(metaclass=SingletonMeta):
+    def __init__(self):
+        ...   # appelé UNE SEULE FOIS, même si StockService() est appelé 100 fois
+
+# Preuve :
+a = StockService()
+b = StockService()
+c = StockService()
+
+assert a is b is c          # True : même objet
+assert id(a) == id(b)       # True : même adresse mémoire
+print(f&quot;id = {id(a)}&quot;)      # toujours la même valeur
+</code></pre>
+<p><strong>Piège à éviter</strong> : <code>__init__</code> n'est appelé qu'à la <strong>première</strong> instanciation. Les arguments passés aux appels suivants sont silencieusement ignorés.</p>
+<hr />
+<h3 id="etape-2-creer-registremouvementmeta-20-min">Étape 2 — Créer RegistreMouvementMeta (20 min)<a class="headerlink" href="#etape-2-creer-registremouvementmeta-20-min" title="Permanent link">&para;</a></h3>
+<p>Pour le registre automatique, on surcharge <code>__init__</code> de la métaclasse. Cette méthode est appelée <strong>à la définition de chaque classe</strong>, pas à son instanciation.</p>
+<pre><code class="language-python"># metaclasses/registre.py
+
+class RegistreMouvementMeta(type):
+    &quot;&quot;&quot;
+    Métaclasse Registre : auto-enregistrement des sous-classes de Mouvement.
+
+    Quand Python lit :
+        class EntreeMouvement(Mouvement):
+            TYPE_MVT = &quot;entree&quot;
+
+    Il appelle RegistreMouvementMeta.__init__(&quot;EntreeMouvement&quot;, (Mouvement,), namespace).
+    → On lit TYPE_MVT dans namespace → on l'enregistre dans _registre.
+    Aucune ligne de code supplémentaire n'est nécessaire dans EntreeMouvement !
+    &quot;&quot;&quot;
+    _registre = {}   # { &quot;entree&quot;: EntreeMouvement, &quot;sortie&quot;: SortieMouvement, ... }
+
+    def __init__(cls, nom, bases, namespace):
+        # Toujours déléguer à type.__init__ en premier
+        super().__init__(nom, bases, namespace)
+
+        # Auto-enregistrement : si TYPE_MVT est défini et non-None
+        # (la classe de base Mouvement a TYPE_MVT = None → pas enregistrée)
+        type_mvt = namespace.get(&quot;TYPE_MVT&quot;)
+        if type_mvt is not None:
+            RegistreMouvementMeta._registre[type_mvt] = cls
+
+    @classmethod
+    def get_classe(mcs, type_mvt):
+        return mcs._registre.get(type_mvt)
+
+    @classmethod
+    def get_registre(mcs):
+        return dict(mcs._registre)
+</code></pre>
+<hr />
+<h3 id="etape-3-modifier-mouvement-pour-utiliser-la-metaclasse-15-min">Étape 3 — Modifier Mouvement pour utiliser la métaclasse (15 min)<a class="headerlink" href="#etape-3-modifier-mouvement-pour-utiliser-la-metaclasse-15-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># models/mouvement.py
+from datetime import datetime
+from metaclasses.registre import RegistreMouvementMeta
+
+class Mouvement(metaclass=RegistreMouvementMeta):
+    # TYPE_MVT = None → la classe de base n'est PAS enregistrée
+    TYPE_MVT      = None
+    ICONE         = &quot;🔹&quot;
+    LABEL         = &quot;Mouvement&quot;
+    TYPES_VALIDES = (&quot;entree&quot;, &quot;sortie&quot;, &quot;ajustement&quot;, &quot;retour&quot;)  # étendu V6
+
+    def __init__(self, ref_produit, type_mvt, qte, note=&quot;&quot;):
+        if type_mvt not in self.TYPES_VALIDES:
+            raise ValueError(f&quot;Type invalide : {type_mvt!r}&quot;)
+        if qte &lt;= 0:
+            raise ValueError(f&quot;Quantité doit être positive : {qte}&quot;)
+        self.ref_produit = ref_produit
+        self.type_mvt    = type_mvt
+        self.qte         = qte
+        self.note        = note
+        self.date        = datetime.now().isoformat(timespec=&quot;seconds&quot;)
+
+    @classmethod
+    def fabriquer(cls, type_mvt, ref_produit, qte, note=&quot;&quot;):
+        &quot;&quot;&quot;
+        [V6] Factory basée sur le registre de la métaclasse.
+
+        type(cls)  retourne la métaclasse de Mouvement : RegistreMouvementMeta
+        On accède à _registre via la métaclasse pour trouver la bonne classe.
+
+        Mouvement.fabriquer(&quot;entree&quot;, &quot;CRAY-001&quot;, 50)
+          → type(Mouvement) = RegistreMouvementMeta
+          → RegistreMouvementMeta._registre[&quot;entree&quot;] = EntreeMouvement
+          → EntreeMouvement(&quot;CRAY-001&quot;, 50)
+        &quot;&quot;&quot;
+        meta   = type(cls)                 # = RegistreMouvementMeta
+        classe = meta.get_classe(type_mvt) # cherche dans le registre
+
+        if classe is not None:
+            return classe(ref_produit, qte, note)  # appelle __init__ de la sous-classe
+
+        return cls(ref_produit, type_mvt, qte, note)  # fallback : classe de base
+</code></pre>
+<hr />
+<h3 id="etape-4-creer-les-sous-classes-concretes-15-min">Étape 4 — Créer les sous-classes concrètes (15 min)<a class="headerlink" href="#etape-4-creer-les-sous-classes-concretes-15-min" title="Permanent link">&para;</a></h3>
+<p>Chaque sous-classe définit simplement <code>TYPE_MVT</code>. La métaclasse fait le reste.</p>
+<pre><code class="language-python"># models/types_mouvement.py
+from models.mouvement import Mouvement
+
+class EntreeMouvement(Mouvement):
+    # Python appelle RegistreMouvementMeta.__init__(&quot;EntreeMouvement&quot;, ...) ici
+    # → _registre[&quot;entree&quot;] = EntreeMouvement  (automatique !)
+    TYPE_MVT = &quot;entree&quot;
+    ICONE    = &quot;📥&quot;
+    LABEL    = &quot;Entrée stock&quot;
+
+    def __init__(self, ref_produit, qte, note=&quot;&quot;):
+        super().__init__(ref_produit, &quot;entree&quot;, qte, note)
+
+
+class SortieMouvement(Mouvement):
+    TYPE_MVT = &quot;sortie&quot;
+    ICONE    = &quot;📤&quot;
+    LABEL    = &quot;Sortie stock&quot;
+
+    def __init__(self, ref_produit, qte, note=&quot;&quot;):
+        super().__init__(ref_produit, &quot;sortie&quot;, qte, note)
+
+
+class AjustementMouvement(Mouvement):
+    &quot;&quot;&quot;Nouveau V6 : correction d'écart entre stock théorique et réel.&quot;&quot;&quot;
+    TYPE_MVT = &quot;ajustement&quot;
+    ICONE    = &quot;⚖️&quot;
+    LABEL    = &quot;Ajustement&quot;
+
+    def __init__(self, ref_produit, qte, note=&quot;&quot;):
+        super().__init__(ref_produit, &quot;ajustement&quot;, abs(qte) or 1, note)
+        self.delta = qte   # peut être négatif (perte) ou positif (gain)
+
+
+class RetourMouvement(Mouvement):
+    &quot;&quot;&quot;Nouveau V6 : marchandise renvoyée au fournisseur.&quot;&quot;&quot;
+    TYPE_MVT = &quot;retour&quot;
+    ICONE    = &quot;↩️&quot;
+    LABEL    = &quot;Retour fournisseur&quot;
+
+    def __init__(self, ref_produit, qte, note=&quot;&quot;):
+        super().__init__(ref_produit, &quot;retour&quot;, qte, note)
+</code></pre>
+<p><strong>Vérification en console :</strong></p>
+<pre><code class="language-python">import models.types_mouvement   # déclenche l'enregistrement des 4 classes
+from metaclasses.registre import RegistreMouvementMeta
+
+print(RegistreMouvementMeta.get_registre())
+# {'entree': &lt;class 'EntreeMouvement'&gt;, 'sortie': &lt;class 'SortieMouvement'&gt;,
+#  'ajustement': &lt;class 'AjustementMouvement'&gt;, 'retour': &lt;class 'RetourMouvement'&gt;}
+
+m = Mouvement.fabriquer(&quot;ajustement&quot;, &quot;PAP-A4&quot;, 10, &quot;inventaire annuel&quot;)
+print(type(m).__name__)   # AjustementMouvement
+print(m.ICONE)            # ⚖️
+</code></pre>
+<hr />
+<h3 id="etape-5-etendre-stockservice-avec-les-nouvelles-operations-20-min">Étape 5 — Étendre StockService avec les nouvelles opérations (20 min)<a class="headerlink" href="#etape-5-etendre-stockservice-avec-les-nouvelles-operations-20-min" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># services/stock_service.py (extraits)
+import models.types_mouvement   # IMPORTANT : force l'enregistrement avant tout appel à fabriquer()
+
+class StockService(metaclass=SingletonMeta):
+
+    @journaliser(&quot;entree&quot;)
+    @valider_qte(min_val=1, max_val=100_000)
+    def entree_stock(self, ref, qte, note=&quot;&quot;):
+        with self._lock:
+            ...
+            # fabriquer() → consulte le registre → crée EntreeMouvement
+            self._mouvements.append(Mouvement.fabriquer(&quot;entree&quot;, ref, qte, note))
+        self.sauvegarder()
+
+    @journaliser(&quot;ajustement&quot;)
+    def ajustement_stock(self, ref, qte_cible, note=&quot;&quot;):
+        &quot;&quot;&quot;
+        [V6] Corrige le stock à une quantité absolue (inventaire physique).
+        Crée un AjustementMouvement via le registre.
+        &quot;&quot;&quot;
+        with self._lock:
+            produit   = self._produits[ref]
+            qte_avant = produit.qte
+            delta     = qte_cible - qte_avant
+            if qte_cible &lt; 0:
+                raise ValueError(f&quot;Quantité cible négative : {qte_cible}&quot;)
+            produit.qte = qte_cible
+            note_auto   = note or f&quot;Inventaire : {qte_avant}→{qte_cible} (Δ{delta:+d})&quot;
+            self._mouvements.append(
+                Mouvement.fabriquer(&quot;ajustement&quot;, ref, abs(delta) or 1, note_auto)
+            )
+        self.sauvegarder()
+
+    def stats_par_type(self):
+        &quot;&quot;&quot;[V6] Statistiques des mouvements groupées par type (depuis le registre).&quot;&quot;&quot;
+        registre = RegistreMouvementMeta.get_registre()
+        return {
+            type_mvt: {
+                &quot;nb&quot;        : len([m for m in self._mouvements if m.type_mvt == type_mvt]),
+                &quot;qte_totale&quot;: sum(m.qte for m in self._mouvements if m.type_mvt == type_mvt),
+                &quot;classe&quot;    : classe,
+                &quot;icone&quot;     : classe.ICONE,
+                &quot;label&quot;     : classe.LABEL,
+            }
+            for type_mvt, classe in registre.items()
+        }
+</code></pre>
+<hr />
+<h3 id="etape-6-creer-longlet-registre-25-min">Étape 6 — Créer l'onglet Registre (25 min)<a class="headerlink" href="#etape-6-creer-longlet-registre-25-min" title="Permanent link">&para;</a></h3>
+<p>L'onglet <strong>🗂 Registre</strong> est divisé en deux zones :</p>
+<p><strong>Colonne gauche — tableau du registre</strong></p>
+<pre><code class="language-python"># Lire le registre depuis la métaclasse
+registre = RegistreMouvementMeta.get_registre()
+stats    = stock.stats_par_type()
+
+for type_mvt, classe in sorted(registre.items()):
+    s = stats.get(type_mvt, {&quot;nb&quot;: 0, &quot;qte_totale&quot;: 0})
+    self._arbre.insert(&quot;&quot;, &quot;end&quot;, values=(
+        classe.ICONE,        # colonne icône
+        type_mvt,            # clé du registre (&quot;entree&quot;, &quot;sortie&quot;, ...)
+        classe.__name__,     # nom Python de la classe
+        classe.LABEL,        # libellé lisible
+        s[&quot;nb&quot;],             # nombre de mouvements de ce type
+        s[&quot;qte_totale&quot;],     # quantité totale
+    ))
+</code></pre>
+<p><strong>Colonne droite — démo Singleton</strong></p>
+<pre><code class="language-python">def _demo_singleton(self):
+    &quot;&quot;&quot;Appelle StockService() deux fois et compare les id().&quot;&quot;&quot;
+    from services.stock_service import StockService
+
+    a = StockService()
+    b = StockService()
+
+    self._lbl_id_a.configure(text=f&quot;id(a) = {id(a)}&quot;)
+    self._lbl_id_b.configure(text=f&quot;id(b) = {id(b)}&quot;)
+
+    if a is b:
+        self._lbl_egal.configure(text=&quot;a is b  →  True ✅&quot;, text_color=&quot;green&quot;)
+    else:
+        self._lbl_egal.configure(text=&quot;Erreur : instances différentes !&quot;, text_color=&quot;red&quot;)
+</code></pre>
+<hr />
+<h2 id="difference-__call__-vs-__init__-de-metaclasse">Différence <code>__call__</code> vs <code>__init__</code> de métaclasse<a class="headerlink" href="#difference-__call__-vs-__init__-de-metaclasse" title="Permanent link">&para;</a></h2>
+<pre><code>Création d'une INSTANCE (StockService())          Définition d'une CLASSE
+───────────────────────────────────────           ──────────────────────────────────────
+Appelle la MÉTACLASSE.__call__()                  Appelle la MÉTACLASSE.__init__()
+  → SingletonMeta.__call__(StockService)            → RegistreMouvementMeta.__init__(
+                                                         &quot;EntreeMouvement&quot;,
+                                                         (Mouvement,),
+                                                         {&quot;TYPE_MVT&quot;: &quot;entree&quot;, ...})
+Moment : à l'exécution du code                    Moment : à la lecture du fichier .py
+Utile pour : contrôler les instances              Utile pour : enregistrer les classes
+</code></pre>
+<hr />
+<h2 id="pourquoi-import-modelstypes_mouvement-est-obligatoire">Pourquoi <code>import models.types_mouvement</code> est obligatoire<a class="headerlink" href="#pourquoi-import-modelstypes_mouvement-est-obligatoire" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python"># Si on N'importe PAS types_mouvement avant d'appeler fabriquer() :
+
+from models.mouvement import Mouvement
+m = Mouvement.fabriquer(&quot;entree&quot;, &quot;CRAY-001&quot;, 50)
+print(type(m).__name__)   # Mouvement  ← fallback ! Le registre est encore vide.
+
+# Après import :
+import models.types_mouvement
+m = Mouvement.fabriquer(&quot;entree&quot;, &quot;CRAY-001&quot;, 50)
+print(type(m).__name__)   # EntreeMouvement  ← correct !
+</code></pre>
+<p>Les classes sont enregistrées au moment de leur <strong>définition</strong>, c'est-à-dire à l'import du module. <code>stock_service.py</code> doit donc importer <code>models.types_mouvement</code> dès son chargement.</p>
+<hr />
+<h2 id="criteres-de-validation">Critères de validation<a class="headerlink" href="#criteres-de-validation" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] <code>py -3 main.py</code> lance l'app avec 5 onglets sans erreur</li>
+<li>[ ] <code>StockService() is StockService()</code> retourne <code>True</code> (vérifiable dans l'onglet Registre)</li>
+<li>[ ] L'onglet "🗂 Registre" affiche les 4 types : entree, sortie, ajustement, retour</li>
+<li>[ ] <code>Mouvement.fabriquer("entree", ...)</code> retourne une instance de <code>EntreeMouvement</code></li>
+<li>[ ] <code>Mouvement.fabriquer("ajustement", ...)</code> retourne une instance de <code>AjustementMouvement</code></li>
+<li>[ ] Bouton "⚖️ Ajuster stock" → dialogue avec delta en temps réel → stock modifié</li>
+<li>[ ] Bouton "↩️ Retour fourn." → stock diminue → mouvement de type "retour" visible</li>
+<li>[ ] Onglet Registre → compteur "Nb mvts" augmente après chaque opération</li>
+<li>[ ] Cliquer "📞 Appeler StockService()" N fois → id mémoire toujours identique</li>
+<li>[ ] <code>type(StockService)</code> retourne <code>SingletonMeta</code> (console)</li>
+<li>[ ] <code>type(Mouvement)</code> retourne <code>RegistreMouvementMeta</code> (console)</li>
+</ul>
+<hr />
+<h2 id="pour-aller-plus-loin">Pour aller plus loin<a class="headerlink" href="#pour-aller-plus-loin" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ajouter un <strong>5ème type</strong> <code>TransfertMouvement</code> (transfert entre deux dépôts) : une seule sous-classe à définir, le registre se met à jour automatiquement sans toucher à <code>StockService</code></li>
+<li>Créer une métaclasse <code>AbstractMeta</code> qui lève <code>TypeError</code> si on instancie une classe marquée <code>ABSTRACT = True</code></li>
+<li>Combiner <code>SingletonMeta</code> et <code>RegistreMouvementMeta</code> en une seule métaclasse via l'héritage de métaclasses</li>
+<li>Étudier <code>__init_subclass__</code> (Python 3.6+) comme alternative légère à la métaclasse pour l'auto-enregistrement — comparer les deux approches</li>
+</ul>
+<hr />
+<p><em>Al Qalam Stock Manager — Formation Python Partie II — Sprint V6</em></p>
+    </div>
+    <div class="page-nav">
+      <a href="09_milestone5.html">◀ Milestone 5 — Traçabilité et sécurisation</a>
+      <a href="13_milestone7.html">Milestone 7 — Validation et parsing des logs ▶</a>
+    </div>
+    <footer>
+  Milestone 6 — Registre automatique des types — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>

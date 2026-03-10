@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Méthodes Magiques — Python Avancé II</title>
+  <link rel="stylesheet" href="../doxygen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<header id="topbar">
+  <a class="logo" href="../index.html">🐍 Python Avancé II</a>
+  <nav>
+    <a href="../index.html" class="">Main Page</a>
+    <a href="#" class="active">Related Pages</a>
+    <a href="#" class="">Files</a>
+  </nav>
+  <div id="search-box">
+    <input id="search-input" type="search" placeholder="🔍 Rechercher…" autocomplete="off">
+  </div>
+</header>
+<div id="search-results"></div>
+<div id="layout">
+<aside id="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-header" id="grp-chapters">
+      <span class="toggle-arrow">▼</span> 📘 Chapitres
+    </div>
+    <ul>
+        <li><a href="../pages/00_la_poo.html"><span class="page-icon">📘</span>La POO</a></li>
+        <li><a href="../pages/02_les_methodes_magiques.html" class="current"><span class="page-icon">📘</span>Les Méthodes Magiques</a></li>
+        <li><a href="../pages/04_les_comprehensions.html"><span class="page-icon">📘</span>Les Compréhensions</a></li>
+        <li><a href="../pages/06_le_threading_coroutine.html"><span class="page-icon">📘</span>Le Threading & Coroutine</a></li>
+        <li><a href="../pages/08_les_decorateurs_descripteurs.html"><span class="page-icon">📘</span>Les Décorateurs & Descripteurs</a></li>
+        <li><a href="../pages/10_les_meta_classes.html"><span class="page-icon">📘</span>Les Méta-Classes</a></li>
+        <li><a href="../pages/12_acquisition_regex.html"><span class="page-icon">📘</span>Acquisition — Texte & Regex</a></li>
+        <li><a href="../pages/14_acquisition_csv.html"><span class="page-icon">📘</span>Acquisition — Les CSV</a></li>
+        <li><a href="../pages/16_acquisition_excel.html"><span class="page-icon">📘</span>Acquisition — Les Excel</a></li>
+        <li><a href="../pages/18_acquisition_bd.html"><span class="page-icon">📘</span>Acquisition — Les Bases de Données</a></li>
+        <li><a href="../pages/21_les_tests_python.html"><span class="page-icon">📘</span>Les Tests Python</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-group collapsed">
+    <div class="sidebar-group-header collapsed" id="grp-milestones">
+      <span class="toggle-arrow">▼</span> 📋 Milestones
+    </div>
+    <ul>
+        <li><a href="../pages/01_milestone1.html"><span class="page-icon">📋</span>Milestone 1 — Modélisation OO</a></li>
+        <li><a href="../pages/03_milestone2.html"><span class="page-icon">📋</span>Milestone 2 — Enrichissement du modèle</a></li>
+        <li><a href="../pages/05_milestone3.html"><span class="page-icon">📋</span>Milestone 3 — Optimisation des filtres et rapports</a></li>
+        <li><a href="../pages/07_milestone4.html"><span class="page-icon">📋</span>Milestone 4 — Surveillance des ruptures</a></li>
+        <li><a href="../pages/09_milestone5.html"><span class="page-icon">📋</span>Milestone 5 — Traçabilité et sécurisation</a></li>
+        <li><a href="../pages/11_milestone6.html"><span class="page-icon">📋</span>Milestone 6 — Registre automatique des types</a></li>
+        <li><a href="../pages/13_milestone7.html"><span class="page-icon">📋</span>Milestone 7 — Validation et parsing des logs</a></li>
+        <li><a href="../pages/15_milestone8.html"><span class="page-icon">📋</span>Milestone 8 — Import catalogue &amp; export CSV</a></li>
+        <li><a href="../pages/17_milestone9.html"><span class="page-icon">📋</span>Milestone 9 — Rapport Excel &amp; import bon de commande</a></li>
+        <li><a href="../pages/19_milestone10.html"><span class="page-icon">📋</span>Milestone 10 — Persistance complète</a></li>
+        <li><a href="../pages/22_milestone11.html"><span class="page-icon">📋</span>Milestone 11 — Suite de tests (couverture 80%)</a></li>
+    </ul>
+  </div>
+</aside>
+  <div id="main-content">
+    <div id="breadcrumb"><a href="../index.html">Main Page</a><span>»</span><a href="../index.html##grp-chapters">Chapitres</a><span>»</span>Les Méthodes Magiques</div>
+    <div class="page-header-band">
+      <h1>Les Méthodes Magiques</h1>
+    </div>
+    <div class="content-body">
+<h1 id="les-methodes-magiques-en-python">🧠 Les Méthodes Magiques en Python<a class="headerlink" href="#les-methodes-magiques-en-python" title="Permanent link">&para;</a></h1>
+<p>Le support est une propriété de <strong>Bechir Bejaoui</strong></p>
+<hr />
+<h1 id="1-pourquoi-les-methodes-magiques">1️⃣ Pourquoi les méthodes magiques ?<a class="headerlink" href="#1-pourquoi-les-methodes-magiques" title="Permanent link">&para;</a></h1>
+<p>En Python, quand vous écrivez <code>len(ma_liste)</code> ou <code>obj1 + obj2</code>, Python ne fait pas de magie — il appelle des méthodes bien précises sur vos objets. Ces méthodes s'appellent les <strong>dunder methods</strong> (<em>double underscore</em>) ou <strong>méthodes magiques</strong>.</p>
+<p><strong>Le problème sans méthodes magiques :</strong></p>
+<pre><code class="language-python">class Temperature:
+    def __init__(self, valeur):
+        self.valeur = valeur
+
+t1 = Temperature(100)
+t2 = Temperature(50)
+
+# Tout cela échoue sans méthodes magiques :
+print(t1)          # &lt;__main__.Temperature object at 0x...&gt;  ← illisible
+print(t1 + t2)     # TypeError: unsupported operand type(s) for +
+print(t1 &gt; t2)     # TypeError: '&gt;' not supported
+print(len(t1))     # TypeError: object of type 'Temperature' has no len()
+</code></pre>
+<ul>
+<li><strong><code>&lt;__main__.Temperature object at 0x...&gt;</code></strong> : c'est ce que Python affiche par défaut — totalement inutile</li>
+<li><strong><code>TypeError</code></strong> : Python ne sait pas quoi faire avec <code>+</code> ou <code>&gt;</code> sur un objet inconnu</li>
+<li><strong>conclusion</strong> : la classe existe, mais elle est "muette" — elle ne parle pas la langue de Python</li>
+</ul>
+<hr />
+<p><strong>Avec les méthodes magiques :</strong></p>
+<pre><code class="language-python">class Temperature:
+    def __init__(self, valeur: float, unite: str = &quot;°C&quot;):
+        self.valeur = valeur
+        self.unite = unite
+
+    def __str__(self):                         # print(obj)
+        return f&quot;{self.valeur}{self.unite}&quot;
+
+    def __repr__(self):                        # repr(obj), logs
+        return f&quot;Temperature({self.valeur!r}, {self.unite!r})&quot;
+
+    def __add__(self, other):                  # t1 + t2
+        return Temperature(self.valeur + other.valeur, self.unite)
+
+    def __gt__(self, other):                   # t1 &gt; t2
+        return self.valeur &gt; other.valeur
+
+    def __eq__(self, other):                   # t1 == t2
+        return self.valeur == other.valeur
+
+    def __bool__(self):                        # if t:
+        return self.valeur &gt; 0
+
+t1 = Temperature(100)
+t2 = Temperature(50)
+
+print(t1)            # 100°C              ← __str__
+print(repr(t1))      # Temperature(100, '°C')  ← __repr__
+print(t1 + t2)       # 150°C             ← __add__
+print(t1 &gt; t2)       # True              ← __gt__
+print(bool(t2))      # True              ← __bool__
+</code></pre>
+<ul>
+<li><strong><code>__str__</code></strong> : ce que <code>print()</code> affiche — pensez "message pour l'utilisateur final"</li>
+<li><strong><code>__repr__</code></strong> : représentation technique — pensez "message pour le développeur"</li>
+<li><strong><code>__add__</code></strong> : intercepte l'opérateur <code>+</code> — retourne <strong>toujours</strong> un objet du même type</li>
+<li><strong><code>__gt__</code></strong> : intercepte <code>&gt;</code> — Python déduit <code>&lt;</code> depuis <code>__gt__</code> dans certains contextes, mais il vaut mieux tout déclarer</li>
+<li><strong><code>__bool__</code></strong> : définit ce que vaut <code>if obj:</code> — par défaut tout objet est <code>True</code> sans cette méthode</li>
+</ul>
+<hr />
+<p><strong>Vue d'ensemble des familles de méthodes magiques :</strong></p>
+<table>
+<thead>
+<tr>
+<th>Famille</th>
+<th>Méthodes</th>
+<th>Utilité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cycle de vie</strong></td>
+<td><code>__new__</code>, <code>__init__</code>, <code>__del__</code></td>
+<td>Création, init, destruction</td>
+</tr>
+<tr>
+<td><strong>Représentation</strong></td>
+<td><code>__str__</code>, <code>__repr__</code>, <code>__format__</code></td>
+<td>Affichage, logs, f-strings</td>
+</tr>
+<tr>
+<td><strong>Opérateurs arithmétiques</strong></td>
+<td><code>__add__</code>, <code>__sub__</code>, <code>__mul__</code>, <code>__truediv__</code></td>
+<td><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code></td>
+</tr>
+<tr>
+<td><strong>Opérateurs de comparaison</strong></td>
+<td><code>__eq__</code>, <code>__lt__</code>, <code>__le__</code>, <code>__gt__</code>, <code>__ge__</code></td>
+<td><code>==</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td>
+</tr>
+<tr>
+<td><strong>Conteneurs</strong></td>
+<td><code>__len__</code>, <code>__getitem__</code>, <code>__setitem__</code>, <code>__contains__</code>, <code>__iter__</code></td>
+<td><code>len()</code>, <code>[]</code>, <code>in</code>, <code>for</code></td>
+</tr>
+<tr>
+<td><strong>Attributs</strong></td>
+<td><code>__getattr__</code>, <code>__setattr__</code>, <code>__getattribute__</code></td>
+<td>Interception des accès</td>
+</tr>
+<tr>
+<td><strong>Callable &amp; contexte</strong></td>
+<td><code>__call__</code>, <code>__enter__</code>, <code>__exit__</code></td>
+<td><code>obj()</code>, <code>with obj</code></td>
+</tr>
+<tr>
+<td><strong>Hachage &amp; vérité</strong></td>
+<td><code>__hash__</code>, <code>__bool__</code></td>
+<td><code>dict</code>, <code>set</code>, <code>if obj</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="2-comment-python-decide-quoi-appeler">2️⃣ Comment Python décide quoi appeler ?<a class="headerlink" href="#2-comment-python-decide-quoi-appeler" title="Permanent link">&para;</a></h1>
+<p>Chaque expression Python est en réalité un <strong>appel de méthode magique déguisé</strong>. Comprendre ce mécanisme, c'est comprendre le Data Model Python.</p>
+<pre><code class="language-python"># Ce que vous écrivez  →  Ce que Python appelle réellement
+
+print(obj)             →  obj.__str__()
+len(obj)               →  obj.__len__()
+obj1 + obj2            →  obj1.__add__(obj2)
+obj1 == obj2           →  obj1.__eq__(obj2)
+obj[2]                 →  obj.__getitem__(2)
+obj[2] = &quot;x&quot;           →  obj.__setitem__(2, &quot;x&quot;)
+2 in obj               →  obj.__contains__(2)
+for x in obj           →  iter(obj)  →  obj.__iter__()
+obj()                  →  obj.__call__()
+with obj as x          →  obj.__enter__()  /  obj.__exit__(...)
+bool(obj)              →  obj.__bool__()
+abs(obj)               →  obj.__abs__()
+</code></pre>
+<hr />
+<p><strong>Démonstration — espionner les appels Python :</strong></p>
+<pre><code class="language-python">class Espion:
+    &quot;&quot;&quot;Classe qui affiche chaque méthode magique appelée par Python.&quot;&quot;&quot;
+
+    def __init__(self, nom):
+        # On utilise object.__setattr__ pour éviter d'appeler notre propre __setattr__
+        object.__setattr__(self, &quot;nom&quot;, nom)
+
+    def __str__(self):
+        print(f&quot;  → __str__ appelé&quot;)
+        return f&quot;Espion({self.nom})&quot;
+
+    def __len__(self):
+        print(f&quot;  → __len__ appelé&quot;)
+        return 42
+
+    def __add__(self, other):
+        print(f&quot;  → __add__ appelé avec {other}&quot;)
+        return Espion(f&quot;{self.nom}+{other.nom}&quot;)
+
+    def __contains__(self, item):
+        print(f&quot;  → __contains__ appelé avec {item!r}&quot;)
+        return item == &quot;x&quot;
+
+    def __bool__(self):
+        print(f&quot;  → __bool__ appelé&quot;)
+        return True
+
+e1 = Espion(&quot;A&quot;)
+e2 = Espion(&quot;B&quot;)
+
+print(&quot;\n--- print(e1) ---&quot;)
+print(e1)
+
+print(&quot;\n--- len(e1) ---&quot;)
+print(len(e1))
+
+print(&quot;\n--- e1 + e2 ---&quot;)
+e3 = e1 + e2
+print(e3)
+
+print(&quot;\n--- 'x' in e1 ---&quot;)
+print(&quot;x&quot; in e1)
+
+print(&quot;\n--- if e1 ---&quot;)
+if e1:
+    print(&quot;  e1 est truthy&quot;)
+</code></pre>
+<pre><code>--- print(e1) ---
+  → __str__ appelé
+Espion(A)
+
+--- len(e1) ---
+  → __len__ appelé
+42
+
+--- e1 + e2 ---
+  → __add__ appelé avec Espion(B)
+  → __str__ appelé
+Espion(A+B)
+
+--- 'x' in e1 ---
+  → __contains__ appelé avec 'x'
+True
+
+--- if e1 ---
+  → __bool__ appelé
+  e1 est truthy
+</code></pre>
+<ul>
+<li><strong>chaque opérateur</strong> est une façade — Python cherche la méthode correspondante et l'appelle</li>
+<li><strong><code>object.__setattr__</code></strong> : permet d'écrire un attribut en contournant notre propre <code>__setattr__</code> — indispensable pour éviter la récursion infinie</li>
+<li><strong>si la méthode est absente</strong> : Python lève <code>TypeError</code> avec un message explicite — jamais de comportement silencieux</li>
+</ul>
+<hr />
+<p><strong>Le mécanisme de fallback — opérateurs réfléchis :</strong></p>
+<pre><code class="language-python">class Euro:
+    def __init__(self, valeur):
+        self.valeur = valeur
+
+    def __add__(self, other):
+        print(f&quot;  Euro.__add__ appelé&quot;)
+        if isinstance(other, (int, float)):
+            return Euro(self.valeur + other)
+        return NotImplemented    # ← signal à Python d'essayer l'opération inverse
+
+    # Si l'operation echoue aussi, python lève erreur 
+    def __radd__(self, other):
+        print(f&quot;  Euro.__radd__ appelé (opération inversée)&quot;)
+        return Euro(self.valeur + other)
+
+    def __str__(self):
+        return f&quot;{self.valeur}€&quot;
+
+e = Euro(100)
+
+print(e + 50)    # Euro.__add__ appelé       → 150€
+print(50 + e)    # int.__add__ échoue → Python essaie Euro.__radd__ → 150€
+</code></pre>
+<ul>
+<li><strong><code>NotImplemented</code></strong> <em>(pas une exception)</em> : valeur spéciale que <code>__add__</code> retourne pour dire à Python <em>"je ne sais pas gérer ça, essaie l'autre sens"</em></li>
+<li><strong><code>__radd__</code></strong> : version <em>réfléchie</em> de <code>__add__</code> — appelée quand <code>other + self</code> échoue côté <code>other</code></li>
+<li>Chaque opérateur a sa version réfléchie : <code>__radd__</code>, <code>__rsub__</code>, <code>__rmul__</code>…</li>
+</ul>
+<hr />
+<h1 id="3-cycle-de-vie-dun-objet-__new__-vs-__init__-vs-__del__">3️⃣ Cycle de vie d'un objet : <code>__new__</code> vs <code>__init__</code> vs <code>__del__</code><a class="headerlink" href="#3-cycle-de-vie-dun-objet-__new__-vs-__init__-vs-__del__" title="Permanent link">&para;</a></h1>
+<h2 id="concept">Concept<a class="headerlink" href="#concept" title="Permanent link">&para;</a></h2>
+<p>La création d'un objet en Python passe par <strong>deux étapes distinctes</strong> que la plupart des développeurs confondent :</p>
+<ul>
+<li><strong><code>__new__</code></strong> → <strong>fabrique</strong> l'objet vide (alloue la mémoire) — doit retourner l'instance</li>
+<li><strong><code>__init__</code></strong> → <strong>configure</strong> l'objet déjà fabriqué (remplit les attributs) — ne retourne rien</li>
+<li><strong><code>__del__</code></strong> → appelé par le <strong>garbage collector</strong> juste avant la destruction — moment non garanti</li>
+</ul>
+<pre><code>Personne(&quot;Bechir&quot;, 40)
+       │
+       ▼
+   __new__(cls)          ← crée l'objet vide, retourne l'instance
+       │
+       ▼
+   __init__(self, ...)   ← remplit self.nom, self.age
+       │
+       ▼
+   objet prêt à l'emploi
+       │
+       ▼  (plus aucune référence)
+   __del__(self)         ← nettoyage final (non déterministe)
+</code></pre>
+<hr />
+<h2 id="observer-les-etapes-de-creation-dun-objet">Observer les étapes de creation d'un objet<a class="headerlink" href="#observer-les-etapes-de-creation-dun-objet" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">
+class Personne:
+
+    def __new__(cls, nom: str, age: int):
+        print(f&quot;  1. __new__  : allocation mémoire pour une Personne&quot;)
+        instance = super().__new__(cls)   # ← alloue l'objet Python brut
+        # À ce stade : instance existe, mais self.nom et self.age n'existent PAS encore
+        print(f&quot;     instance créée : {type(instance)}, id={id(instance)}&quot;)
+        return instance                   # OBLIGATOIRE — sinon __init__ n'est pas appelé
+
+    def __init__(self, nom: str, age: int):
+        print(f&quot;  2. __init__ : initialisation de l'objet&quot;)
+        self.nom = nom    # maintenant self existe, on peut créer les attributs
+        self.age = age
+        print(f&quot;     self.nom={self.nom}, self.age={self.age}&quot;)
+
+    def __del__(self):
+        # Attention : __del__ peut être appelé après la fermeture de l'interpréteur
+        # → ne jamais dépendre de ressources externes ici
+        print(f&quot;  3. __del__  : '{self.nom}' supprimé de la mémoire&quot;)
+
+    def __str__(self):
+        return f&quot;Personne({self.nom}, {self.age} ans)&quot;
+
+
+print(&quot;=== Création ===&quot;)
+p = Personne(&quot;Bechir&quot;, 40)
+print(f&quot;Objet prêt : {p}\n&quot;)
+
+print(&quot;=== Suppression explicite ===&quot;)
+del p    # force la suppression — __del__ appelé immédiatement ici
+         # (car plus aucune référence)
+</code></pre>
+<pre><code>=== Création ===
+  1. __new__  : allocation mémoire pour une Personne
+     instance créée : &lt;class '__main__.Personne'&gt;, id=140234...
+  2. __init__ : initialisation de l'objet
+     self.nom=Bechir, self.age=40
+Objet prêt : Personne(Bechir, 40)
+
+=== Suppression explicite ===
+  3. __del__  : 'Bechir' supprimé de la mémoire
+</code></pre>
+<ul>
+<li><strong><code>super().__new__(cls)</code></strong> : délègue l'allocation réelle à <code>object</code> — ne jamais allouer manuellement</li>
+<li><strong>si <code>__new__</code> ne retourne pas une instance de <code>cls</code></strong> : Python n'appelle <strong>pas</strong> <code>__init__</code> — bug silencieux garanti</li>
+<li><strong><code>__del__</code></strong> : ne pas confondre avec <code>del obj</code> — <code>del</code> retire une référence, <code>__del__</code> est appelé quand le compteur de références atteint 0</li>
+<li><strong>à éviter dans <code>__del__</code></strong> : tout ce qui dépend d'autres objets (ils peuvent déjà être détruits) — préférer les context managers (<code>with</code>) pour la gestion de ressources</li>
+</ul>
+<h3 id="observer-lobjet-dans-la-memoire">Observer l'objet dans la mémoire<a class="headerlink" href="#observer-lobjet-dans-la-memoire" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">import tracemalloc
+
+class Personne:
+
+    def __init__(self, nom, age):
+        self.nom = nom
+        self.age = age
+
+
+# démarrer le suivi mémoire
+tracemalloc.start()
+
+# création d'objets
+personnes = [Personne(&quot;User&quot;, i) for i in range(10000)]
+
+# récupérer la mémoire utilisée
+current, peak = tracemalloc.get_traced_memory()
+
+print(f&quot;mémoire actuelle : {current / 1024:.2f} KB&quot;)
+print(f&quot;pic mémoire      : {peak / 1024:.2f} KB&quot;)
+
+# arrêter le suivi
+tracemalloc.stop()
+</code></pre>
+<p><strong>A quoi sert réellement tracemalloc?</strong>.</p>
+<p>Ce module permet de :</p>
+<ul>
+<li>
+<p>suivre les allocations mémoire Python</p>
+</li>
+<li>
+<p>comparer l’utilisation mémoire entre deux moments</p>
+</li>
+<li>
+<p>détecter les fuites mémoire</p>
+</li>
+</ul>
+<hr />
+<h2 id="cas-pratique-demploi-de-new-le-singleton">Cas pratique d'emploi de new  le Singleton<a class="headerlink" href="#cas-pratique-demploi-de-new-le-singleton" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">class ConfigApp:
+    &quot;&quot;&quot;Configuration globale — une seule instance possible.&quot;&quot;&quot;
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            print(&quot;  Première instanciation — création unique&quot;)
+            cls._instance = super().__new__(cls)
+            cls._instance._initialisee = False   # flag pour __init__
+        return cls._instance   # toujours le même objet
+
+    def __init__(self):
+        if not self._initialisee:
+            self.debug = False
+            self.version = &quot;1.0&quot;
+            self._initialisee = True
+            print(f&quot;  Configuration initialisée&quot;)
+        # sinon : __init__ est rappelé mais on ignore la réinitialisation
+
+cfg1 = ConfigApp()
+cfg2 = ConfigApp()
+cfg3 = ConfigApp()
+
+print(f&quot;\ncfg1 is cfg2 : {cfg1 is cfg2}&quot;)   # True
+print(f&quot;cfg1 is cfg3 : {cfg1 is cfg3}&quot;)   # True
+cfg1.debug = True
+print(f&quot;cfg2.debug   : {cfg2.debug}&quot;)     # True — même objet !
+</code></pre>
+<pre><code>  Première instanciation — création unique
+  Configuration initialisée
+  (silencieux pour cfg2 et cfg3)
+
+cfg1 is cfg2 : True
+cfg1 is cfg3 : True
+cfg2.debug   : True
+</code></pre>
+<ul>
+<li><strong><code>_instance = None</code></strong> : attribut de classe — stocke la seule instance autorisée</li>
+<li><strong><code>_initialisee</code></strong> : flag pour éviter que <code>__init__</code> ré-écrase la config à chaque <code>ConfigApp()</code> — piège classique du Singleton Python</li>
+<li><strong>use case</strong> : connexion DB, fichier de config, logger global — tout ce qui doit exister en <strong>un seul exemplaire</strong></li>
+</ul>
+<hr />
+<h1 id="4-__str__-vs-__repr__-representation-dun-objet">4️⃣ <code>__str__</code> vs <code>__repr__</code> — représentation d'un objet<a class="headerlink" href="#4-__str__-vs-__repr__-representation-dun-objet" title="Permanent link">&para;</a></h1>
+<h2 id="concept_1">Concept<a class="headerlink" href="#concept_1" title="Permanent link">&para;</a></h2>
+<p>Deux méthodes, deux audiences, deux objectifs :</p>
+<ul>
+<li><strong><code>__str__</code></strong> → pour l'<strong>utilisateur final</strong> — lisible, convivial, peut omettre des détails</li>
+<li><strong><code>__repr__</code></strong> → pour le <strong>développeur</strong> — précis, complet, idéalement <code>eval(repr(obj)) == obj</code></li>
+</ul>
+<pre><code>print(obj)         →  __str__   (si absent → fallback sur __repr__)
+repr(obj)          →  __repr__
+f&quot;{obj}&quot;           →  __str__
+f&quot;{obj!r}&quot;         →  __repr__
+[obj1, obj2]       →  __repr__ de chaque élément
+logs / debugging   →  __repr__
+shell interactif   →  __repr__
+</code></pre>
+<hr />
+<h2 id="exemple-complet-les-deux-en-action">Exemple complet — les deux en action<a class="headerlink" href="#exemple-complet-les-deux-en-action" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">from datetime import date
+
+class Employe:
+    def __init__(self, nom: str, poste: str, salaire: float, embauche: date):
+        self.nom = nom
+        self.poste = poste
+        self.salaire = salaire
+        self.embauche = embauche
+
+    def __str__(self) -&gt; str:
+        # Version lisible pour l'utilisateur
+        return f&quot;{self.nom} — {self.poste} ({self.salaire} TND/mois)&quot;
+
+    def __repr__(self) -&gt; str:
+        # Version reproductible pour le développeur
+        return (
+            f&quot;Employe(&quot;
+            f&quot;nom={self.nom!r}, &quot;
+            f&quot;poste={self.poste!r}, &quot;
+            f&quot;salaire={self.salaire!r}, &quot;
+            f&quot;embauche={self.embauche!r})&quot;
+        )
+
+    def __format__(self, format_spec: str) -&gt; str:
+        # Contrôle f&quot;{obj:court}&quot; vs f&quot;{obj:complet}&quot;
+        if format_spec == &quot;court&quot;:
+            return self.nom
+        elif format_spec == &quot;complet&quot;:
+            return f&quot;{self.nom} ({self.poste}, depuis {self.embauche.year})&quot;
+        return self.__str__()
+
+e = Employe(&quot;Bechir&quot;, &quot;Architecte logiciel&quot;, 4500, date(2020, 3, 15))
+
+print(&quot;--- Contextes d'affichage ---&quot;)
+print(str(e))            # __str__ : Bechir — Architecte logiciel (4500 TND/mois)
+print(repr(e))           # __repr__ : Employe(nom='Bechir', poste='Architecte...
+print(f&quot;{e}&quot;)            # __str__ : Bechir — Architecte logiciel...
+print(f&quot;{e!r}&quot;)          # __repr__ : Employe(nom='Bechir'...
+print(f&quot;{e:court}&quot;)      # __format__ : Bechir
+print(f&quot;{e:complet}&quot;)    # __format__ : Bechir (Architecte logiciel, depuis 2020)
+
+print(&quot;\n--- Dans une liste → __repr__ ---&quot;)
+equipe = [
+    Employe(&quot;Bechir&quot;, &quot;Architecte&quot;, 4500, date(2020, 3, 15)),
+    Employe(&quot;Sarra&quot;,  &quot;Dev Senior&quot;,  3800, date(2021, 9, 1)),
+]
+print(equipe)   # affiche __repr__ de chaque élément
+</code></pre>
+<ul>
+<li><strong><code>!r</code></strong> dans les f-strings : applique <code>repr()</code> — met les guillemets autour des chaînes et formate les dates correctement</li>
+<li><strong><code>__format__</code></strong> : intercepte <code>f"{obj:spec}"</code> — permet des formats personnalisés (court, long, JSON…)</li>
+<li><strong>règle d'or</strong> : toujours implémenter <code>__repr__</code> en premier — c'est le fallback de <code>__str__</code> ET il sert dans les logs/debug</li>
+<li><strong><code>eval(repr(obj)) == obj</code></strong> : l'idéal — si votre <code>__repr__</code> produit du code Python valide qui recrée l'objet, c'est parfait</li>
+</ul>
+<hr />
+<h2 id="piege-classique-lobjet-sans-__repr__">Piège classique — l'objet sans <code>__repr__</code><a class="headerlink" href="#piege-classique-lobjet-sans-__repr__" title="Permanent link">&para;</a></h2>
+<p>L’idée de cet exemple est de montrer <strong>un comportement très spécifique de Python</strong> :</p>
+<p>Quand un objet est <strong>affiché à l’intérieur d’une liste</strong>, Python utilise <strong><em>*repr</em>* et non </strong>str****.</p>
+<p>C’est pour cela que l’absence de <strong>repr</strong> produit un affichage illisible</p>
+<pre><code class="language-python">class ExempleRepr:
+    def __init__(self, valeur):
+        self.valeur = valeur
+
+    #def __repr__(self):
+    #    return f&quot;AvecRepr({self.valeur!r})&quot;
+
+objets2 = [ExempleRepr(1), ExempleRepr(2), ExempleRepr(3)]
+print(objets2)
+# [AvecRepr(1), AvecRepr(2), AvecRepr(3)]  ← lisible, utile en debug ✅
+</code></pre>
+<hr />
+<h1 id="5-surcharge-des-operateurs-arithmetiques">5️⃣ Surcharge des opérateurs arithmétiques<a class="headerlink" href="#5-surcharge-des-operateurs-arithmetiques" title="Permanent link">&para;</a></h1>
+<p>Python ne limite pas <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> aux nombres — vous pouvez les redéfinir pour <strong>n'importe quelle classe</strong> qui en a un sens métier.</p>
+<h2 id="table-des-operateurs-et-leurs-methodes">Table des opérateurs et leurs méthodes<a class="headerlink" href="#table-des-operateurs-et-leurs-methodes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Méthode appelée</th>
+<th>Version réfléchie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>a + b</code></td>
+<td><code>a.__add__(b)</code></td>
+<td><code>b.__radd__(a)</code></td>
+</tr>
+<tr>
+<td><code>a - b</code></td>
+<td><code>a.__sub__(b)</code></td>
+<td><code>b.__rsub__(a)</code></td>
+</tr>
+<tr>
+<td><code>a * b</code></td>
+<td><code>a.__mul__(b)</code></td>
+<td><code>b.__rmul__(a)</code></td>
+</tr>
+<tr>
+<td><code>a / b</code></td>
+<td><code>a.__truediv__(b)</code></td>
+<td><code>b.__rtruediv__(a)</code></td>
+</tr>
+<tr>
+<td><code>a // b</code></td>
+<td><code>a.__floordiv__(b)</code></td>
+<td><code>b.__rfloordiv__(a)</code></td>
+</tr>
+<tr>
+<td><code>a % b</code></td>
+<td><code>a.__mod__(b)</code></td>
+<td><code>b.__rmod__(a)</code></td>
+</tr>
+<tr>
+<td><code>a ** b</code></td>
+<td><code>a.__pow__(b)</code></td>
+<td><code>b.__rpow__(a)</code></td>
+</tr>
+<tr>
+<td><code>a += b</code></td>
+<td><code>a.__iadd__(b)</code></td>
+<td><em>(in-place)</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="exemple-metier-vecteurs-2d">Exemple métier — vecteurs 2D<a class="headerlink" href="#exemple-metier-vecteurs-2d" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">import math
+
+class Vecteur2D:
+    def __init__(self, x: float, y: float):
+        self.x = x
+        self.y = y
+
+    # --- Représentation ---
+    def __repr__(self):
+        return f&quot;Vecteur2D({self.x}, {self.y})&quot;
+
+    def __str__(self):
+        return f&quot;({self.x}, {self.y})&quot;
+
+    # --- Opérateurs arithmétiques ---
+    def __add__(self, other: &quot;Vecteur2D&quot;) -&gt; &quot;Vecteur2D&quot;:
+        return Vecteur2D(self.x + other.x, self.y + other.y)
+
+    def __sub__(self, other: &quot;Vecteur2D&quot;) -&gt; &quot;Vecteur2D&quot;:
+        return Vecteur2D(self.x - other.x, self.y - other.y)
+
+    def __mul__(self, scalaire: float) -&gt; &quot;Vecteur2D&quot;:
+        # Multiplication par un scalaire : v * 3
+        return Vecteur2D(self.x * scalaire, self.y * scalaire)
+
+    def __rmul__(self, scalaire: float) -&gt; &quot;Vecteur2D&quot;:
+        # Permet aussi : 3 * v  (ordre inversé)
+        return self.__mul__(scalaire)
+
+    def __neg__(self) -&gt; &quot;Vecteur2D&quot;:
+        # Opérateur unaire -v
+        return Vecteur2D(-self.x, -self.y)
+
+    def __abs__(self) -&gt; float:
+        # abs(v) → norme euclidienne
+        return math.sqrt(self.x**2 + self.y**2)
+
+    def __iadd__(self, other: &quot;Vecteur2D&quot;) -&gt; &quot;Vecteur2D&quot;:
+        # v += autre  (in-place, plus efficace)
+        self.x += other.x
+        self.y += other.y
+        return self
+
+    # --- Comparaison ---
+    def __eq__(self, other) -&gt; bool:
+        return self.x == other.x and self.y == other.y
+
+v1 = Vecteur2D(3, 4)
+v2 = Vecteur2D(1, 2)
+
+print(f&quot;v1           = {v1}&quot;)
+print(f&quot;v2           = {v2}&quot;)
+print(f&quot;v1 + v2      = {v1 + v2}&quot;)          # (4, 6)
+print(f&quot;v1 - v2      = {v1 - v2}&quot;)          # (2, 2)
+print(f&quot;v1 * 2       = {v1 * 2}&quot;)           # (6, 8)
+print(f&quot;3 * v1       = {3 * v1}&quot;)           # (9, 12)  ← __rmul__
+print(f&quot;-v1          = {-v1}&quot;)              # (-3, -4) ← __neg__
+print(f&quot;abs(v1)      = {abs(v1)}&quot;)          # 5.0      ← __abs__
+print(f&quot;v1 == v2     = {v1 == v2}&quot;)         # False
+
+v1 += v2
+print(f&quot;v1 après +=  = {v1}&quot;)              # (4, 6)   ← __iadd__
+</code></pre>
+<ul>
+<li><strong><code>__rmul__</code></strong> : version réfléchie — appelée quand <code>int.__mul__(v)</code> retourne <code>NotImplemented</code>, Python essaie alors <code>v.__rmul__(int)</code></li>
+<li><strong><code>__neg__</code></strong> : opérateur <strong>unaire</strong> <code>-v</code> — différent de <code>__sub__</code> qui est binaire <code>v1 - v2</code></li>
+<li><strong><code>__abs__</code></strong> : intercepte <code>abs(obj)</code> — ici la norme d'un vecteur, très naturel mathématiquement</li>
+<li><strong><code>__iadd__</code></strong> : version <em>in-place</em> de <code>+=</code> — modifie <code>self</code> directement et le retourne (plus performant que créer un nouvel objet)</li>
+</ul>
+<hr />
+<h1 id="6-comparaisons-__eq__-__lt__-et-total_ordering">6️⃣ Comparaisons — <code>__eq__</code>, <code>__lt__</code> et <code>@total_ordering</code><a class="headerlink" href="#6-comparaisons-__eq__-__lt__-et-total_ordering" title="Permanent link">&para;</a></h1>
+<h2 id="concept_2">Concept<a class="headerlink" href="#concept_2" title="Permanent link">&para;</a></h2>
+<p>Python dispose de 6 opérateurs de comparaison, chacun avec sa méthode :</p>
+<table>
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Méthode</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td><code>__eq__</code></td>
+<td>égalité</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td><code>__ne__</code></td>
+<td>différence (auto-déduit depuis <code>__eq__</code>)</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td><code>__lt__</code></td>
+<td>inférieur strict</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td><code>__le__</code></td>
+<td>inférieur ou égal</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td><code>__gt__</code></td>
+<td>supérieur strict</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td><code>__ge__</code></td>
+<td>supérieur ou égal</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bonne nouvelle</strong> : avec <code>@total_ordering</code> de <code>functools</code>, implémenter <code>__eq__</code> + <strong>une seule</strong> des autres suffit — Python génère les 4 restantes automatiquement.</p>
+<hr />
+<h2 id="exemple-complet-classe-version-triable">Exemple complet — classe <code>Version</code> triable<a class="headerlink" href="#exemple-complet-classe-version-triable" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">from functools import total_ordering
+
+@total_ordering
+class Version:
+    &quot;&quot;&quot;Représente une version sémantique : majeur.mineur.patch&quot;&quot;&quot;
+
+    def __init__(self, version: str):
+        parties = version.split(&quot;.&quot;)
+        self.majeur  = int(parties[0])
+        self.mineur  = int(parties[1]) if len(parties) &gt; 1 else 0
+        self.patch   = int(parties[2]) if len(parties) &gt; 2 else 0
+
+    def _tuple(self):
+        return (self.majeur, self.mineur, self.patch)
+
+    def __eq__(self, other) -&gt; bool:
+        if not isinstance(other, Version):
+            return NotImplemented   # ← signal Python : &quot;essaie l'autre sens&quot;
+        return self._tuple() == other._tuple()
+
+    def __lt__(self, other) -&gt; bool:
+        if not isinstance(other, Version):
+            return NotImplemented
+        return self._tuple() &lt; other._tuple()
+
+    # @total_ordering génère automatiquement __le__, __gt__, __ge__ depuis __eq__ + __lt__
+
+    def __hash__(self):
+        # Obligatoire si __eq__ est défini : sinon l'objet devient non-hashable
+        return hash(self._tuple())
+
+    def __str__(self):
+        return f&quot;{self.majeur}.{self.mineur}.{self.patch}&quot;
+
+    def __repr__(self):
+        return f&quot;Version({str(self)!r})&quot;
+
+v1 = Version(&quot;1.2.3&quot;)
+v2 = Version(&quot;1.2.10&quot;)
+v3 = Version(&quot;2.0.0&quot;)
+v4 = Version(&quot;1.2.3&quot;)
+
+print(f&quot;v1 = {v1}, v2 = {v2}, v3 = {v3}&quot;)
+print(f&quot;v1 == v4 : {v1 == v4}&quot;)     # True
+print(f&quot;v1 &lt; v2  : {v1 &lt; v2}&quot;)      # True  (3 &lt; 10)
+print(f&quot;v1 &lt;= v2 : {v1 &lt;= v2}&quot;)     # True  ← généré par @total_ordering
+print(f&quot;v3 &gt; v2  : {v3 &gt; v2}&quot;)      # True  ← généré par @total_ordering
+print(f&quot;v2 &gt;= v1 : {v2 &gt;= v1}&quot;)     # True  ← généré par @total_ordering
+
+# Tri d'une liste de versions — fonctionne grâce aux comparaisons
+versions = [Version(&quot;3.1.0&quot;), Version(&quot;1.0.0&quot;), Version(&quot;2.5.3&quot;), Version(&quot;1.0.1&quot;)]
+print(f&quot;\nTriées : {sorted(versions)}&quot;)
+# [Version('1.0.0'), Version('1.0.1'), Version('2.5.3'), Version('3.1.0')]
+
+# min / max fonctionnent aussi
+print(f&quot;Dernière version : {max(versions)}&quot;)   # 3.1.0
+
+# Utilisable dans un set ou comme clé de dict (grâce à __hash__)
+versions_uniques = {Version(&quot;1.0.0&quot;), Version(&quot;1.0.0&quot;), Version(&quot;2.0.0&quot;)}
+print(f&quot;Set unique : {versions_uniques}&quot;)   # 2 éléments seulement
+</code></pre>
+<ul>
+<li><strong><code>NotImplemented</code></strong> dans <code>__eq__</code> et <code>__lt__</code> : permet à Python d'inverser la comparaison si l'autre objet sait la gérer</li>
+<li><strong><code>@total_ordering</code></strong> : décorateur <code>functools</code> — réduit le boilerplate de 6 méthodes à 2 (obligation : <code>__eq__</code> + un des 4 autres)</li>
+<li><strong><code>__hash__</code></strong> : <strong>obligatoire</strong> si vous définissez <code>__eq__</code> — Python désactive le hash par défaut dès que vous redéfinissez l'égalité (objets mutables non-hashables par design)</li>
+<li><strong><code>_tuple()</code></strong> : méthode privée utilitaire — centralise la logique de comparaison, évite la duplication dans chaque méthode</li>
+</ul>
+<hr />
+<h1 id="7-transformer-une-classe-en-conteneur">7️⃣ Transformer une classe en conteneur<a class="headerlink" href="#7-transformer-une-classe-en-conteneur" title="Permanent link">&para;</a></h1>
+<p>En Python, les types natifs <code>list</code>, <code>dict</code>, <code>set</code> sont des conteneurs parce qu'ils implémentent un protocole précis. Vous pouvez faire pareil avec <strong>n'importe quelle classe</strong>.</p>
+<h2 id="les-methodes-du-protocole-conteneur">Les méthodes du protocole conteneur<a class="headerlink" href="#les-methodes-du-protocole-conteneur" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Déclenchée par</th>
+<th>Retour attendu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>__len__</code></td>
+<td><code>len(obj)</code></td>
+<td><code>int &gt;= 0</code></td>
+</tr>
+<tr>
+<td><code>__getitem__</code></td>
+<td><code>obj[key]</code></td>
+<td>la valeur</td>
+</tr>
+<tr>
+<td><code>__setitem__</code></td>
+<td><code>obj[key] = val</code></td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>__delitem__</code></td>
+<td><code>del obj[key]</code></td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>__contains__</code></td>
+<td><code>x in obj</code></td>
+<td><code>bool</code></td>
+</tr>
+<tr>
+<td><code>__iter__</code></td>
+<td><code>for x in obj</code></td>
+<td>un itérateur</td>
+</tr>
+<tr>
+<td><code>__reversed__</code></td>
+<td><code>reversed(obj)</code></td>
+<td>un itérateur inversé</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="exemple-complet-dun-registre-ordonne-type">Exemple complet d'un registre ordonné typé<a class="headerlink" href="#exemple-complet-dun-registre-ordonne-type" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">from typing import TypeVar, Generic, Iterator, Optional
+
+T = TypeVar(&quot;T&quot;)
+
+class Registre(Generic[T]):
+    &quot;&quot;&quot;
+    Conteneur ordonné avec accès par index ET par nom.
+    Exemple : registre d'employés, catalogue de produits.
+    &quot;&quot;&quot;
+
+    def __init__(self, nom: str):
+        self.nom = nom
+        self._items: list  = []
+        self._index: dict  = {}   # nom → position
+
+    def ajouter(self, cle: str, valeur: T):
+        if cle in self._index:
+            raise KeyError(f&quot;Clé '{cle}' déjà présente&quot;)
+        self._index[cle] = len(self._items)
+        self._items.append((cle, valeur))
+
+    # --- Protocole conteneur ---
+
+    def __len__(self) -&gt; int:
+        return len(self._items)
+
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return self._items[key][1]        # accès par index numérique
+        elif isinstance(key, str):
+            idx = self._index[key]
+            return self._items[idx][1]        # accès par nom
+        elif isinstance(key, slice):
+            return [v for _, v in self._items[key]]   # slicing
+        raise TypeError(f&quot;Index invalide : {type(key)}&quot;)
+
+    def __setitem__(self, cle: str, valeur: T):
+        if cle in self._index:
+            idx = self._index[cle]
+            self._items[idx] = (cle, valeur)  # mise à jour
+        else:
+            self.ajouter(cle, valeur)         # ajout
+
+    def __delitem__(self, cle: str):
+        if cle not in self._index:
+            raise KeyError(cle)
+        idx = self._index.pop(cle)
+        self._items.pop(idx)
+        # Recalculer les indices après suppression
+        self._index = {k: i for i, (k, _) in enumerate(self._items)}
+
+    def __contains__(self, cle: str) -&gt; bool:
+        return cle in self._index
+
+    def __iter__(self) -&gt; Iterator[T]:
+        return (valeur for _, valeur in self._items)
+
+    def __reversed__(self) -&gt; Iterator[T]:
+        return (valeur for _, valeur in reversed(self._items))
+
+    def __str__(self):
+        contenu = &quot;, &quot;.join(f&quot;{k}={v}&quot; for k, v in self._items)
+        return f&quot;Registre({self.nom!r})[{contenu}]&quot;
+
+
+# Utilisation
+reg = Registre(&quot;Employés&quot;)
+reg.ajouter(&quot;bechir&quot;, &quot;Architecte&quot;)
+reg.ajouter(&quot;sarra&quot;,  &quot;Dev Senior&quot;)
+reg.ajouter(&quot;omar&quot;,   &quot;QA Lead&quot;)
+
+print(f&quot;Taille       : {len(reg)}&quot;)          # 3
+print(f&quot;Par index    : {reg[0]}&quot;)            # Architecte
+print(f&quot;Par nom      : {reg['sarra']}&quot;)      # Dev Senior
+print(f&quot;Slice [1:]   : {reg[1:]}&quot;)           # ['Dev Senior', 'QA Lead']
+print(f&quot;'omar' in    : {'omar' in reg}&quot;)     # True
+print(f&quot;'ali' in     : {'ali' in reg}&quot;)      # False
+
+print(&quot;\nItération :&quot;)
+for employe in reg:
+    print(f&quot;  - {employe}&quot;)
+
+print(&quot;\nItération inversée :&quot;)
+for employe in reversed(reg):
+    print(f&quot;  - {employe}&quot;)
+
+reg[&quot;bechir&quot;] = &quot;CTO&quot;   # mise à jour
+del reg[&quot;omar&quot;]          # suppression
+print(f&quot;\nAprès modifications : {reg}&quot;)
+</code></pre>
+<ul>
+<li><strong><code>__getitem__</code></strong> avec <code>isinstance(key, int|str|slice)</code> : permet des accès flexibles — par index, par nom, par tranche — comme les <code>DataFrame</code> pandas</li>
+<li><strong><code>__iter__</code></strong> retourne un <strong>générateur</strong> ici (expression génératrice) — plus économe en mémoire qu'une liste</li>
+<li><strong><code>__reversed__</code></strong> : sans cette méthode, <code>reversed(obj)</code> nécessite que <code>__len__</code> et <code>__getitem__</code> soient définis — l'implémenter explicitement est plus propre</li>
+<li><strong><code>Generic[T]</code></strong> et <code>TypeVar</code> : rendent le registre générique et compatible avec les outils de typage statique (<code>mypy</code>, IDEs)</li>
+</ul>
+<hr />
+<h1 id="8-interception-des-attributs">8️⃣ Interception des attributs<a class="headerlink" href="#8-interception-des-attributs" title="Permanent link">&para;</a></h1>
+<p>Python offre trois méthodes pour intercepter les accès aux attributs — chacune avec un périmètre et des dangers différents.</p>
+<h2 id="les-trois-niveaux-dinterception">Les trois niveaux d'interception<a class="headerlink" href="#les-trois-niveaux-dinterception" title="Permanent link">&para;</a></h2>
+<pre><code>obj.x              →  __getattribute__  (TOUJOURS, même si x existe)
+                            ↓ si AttributeError
+                       __getattr__      (SEULEMENT si x n'existe pas)
+
+obj.x = valeur     →  __setattr__       (TOUJOURS)
+del obj.x          →  __delattr__       (TOUJOURS)
+</code></pre>
+<hr />
+<h2 id="exemple-progressif-des-plus-surs-aux-plus-dangereux">Exemple progressif — des plus sûrs aux plus dangereux<a class="headerlink" href="#exemple-progressif-des-plus-surs-aux-plus-dangereux" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python"># ── Niveau 1 : __getattr__ ── le plus courant, le plus sûr ──────────────────
+class ObjetDynamique:
+    &quot;&quot;&quot;Retourne une valeur par défaut pour tout attribut manquant.&quot;&quot;&quot;
+
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+    def __getattr__(self, name: str):
+        # Appelé SEULEMENT si l'attribut n'existe pas dans __dict__
+        # Jamais de récursion infinie ici — contrairement à __getattribute__
+        print(f&quot;  [getattr] '{name}' introuvable → valeur par défaut&quot;)
+        return None
+
+obj = ObjetDynamique(nom=&quot;Bechir&quot;, age=40)
+print(obj.nom)        # Bechir       ← attribut existant, __getattr__ NON appelé
+print(obj.email)      # None         ← attribut manquant, __getattr__ appelé
+print(obj.telephone)  # None         ← idem
+
+
+# ── Niveau 2 : __setattr__ ── validation à l'écriture ───────────────────────
+class Typé:
+    &quot;&quot;&quot;Valide le type de chaque attribut à l'assignation.&quot;&quot;&quot;
+
+    SCHEMA = {&quot;nom&quot;: str, &quot;age&quot;: int, &quot;salaire&quot;: float}
+
+    def __setattr__(self, name: str, value):
+        if name in self.SCHEMA:
+            attendu = self.SCHEMA[name]
+            if not isinstance(value, attendu):
+                raise TypeError(
+                    f&quot;'{name}' attend {attendu.__name__}, reçu {type(value).__name__}&quot;
+                )
+        # OBLIGATOIRE : déléguer à super() pour vraiment stocker l'attribut
+        # Ne JAMAIS écrire self.name = value ici → récursion infinie !
+        super().__setattr__(name, value)
+
+t = Typé()
+t.nom = &quot;Bechir&quot;       # ✅ str
+t.age = 40             # ✅ int
+t.salaire = 3500.0     # ✅ float
+
+try:
+    t.age = &quot;quarante&quot;  # ❌ str au lieu de int
+except TypeError as e:
+    print(f&quot;Erreur de type : {e}&quot;)
+
+
+# ── Niveau 3 : __getattribute__ ── le plus puissant, le plus dangereux ───────
+class Journalise:
+    &quot;&quot;&quot;Journalise TOUS les accès aux attributs (même ceux qui existent).&quot;&quot;&quot;
+
+    def __init__(self, valeur):
+        # On doit contourner notre propre __getattribute__ pour éviter la récursion
+        object.__setattr__(self, &quot;valeur&quot;, valeur)
+        object.__setattr__(self, &quot;_log&quot;, [])
+
+    def __getattribute__(self, name: str):
+        # Appelé pour ABSOLUMENT TOUT accès — y compris self._log et self.valeur !
+        # DANGER : accéder à self.n'importe quoi ici rappelle __getattribute__ → récursion
+        # Solution : toujours utiliser object.__getattribute__ pour les accès internes
+        log = object.__getattribute__(self, &quot;_log&quot;)
+        log.append(name)
+        return object.__getattribute__(self, name)  # délégation obligatoire
+
+j = Journalise(42)
+_ = j.valeur     # accès
+_ = j.valeur     # accès
+_ = j._log       # accès
+
+print(f&quot;Attributs accédés : {object.__getattribute__(j, '_log')}&quot;)
+# ['valeur', 'valeur', '_log']
+</code></pre>
+<ul>
+<li><strong><code>__getattr__</code></strong> : le piège n'existe pas ici — il n'est appelé <strong>que</strong> si l'attribut est absent → usage courant et sûr</li>
+<li><strong><code>__setattr__</code></strong> : le piège classique est <code>self.x = val</code> à l'intérieur → rappelle <code>__setattr__</code> → récursion infinie → <strong>toujours</strong> utiliser <code>super().__setattr__()</code> ou <code>object.__setattr__(self, ...)</code></li>
+<li><strong><code>__getattribute__</code></strong> : intercepte <strong>tout</strong>, y compris les accès internes (<code>self.x</code>) → <strong>toujours</strong> déléguer via <code>object.__getattribute__(self, name)</code> pour les accès internes</li>
+<li>Règle de priorité : préférer <code>__getattr__</code> (sûr) → puis <code>__setattr__</code> (avec <code>super()</code>) → <code>__getattribute__</code> en dernier recours seulement</li>
+</ul>
+<hr />
+<h1 id="9-objet-appelable-__call__">9️⃣ Objet appelable — <code>__call__</code><a class="headerlink" href="#9-objet-appelable-__call__" title="Permanent link">&para;</a></h1>
+<p><code>__call__</code> transforme un objet en <strong>callable</strong> — il peut être appelé comme une fonction avec <code>obj(...)</code>. Contrairement à une simple fonction, l'objet <strong>conserve un état</strong> entre les appels.</p>
+<pre><code class="language-python"># Cas d'usage 1 : Décorateur avec état (compteur d'appels)
+class Compte:
+    &quot;&quot;&quot;Compte le nombre de fois qu'une fonction est appelée.&quot;&quot;&quot;
+
+    def __init__(self, fonction):
+        self.fonction = fonction
+        self.appels = 0
+
+    def __call__(self, *args, **kwargs):
+        self.appels += 1
+        print(f&quot;  [Appel #{self.appels}] {self.fonction.__name__}()&quot;)
+        return self.fonction(*args, **kwargs)
+
+    def reset(self):
+        self.appels = 0
+
+@Compte
+def calculer(x, y):
+    return x + y
+
+print(calculer(1, 2))    # [Appel #1] calculer() → 3
+print(calculer(3, 4))    # [Appel #2] calculer() → 7
+print(calculer(5, 6))    # [Appel #3] calculer() → 11
+print(f&quot;Total appels : {calculer.appels}&quot;)   # 3
+
+
+# Cas d'usage 2 : Pipeline de transformations configurable
+class Pipeline:
+    &quot;&quot;&quot;Enchaîne des fonctions de transformation.&quot;&quot;&quot;
+
+    def __init__(self, *etapes):
+        self.etapes = etapes
+
+    def __call__(self, valeur):
+        for etape in self.etapes:
+            valeur = etape(valeur)
+        return valeur
+
+    def __repr__(self):
+        noms = &quot; → &quot;.join(f.__name__ for f in self.etapes)
+        return f&quot;Pipeline({noms})&quot;
+
+# Définition des étapes
+def supprimer_espaces(s): return s.strip()
+def mettre_en_minuscules(s): return s.lower()
+def remplacer_espaces(s): return s.replace(&quot; &quot;, &quot;_&quot;)
+
+nettoyer = Pipeline(supprimer_espaces, mettre_en_minuscules, remplacer_espaces)
+
+print(f&quot;\nPipeline : {nettoyer}&quot;)
+entrees = [&quot;  Bonjour Monde  &quot;, &quot;  PYTHON EST PUISSANT  &quot;, &quot;  Hello World  &quot;]
+for texte in entrees:
+    print(f&quot;  {texte!r:30} → {nettoyer(texte)!r}&quot;)
+</code></pre>
+<pre><code>[Appel #1] calculer()
+3
+[Appel #2] calculer()
+7
+[Appel #3] calculer()
+11
+Total appels : 3
+
+Pipeline : supprimer_espaces → mettre_en_minuscules → remplacer_espaces
+  '  Bonjour Monde  '            → 'bonjour_monde'
+  '  PYTHON EST PUISSANT  '      → 'python_est_puissant'
+  '  Hello World  '              → 'hello_world'
+</code></pre>
+<ul>
+<li><strong><code>@Compte</code></strong> : la classe elle-même est utilisée comme décorateur — <code>calculer</code> devient une instance de <code>Compte</code> qui est callable</li>
+<li><strong><code>*args, **kwargs</code></strong> dans <code>__call__</code> : transmet tous les arguments à la fonction originale — rend le décorateur transparent</li>
+<li><strong>avantage vs fonction</strong> : le pipeline "se souvient" de ses étapes — on peut l'inspecter (<code>print(nettoyer)</code>), le sérialiser, le passer comme argument</li>
+<li><strong><code>callable(obj)</code></strong> : retourne <code>True</code> si <code>__call__</code> est défini — utile pour vérifier avant d'appeler dynamiquement</li>
+</ul>
+<hr />
+<h1 id="gestionnaire-de-contexte-__enter__-__exit__">🔟 Gestionnaire de contexte — <code>__enter__</code> / <code>__exit__</code><a class="headerlink" href="#gestionnaire-de-contexte-__enter__-__exit__" title="Permanent link">&para;</a></h1>
+<p>Le protocole <code>with</code> garantit qu'une ressource est <strong>toujours libérée</strong>, même si une exception se produit. C'est le mécanisme le plus robuste de Python pour la gestion de ressources.</p>
+<pre><code>with obj as x:
+    # bloc
+
+↓ équivaut à :
+
+x = obj.__enter__()
+try:
+    # bloc
+except:
+    obj.__exit__(exc_type, exc_val, exc_tb)
+    raise
+else:
+    obj.__exit__(None, None, None)
+</code></pre>
+<hr />
+<h2 id="exemple-simple">Exemple simple<a class="headerlink" href="#exemple-simple" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">class FichierTexte:
+
+    def __init__(self, nom_fichier):
+        self.nom_fichier = nom_fichier
+        self.fichier = None
+
+    def __enter__(self):
+        print(&quot;Ouverture du fichier&quot;)
+        self.fichier = open(self.nom_fichier, &quot;w&quot;)
+        return self.fichier   # valeur associée à &quot;as f&quot;
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print(&quot;Fermeture du fichier&quot;)
+        self.fichier.close()
+</code></pre>
+<pre><code class="language-python">with FichierTexte(&quot;demo.txt&quot;) as f:
+    f.write(&quot;Bonjour\n&quot;)
+    f.write(&quot;Python\n&quot;)**`__exit__` retourne `False` (ou `None`)** : l'exception se propage normalement — comportement par défaut attendu
+</code></pre>
+<p><strong>Pourquoi c’est utile:</strong></p>
+<pre><code class="language-python">f = open(&quot;demo.txt&quot;, &quot;w&quot;)
+try:
+    f.write(&quot;Bonjour&quot;)
+finally:
+    f.close()
+</code></pre>
+<p>Ce que fait python derrèer les scenes: </p>
+<pre><code class="language-python">obj = FichierTexte(&quot;demo.txt&quot;)
+
+f = obj.__enter__()
+
+try:
+    f.write(&quot;Bonjour&quot;)
+
+except Exception as e:
+    obj.__exit__(type(e), e, e.__traceback__)
+    raise
+
+else:
+    obj.__exit__(None, None, None)
+</code></pre>
+<ul>
+<li><strong><code>__exit__</code> retourne <code>True</code></strong> : l'exception est <strong>supprimée</strong> — usage rare, réservé aux rollbacks contrôlés</li>
+<li><strong><code>exc_type, exc_val, exc_tb</code></strong> : <code>None, None, None</code> si aucune exception — tester <code>if exc_type is None</code> pour distinguer les deux cas</li>
+<li><strong>alternative légère</strong> : <code>@contextmanager</code> de <code>contextlib</code> — pour les cas simples sans état complexe, un générateur avec <code>yield</code> suffit</li>
+</ul>
+<hr />
+<blockquote>
+<p>✅ <strong>Récapitulatif — les méthodes magiques les plus importantes à maîtriser</strong></p>
+<p><code>__init__</code> / <code>__new__</code> · <code>__str__</code> / <code>__repr__</code> / <code>__format__</code> · <code>__add__</code> / <code>__radd__</code> / <code>__iadd__</code> · <code>__eq__</code> / <code>__hash__</code> + <code>@total_ordering</code> · <code>__len__</code> / <code>__getitem__</code> / <code>__iter__</code> · <code>__getattr__</code> / <code>__setattr__</code> (avec <code>super()</code>) · <code>__call__</code> · <code>__enter__</code> / <code>__exit__</code></p>
+</blockquote>
+<h1 id="20-questions-intelligentes-niveau-intermediaire-structure">🎓 20 Questions intelligentes – Niveau intermédiaire structuré<a class="headerlink" href="#20-questions-intelligentes-niveau-intermediaire-structure" title="Permanent link">&para;</a></h1>
+<hr />
+<h1 id="1-pourquoi-eq-doit-retourner-notimplemented">1) Pourquoi <strong>eq</strong> doit retourner NotImplemented ?<a class="headerlink" href="#1-pourquoi-eq-doit-retourner-notimplemented" title="Permanent link">&para;</a></h1>
+<h2 id="enonce">Énoncé<a class="headerlink" href="#enonce" title="Permanent link">&para;</a></h2>
+<p>Que se passe-t-il si on compare avec un type différent ?</p>
+<h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Si le type est incompatible, retourner NotImplemented
+- Permet à Python d’essayer l'opération inverse
+&quot;&quot;&quot;
+
+class A:
+    def __eq__(self, other):
+        if not isinstance(other, A):
+            return NotImplemented
+        return True
+
+print(A() == 5)
+</code></pre>
+<hr />
+<h1 id="2-pourquoi-redefinir-eq-impose-souvent-de-redefinir-hash">2) Pourquoi redéfinir <strong>eq</strong> impose souvent de redéfinir <strong>hash</strong> ?<a class="headerlink" href="#2-pourquoi-redefinir-eq-impose-souvent-de-redefinir-hash" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Si __eq__ change la logique d’égalité
+- __hash__ doit rester cohérent
+- Sinon dictionnaires et sets se comportent mal
+&quot;&quot;&quot;
+
+class Point:
+
+    def __init__(self, x):
+        self.x = x
+
+    def __eq__(self, other):
+        return self.x == other.x
+
+    def __hash__(self):
+        return hash(self.x)
+
+p1 = Point(1)
+p2 = Point(1)
+
+print(set([p1, p2]))
+</code></pre>
+<hr />
+<h1 id="3-pourquoi-lt-seul-ne-suffit-pas-pour-toutes-les-comparaisons">3) Pourquoi <strong>lt</strong> seul ne suffit pas pour toutes les comparaisons ?<a class="headerlink" href="#3-pourquoi-lt-seul-ne-suffit-pas-pour-toutes-les-comparaisons" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_1">Énoncé<a class="headerlink" href="#enonce_1" title="Permanent link">&para;</a></h2>
+<p>Si on implémente seulement <strong>lt</strong>, pourquoi &lt;= ou &gt; peuvent échouer ?</p>
+<h2 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h2>
+<p>Créer le fichier q3_total_ordering.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Implémenter seulement __lt__ et __eq__ ne fournit pas automatiquement
+  toutes les autres comparaisons.
+- functools.total_ordering génère les méthodes manquantes.
+&quot;&quot;&quot;
+
+from functools import total_ordering
+
+@total_ordering
+class Produit:
+
+    def __init__(self, prix):
+        self.prix = prix
+
+    def __eq__(self, other):
+        return self.prix == other.prix
+
+    def __lt__(self, other):
+        return self.prix &lt; other.prix
+
+p1 = Produit(10)
+p2 = Produit(20)
+
+print(&quot;p1 &lt;= p2 :&quot;, p1 &lt;= p2)
+print(&quot;p1 &gt; p2 :&quot;, p1 &gt; p2)
+</code></pre>
+<hr />
+<h1 id="4-que-se-passe-t-il-si-add-retourne-un-mauvais-type">4) Que se passe-t-il si <strong>add</strong> retourne un mauvais type ?<a class="headerlink" href="#4-que-se-passe-t-il-si-add-retourne-un-mauvais-type" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_2">Énoncé<a class="headerlink" href="#enonce_2" title="Permanent link">&para;</a></h2>
+<p>Pourquoi retourner un type inattendu casse la cohérence métier ?</p>
+<h2 id="solution_2">Solution<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h2>
+<p>Créer le fichier q4_add_bug.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Une surcharge d’opérateur doit respecter le modèle métier.
+- Retourner un type incohérent rend l’objet inutilisable ensuite.
+&quot;&quot;&quot;
+
+class Compte:
+
+    def __init__(self, solde):
+        self.solde = solde
+
+    def __add__(self, other):
+        return self.solde + other.solde  # mauvais retour (int)
+
+c1 = Compte(100)
+c2 = Compte(200)
+
+resultat = c1 + c2
+print(&quot;Type du résultat :&quot;, type(resultat))
+</code></pre>
+<hr />
+<h1 id="5-pourquoi-len-doit-retourner-un-entier">5) Pourquoi <strong>len</strong> doit retourner un entier ?<a class="headerlink" href="#5-pourquoi-len-doit-retourner-un-entier" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_3">Énoncé<a class="headerlink" href="#enonce_3" title="Permanent link">&para;</a></h2>
+<p>Que se passe-t-il si <strong>len</strong> retourne autre chose qu’un int ?</p>
+<h2 id="solution_3">Solution<a class="headerlink" href="#solution_3" title="Permanent link">&para;</a></h2>
+<p>Créer le fichier q5_len_error.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- len(obj) exige un entier &gt;= 0.
+- Retourner autre chose provoque TypeError.
+&quot;&quot;&quot;
+
+class MauvaiseListe:
+
+    def __len__(self):
+        return &quot;3&quot;  # erreur volontaire
+
+try:
+    print(len(MauvaiseListe()))
+except TypeError as e:
+    print(&quot;Erreur :&quot;, e)
+</code></pre>
+<hr />
+<h1 id="6-difference-entre-getattr-et-getattribute">6) Différence entre <strong>getattr</strong> et <strong>getattribute</strong> ?<a class="headerlink" href="#6-difference-entre-getattr-et-getattribute" title="Permanent link">&para;</a></h1>
+<h2 id="enonce_4">Énoncé<a class="headerlink" href="#enonce_4" title="Permanent link">&para;</a></h2>
+<p>Pourquoi <strong>getattribute</strong> est plus dangereux ?</p>
+<h2 id="solution_4">Solution<a class="headerlink" href="#solution_4" title="Permanent link">&para;</a></h2>
+<p>Créer le fichier q6_getattribute.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- __getattribute__ intercepte TOUS les accès.
+- Il faut utiliser super().__getattribute__ sinon récursion infinie.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __getattribute__(self, name):
+        print(&quot;Accès intercepté :&quot;, name)
+        return super().__getattribute__(name)
+
+    def hello(self):
+        return &quot;Bonjour&quot;
+
+d = Demo()
+print(d.hello())
+</code></pre>
+<hr />
+<h1 id="7-pourquoi-setattr-peut-provoquer-une-recursion-infinie">7) Pourquoi <strong>setattr</strong> peut provoquer une récursion infinie ?<a class="headerlink" href="#7-pourquoi-setattr-peut-provoquer-une-recursion-infinie" title="Permanent link">&para;</a></h1>
+<p>Créer le fichier q7_setattr.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Affecter self.attribut dans __setattr__
+  rappelle __setattr__ → boucle infinie.
+- Il faut utiliser super().__setattr__.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __setattr__(self, name, value):
+        print(&quot;Attribut modifié :&quot;, name)
+        super().__setattr__(name, value)
+
+d = Demo()
+d.x = 10
+print(&quot;d.x =&quot;, d.x)
+</code></pre>
+<hr />
+<h1 id="8-pourquoi-iter-doit-retourner-un-iterateur">8) Pourquoi <strong>iter</strong> doit retourner un itérateur ?<a class="headerlink" href="#8-pourquoi-iter-doit-retourner-un-iterateur" title="Permanent link">&para;</a></h1>
+<p>Créer le fichier q8_iter.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- __iter__ doit retourner un objet implémentant __next__.
+- Retourner une liste est acceptable car elle est itérable.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __init__(self):
+        self.data = [1, 2, 3]
+
+    def __iter__(self):
+        return iter(self.data)
+
+for x in Demo():
+    print(&quot;Valeur :&quot;, x)
+</code></pre>
+<hr />
+<h1 id="9-pourquoi-call-peut-remplacer-une-fonction">9) Pourquoi <strong>call</strong> peut remplacer une fonction ?<a class="headerlink" href="#9-pourquoi-call-peut-remplacer-une-fonction" title="Permanent link">&para;</a></h1>
+<p>Créer le fichier q9_call.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Un objet avec __call__ peut encapsuler un comportement configurable.
+&quot;&quot;&quot;
+
+class Additionneur:
+
+    def __init__(self, increment):
+        self.increment = increment
+
+    def __call__(self, valeur):
+        return valeur + self.increment
+
+add5 = Additionneur(5)
+print(&quot;Résultat :&quot;, add5(10))
+</code></pre>
+<hr />
+<h1 id="10-que-se-passe-t-il-si-enter-ne-retourne-rien">10) Que se passe-t-il si <strong>enter</strong> ne retourne rien ?<a class="headerlink" href="#10-que-se-passe-t-il-si-enter-ne-retourne-rien" title="Permanent link">&para;</a></h1>
+<p>Créer le fichier q10_context.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- La valeur retournée par __enter__ est assignée après 'as'.
+- Si None → variable vaut None.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __enter__(self):
+        print(&quot;Entrée&quot;)
+        # pas de return
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print(&quot;Sortie&quot;)
+
+with Demo() as d:
+    print(&quot;Valeur de d :&quot;, d)
+</code></pre>
+<hr />
+<h1 id="11-pourquoi-exit-recoit-trois-parametres">11) Pourquoi <strong>exit</strong> reçoit trois paramètres ?<a class="headerlink" href="#11-pourquoi-exit-recoit-trois-parametres" title="Permanent link">&para;</a></h1>
+<p>Créer le fichier q11_exit.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- exc_type, exc_val, exc_tb permettent de gérer les exceptions.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print(&quot;Exception capturée :&quot;, exc_type)
+
+with Demo():
+    raise ValueError(&quot;Erreur volontaire&quot;)
+</code></pre>
+<hr />
+<h1 id="12-pourquoi-contains-est-plus-rapide-que-iteration-manuelle">12) Pourquoi <strong>contains</strong> est plus rapide que itération manuelle ?<a class="headerlink" href="#12-pourquoi-contains-est-plus-rapide-que-iteration-manuelle" title="Permanent link">&para;</a></h1>
+<p>Créer le fichier q12_contains.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- __contains__ est utilisé pour l’opérateur 'in'.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __init__(self):
+        self.data = [1, 2, 3]
+
+    def __contains__(self, item):
+        return item in self.data
+
+d = Demo()
+print(&quot;2 in d :&quot;, 2 in d)
+</code></pre>
+<hr />
+<h1 id="13-pourquoi-bool-est-utile">13) Pourquoi <strong>bool</strong> est utile ?<a class="headerlink" href="#13-pourquoi-bool-est-utile" title="Permanent link">&para;</a></h1>
+<p>Créer le fichier q13_bool.py :</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- __bool__ définit la valeur de vérité d’un objet.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __bool__(self):
+        return False
+
+d = Demo()
+
+if d:
+    print(&quot;Vrai&quot;)
+else:
+    print(&quot;Faux&quot;)
+</code></pre>
+<hr />
+<h1 id="14-pourquoi-hash-doit-etre-coherent-avec-eq">14) Pourquoi <strong>hash</strong> doit être cohérent avec <strong>eq</strong> ?<a class="headerlink" href="#14-pourquoi-hash-doit-etre-coherent-avec-eq" title="Permanent link">&para;</a></h1>
+<p>(complément démonstratif)</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Deux objets égaux doivent avoir le même hash.
+&quot;&quot;&quot;
+
+class Point:
+
+    def __init__(self, x):
+        self.x = x
+
+    def __eq__(self, other):
+        return self.x == other.x
+
+    def __hash__(self):
+        return hash(self.x)
+
+p1 = Point(1)
+p2 = Point(1)
+
+print(&quot;p1 == p2 :&quot;, p1 == p2)
+print(&quot;Hash identique :&quot;, hash(p1) == hash(p2))
+</code></pre>
+<hr />
+<h1 id="15-pourquoi-slots-empeche-les-attributs-dynamiques">15) Pourquoi <strong>slots</strong> empêche les attributs dynamiques ?<a class="headerlink" href="#15-pourquoi-slots-empeche-les-attributs-dynamiques" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- __slots__ limite les attributs possibles.
+&quot;&quot;&quot;
+
+class Point:
+
+    __slots__ = (&quot;x&quot;, &quot;y&quot;)
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p = Point(1, 2)
+
+try:
+    p.z = 3
+except AttributeError as e:
+    print(&quot;Erreur :&quot;, e)
+</code></pre>
+<hr />
+<h1 id="16-que-se-passe-t-il-si-getitem-leve-une-mauvaise-exception">16) Que se passe-t-il si <strong>getitem</strong> lève une mauvaise exception ?<a class="headerlink" href="#16-que-se-passe-t-il-si-getitem-leve-une-mauvaise-exception" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- IndexError est attendu pour index invalide.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __getitem__(self, index):
+        raise ValueError(&quot;Mauvaise exception&quot;)
+
+try:
+    d = Demo()
+    d[0]
+except Exception as e:
+    print(&quot;Type erreur :&quot;, type(e))
+</code></pre>
+<hr />
+<h1 id="17-pourquoi-del-est-dangereux">17) Pourquoi <strong>del</strong> est dangereux ?<a class="headerlink" href="#17-pourquoi-del-est-dangereux" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- __del__ est appelé lors du garbage collection.
+- Moment non déterministe.
+&quot;&quot;&quot;
+
+class Demo:
+
+    def __del__(self):
+        print(&quot;Objet détruit&quot;)
+
+d = Demo()
+del d
+</code></pre>
+<hr />
+<h1 id="18-difference-entre-immuable-et-mutable-dans-new">18) Différence entre immuable et mutable dans <strong>new</strong> ?<a class="headerlink" href="#18-difference-entre-immuable-et-mutable-dans-new" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Pour les types immuables (comme int), __new__ est essentiel.
+&quot;&quot;&quot;
+
+class MyInt(int):
+
+    def __new__(cls, value):
+        print(&quot;Création immuable&quot;)
+        return super().__new__(cls, value)
+
+x = MyInt(10)
+print(x)
+</code></pre>
+<hr />
+<h1 id="19-pourquoi-retourner-notimplemented-est-important-en-arithmetique">19) Pourquoi retourner NotImplemented est important en arithmétique ?<a class="headerlink" href="#19-pourquoi-retourner-notimplemented-est-important-en-arithmetique" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- Permet à Python d'essayer l'opération inverse.
+&quot;&quot;&quot;
+
+class A:
+    def __add__(self, other):
+        return NotImplemented
+
+class B:
+    def __radd__(self, other):
+        return &quot;Opération inversée&quot;
+
+a = A()
+b = B()
+
+print(a + b)
+</code></pre>
+<hr />
+<h1 id="20-pourquoi-le-mro-est-crucial-avec-les-methodes-magiques">20) Pourquoi le MRO est crucial avec les méthodes magiques ?<a class="headerlink" href="#20-pourquoi-le-mro-est-crucial-avec-les-methodes-magiques" title="Permanent link">&para;</a></h1>
+<pre><code class="language-python">&quot;&quot;&quot;
+Explication
+- En héritage multiple, l'ordre MRO détermine quelle méthode magique est appelée.
+&quot;&quot;&quot;
+
+class A:
+    def __str__(self):
+        return &quot;A&quot;
+
+class B:
+    def __str__(self):
+        return &quot;B&quot;
+
+class C(A, B):
+    pass
+
+c = C()
+
+print(&quot;Affichage :&quot;, c)
+print(&quot;MRO :&quot;, [cls.__name__ for cls in C.mro()])
+</code></pre>
+    </div>
+    <div class="page-nav">
+      <a href="00_la_poo.html">◀ La POO</a>
+      <a href="04_les_comprehensions.html">Les Compréhensions ▶</a>
+    </div>
+    <footer>
+  Les Méthodes Magiques — Generated by <strong>Doxygen (Claude Edition)</strong> — Python Avancé Partie 2
+</footer>
+  </div>
+</div>
+<script src="../doxygen.js"></script>
+</body>
+</html>
