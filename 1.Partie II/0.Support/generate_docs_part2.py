@@ -224,13 +224,46 @@ body {
   min-width: var(--sidebar-width);
   background: var(--sidebar-bg);
   color: var(--sidebar-text);
-  padding: 12px 0;
+  padding: 0 0 12px;
   overflow-y: auto;
   position: fixed;
   top: var(--topbar-height);
   left: 0;
   bottom: 0;
   z-index: 900;
+}
+
+/* Image partenaire en haut de la sidebar */
+.sidebar-brand-img {
+  display: block;
+  width: 100%;
+  padding: 10px 14px 8px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 6px;
+}
+.sidebar-brand-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+}
+
+/* Hero splash image sur la page principale */
+.splash-hero {
+  width: 100%;
+  max-width: 680px;
+  display: block;
+  margin: 0 auto 28px;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+}
+.splash-hero-wrap {
+  text-align: center;
+  padding: 20px 32px 0;
+  border-bottom: 1px solid var(--separator);
+  margin-bottom: 0;
+  background: linear-gradient(to bottom, #F0F4FF, var(--content-bg));
 }
 
 .sidebar-group-header {
@@ -638,6 +671,9 @@ def build_sidebar(current_slug=None, root_prefix=""):
     ms_hdr_cls = "sidebar-group-header" + (" collapsed" if ms_collapsed else "")
 
     return f"""<aside id="sidebar">
+  <div class="sidebar-brand-img">
+    <img src="{root_prefix}images/sidebar.png" alt="INNOVATECH tic&amp;green — Innover pour un avenir durable">
+  </div>
   <div class="sidebar-group">
     <div class="sidebar-group-header" id="grp-chapters">
       <span class="toggle-arrow">▼</span> 📘 Chapitres
@@ -778,6 +814,11 @@ def generate_index():
 
     body = f"""    <div class="page-header-band">
       <h1>📚 {COURSE_TITLE}</h1>
+    </div>
+    <div class="splash-hero-wrap">
+      <img class="splash-hero"
+           src="images/splachpage.png"
+           alt="INNOVATECH tic&amp;green — Python Avancé Partie 2">
     </div>
     <div class="content-body">
       <h2>Bienvenue dans la documentation</h2>
