@@ -130,13 +130,17 @@ class AlQalamApp(ctk.CTk):
         self.csv_frame = CsvFrame(self.tabs.tab("📥 CSV"), self.stock)
         self.csv_frame.pack(fill="both", expand=True)
 
+        # [V9] Onglet Excel — rapport coloré multi-feuilles + import bon de commande
+        self.excel_frame = ExcelFrame(self.tabs.tab("📊 Excel"), self.stock)
+        self.excel_frame.pack(fill="both", expand=True)
+
     def _construire_pied(self):
         pied = ctk.CTkFrame(self, height=25, fg_color="#ECF0F1", corner_radius=0)
         pied.pack(fill="x", side="bottom")
         pied.pack_propagate(False)
         ctk.CTkLabel(
             pied,
-            text="Al Qalam Stock Manager  |  Formation Python — Partie II  |  V8 CSV Import/Export",
+            text="Al Qalam Stock Manager  |  Formation Python — Partie II  |  V9 Excel Rapport & Bon de commande",
             font=ctk.CTkFont(size=10), text_color="#7F8C8D",
         ).pack(side="left", padx=15)
 
@@ -148,7 +152,7 @@ class AlQalamApp(ctk.CTk):
     # ── Helper post-opération ─────────────────────────────────────────────
 
     def _post_operation(self):
-        """Rafraîchit les sept onglets après toute modification du stock."""
+        """Rafraîchit les huit onglets après toute modification du stock."""
         self.stock_frame.rafraichir()
         self.rapport_frame.rafraichir()
         self.alertes_frame.rafraichir()
@@ -156,6 +160,7 @@ class AlQalamApp(ctk.CTk):
         self.registre_frame.rafraichir()
         self.analyseur_frame.rafraichir()   # [V7]
         self.csv_frame.rafraichir()         # [V8]
+        self.excel_frame.rafraichir()       # [V9]
 
     # ── Dialogues ─────────────────────────────────────────────────────────
 
@@ -290,5 +295,6 @@ class AlQalamApp(ctk.CTk):
             self.registre_frame.arreter_polling()
             self.analyseur_frame.arreter_polling()   # [V7]
             self.csv_frame.arreter_polling()         # [V8]
+            self.excel_frame.arreter_polling()       # [V9]
             self.surveillance.arreter()
             self.destroy()

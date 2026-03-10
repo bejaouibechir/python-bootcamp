@@ -1,0 +1,21 @@
+﻿ref,nom,categorie,qte,prix_achat,prix_vente,valeur_stock,marge_unitaire,marge_totale
+CAR-001,Carnet A5,Papier,3,1.200,3.500,3.600,2.300,6.900
+CIS-001,Ciseaux 17cm,Coupe,25,1.500,4.000,37.500,2.500,62.500
+CIS-002,Ciseaux 21cm,Coupe,0,2.000,5.500,0.000,3.500,0.000
+COL-001,Colle Bâton,Adhésif,0,0.800,2.500,0.000,1.700,0.000
+CRAY-002,Crayon 2B,Écriture,8,0.200,0.600,1.600,0.400,3.200
+CRAY-004,Crayon Couleur Bleu,Écriture,0,0.250,0.800,0.000,0.550,0.000
+CRAY-003,Crayon Couleur Rouge,Écriture,0,0.250,0.800,0.000,0.550,0.000
+CRAY-001,Crayon HB,Écriture,150,0.180,0.550,27.000,0.370,55.500
+GOM-001,Gomme Blanche,Effaçage,60,0.200,0.700,12.000,0.500,30.000
+GOM-002,Gomme Rose,Effaçage,0,0.180,0.600,0.000,0.420,0.000
+PAP-A3,Rame Papier A3,Papier,6,4.000,8.000,24.000,4.000,24.000
+PAP-A4,Rame Papier A4,Papier,300,2.800,5.500,840.000,2.700,810.000
+PAP-B5,Rame Papier B5,Papier,0,3.000,6.500,0.000,3.500,0.000
+REG-002,Règle 20cm,Mesure,0,0.600,1.800,0.000,1.200,0.000
+REG-001,Règle 30cm,Mesure,40,0.800,2.000,32.000,1.200,48.000
+STYL-001,Stylo Bleu,Écriture,200,0.300,0.900,60.000,0.600,120.000
+STYL-004,Stylo Noir,Écriture,0,0.300,0.900,0.000,0.600,0.000
+STYL-002,Stylo Rouge,Écriture,4,0.300,0.900,1.200,0.600,2.400
+STYL-003,Stylo Vert,Écriture,0,0.300,0.900,0.000,0.600,0.000
+TAM-001,Taille-crayon,Écriture,0,0.400,1.200,0.000,0.800,0.000

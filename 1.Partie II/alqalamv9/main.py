@@ -1,10 +1,12 @@
-# [V7 - Regex] Point d'entrée de l'application Al Qalam Stock Manager.
+# [V9 - Excel] Point d'entrée de l'application Al Qalam Stock Manager.
 #
-# Nouveautés V7 :
-#   - Module validators/ : patterns regex compilés pour validation formulaires
-#   - Dialogues : validation en temps réel (<KeyRelease>) avec feedback ✓/✗ coloré
-#   - services/log_parser.py : convertit le journal en texte, l'analyse par regex
-#   - Nouvel onglet "🔍 Analyseur" : stats par regex, recherche regex interactive
+# Nouveautés V9 :
+#   - services/excel_service.py : openpyxl — export rapport multi-feuilles + import bon de commande
+#   - ExcelService.exporter_rapport_stock() : classeur 3 feuilles colorisé (Catalogue, Ruptures, Stats)
+#   - ExcelService.importer_bon_commande()  : lit un .xlsx fournisseur et approvisionne le stock
+#   - Nouvel onglet "📊 Excel" : interface export/import avec prévisualisation Treeview
+#
+# Prérequis : py -3 -m pip install openpyxl customtkinter
 #
 # Lancement :
 #   py -3 main.py
@@ -18,7 +20,7 @@ from ui.app import AlQalamApp
 
 
 def main():
-    """Lance l'application Al Qalam Stock Manager V7."""
+    """Lance l'application Al Qalam Stock Manager V9."""
     app = AlQalamApp()
     app.mainloop()
 
